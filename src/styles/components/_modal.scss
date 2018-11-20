@@ -1,0 +1,30 @@
+.modal {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  left: 0;
+  top: 0;
+  opacity: 0;
+  visibility: hidden;
+  transform: scale(.5);
+
+  &-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    border-radius: 5px;
+    background: white;
+    transform: translate(-50%, -50%);
+
+    @media screen and (max-width: 380px) {
+      left: 58%;
+    }
+  }
+}
+
+.display-modal {
+  animation: fade-in .3s ease-in both;
+  transform: scale(1);
+  opacity: 1;
+  visibility: visible;
+}

@@ -1,0 +1,47 @@
+html {
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+}
+
+body {
+  overscroll-behavior-y: none;
+}
+
+ul {
+  padding: 0;
+}
+
+li {
+  list-style: none
+}
+
+fieldset {
+  border: none;
+  margin: 0;
+  padding: 0;
+}
+
+// legend {
+//   margin: 0;
+// }
+
+label {
+  display: block;
+  cursor: pointer;
+}
+
+button {
+  cursor: pointer;
+}
+
+a {
+  text-decoration: none;
+  font-size: inherit;
+
+  &:visited {
+    color: inherit;
+  }
+}

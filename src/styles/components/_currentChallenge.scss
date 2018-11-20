@@ -1,0 +1,69 @@
+.currentChallenge {
+  display: flex;
+  justify-content: center;
+
+  &__container {
+    position: relative;
+    display: flex;
+    border: 1px solid black;
+    padding: 1rem;
+
+    &--active {
+      border-color: green;
+    }
+
+    &--standBy {
+      border-color: lightblue;
+    }
+  }
+
+  &__admin {
+    position: absolute;
+    top: .5rem;
+    left: .5rem;
+    border: 1px solid black;
+    padding: 0 .1rem;
+  }
+
+  &__team {
+    margin: .4rem 1.2rem;
+  }
+
+  &__list {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border-left: 1px solid black;
+    border-right: 1px solid black;
+    padding: 0 .4rem;
+
+    li {
+      display: flex;
+      justify-content: space-between;  
+
+      p {
+        display: flex;
+        align-self: center;
+        margin: 0;
+        padding: 0;
+      }
+    }
+  }
+
+  &__proof {
+    margin: 0 .2rem;
+    font-size: 1.2rem;
+
+    &--uploaded {
+      color: lightseagreen;
+    }
+
+    &--challenged {
+      color: darkred;
+    }
+
+    &--clear {
+      color: black;
+    }
+  }
+}
