@@ -1,11 +1,13 @@
 import React from 'react';
-import Search from '../Search';
-import Friend from '../Friend';
 
-export default () => (
-  <div>
-    <Search users={['Miles', 'John']}  />
-    <Friend friends={['Kathy', 'Sarah', 'Melinda']} />
-    {/* <Result /> */}
-  </div>
-)
+export default ({ friends }) => {
+  const list = friends.map((friend => <li>{friend} <span>x</span></li>))
+
+  return (
+    <div className='friendsList'>
+      <ul className='friendsList__container'>
+        {list}
+      </ul>
+    </div>
+  )
+}

@@ -1,7 +1,7 @@
 import React from 'react';
 
-export default () => (
-  <div>
-    chat
+export default ({ className }) => (
+  <div className={className}>
+    CHAT
   </div>
 )

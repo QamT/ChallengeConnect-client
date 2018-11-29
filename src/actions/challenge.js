@@ -1,27 +1,30 @@
 import * as types from './actionType';
+import { API_BASE_URL } from '../config';
 
-export const fetchChallengeSuccess = () => ({
-  type: types.FETCH_CHALLENGE_SUCCESS
+export const challengeSuccess = (challenge) => ({
+  type: types.CHALLENGE_SUCCESS,
+  challenge
 });
 
-export const fetchChallengeActive = () => ({
-  type: types.FETCH_CHALLENGE_ACTIVE
+export const challengeError = (error) => ({
+  type: types.CHALLENGE_ERROR,
+  error
 });
 
-export const fetchChallengeComplete = () => ({
-  type: types.FETCH_CHALLENGE_COMPLETE
+export const challengeRequest = () => ({
+  type: types.CHALLENGE_REQUEST
 });
 
-export const fetchProofChallenged = () => ({
-  type: types.FETCH_PROOF_CHALLENGED
-});
-
-export const fetchChallengesSuccess = () => ({
-  type: types.FETCH_CHALLENGES_SUCCESS
-});
-
-export const addChallenge = () => ({
-  type: types.ADD_CHALLENGE
-});
-
-//fetch from api function
+export const fetchChallenge = challengeId => (dispatch, getState) => {
+  dispatch(challengeRequest());
+  const authToken = getState().auth.authToken;
+  fetch(`${API_BASE_URL}challenge/${challengeId}`, {
+    method: 'GET',
+    headers: {
+      Authorization: `Bearer ${authToken}`
+    }
+  })
+  .then(res => res.json())
+  .then(data => dispatch(challengeSuccess(data)))
+  .catch(e => dispatch(challengeError(e)))
+}

@@ -1,0 +1,21 @@
+.chat {
+  position: fixed;
+  bottom: 0;
+  color: black;
+  background: blue;
+  border: 1px solid #fff;
+  padding: .3rem;
+
+  &--small {
+    right: 5rem;
+    padding-left: 3rem;
+    padding-right: 3rem;
+  }
+
+  &--big {
+    left: 50%;
+    transform: translateX(-50%);
+    padding-left: 6rem;
+    padding-right: 6rem;
+  }
+}

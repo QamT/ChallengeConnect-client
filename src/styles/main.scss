@@ -9,12 +9,15 @@
 
 @import 
   'components/challengeNav',
-  'components/currentChallenge',
-  'components/modal';
+  'components/challengeCard',
+  'components/chatBox',
+  'components/friendsList',
+  'components/modal',
+  'components/leaderboard';
 
-// @import 
-//   'layout/grid',
-//   'layout/navigation';
+@import 
+  'layout/grid';
+  // 'layout/navigation';
 
 // @import 
 //   'pages/challenge',

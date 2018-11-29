@@ -1,11 +1,12 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import Home from './pages/Home';
-import Register from './pages/Register';
-import Login from './pages/Login';
-import Profile from './pages/Profile';
+
+import Home from './routes/Home';
+import Register from './routes/Register';
+import Login from './routes/Login';
+import Profile from './routes/Profile';
 import Challenge from './components/Challenge'
-import Error from './pages/Error';
+import Error from './routes/Error';
 
 export default () => (
   <Router>

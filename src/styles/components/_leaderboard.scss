@@ -1,0 +1,38 @@
+.leaderboard {
+  display: flex;
+  justify-content: center;
+
+  &__container {
+    display: flex;
+    flex-direction: column;
+    min-width: 15rem;
+    border: 1px solid black;
+
+    h3 {
+      width: 100%;
+      margin: .4rem 0 0 0;
+      padding-bottom: .2rem;
+      text-align: center;
+      border-bottom: 1px solid black;
+    }
+  }
+
+  &__score {
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    padding: .2rem 0;
+
+    &:not(:last-of-type) {
+      border-bottom: 1px solid grey;
+    }
+
+    &:nth-child(odd) {
+      background: lightgrey;
+    }
+    
+    p {
+      margin: 0;
+    }
+  }
+}

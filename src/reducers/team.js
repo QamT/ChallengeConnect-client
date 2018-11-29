@@ -1,25 +1,44 @@
 import * as types from '../actions/actionType';
 
 const initialState = {
-  teams: {
-    myTeam: {
-      members: ['Katy', 'Miles', 'Antonio'],
-      score: 2,
-    },
-    otherTeam: {
-      members: ['decoy', 'decoy', 'decoy', 'decoy'],
-      score: 4
-    }
-  }
+  teamId: null,
+  teamA: {
+    members: [],
+    proofs: []
+  },
+  teamB: {
+    members: [],
+    proofs: []
+  },
+  loading: true,
+  error: null
 }
 
 export default (state = initialState, action) => {
   switch (action.type) {
-    case types.FETCH_TEAM_SUCCESS:
+    case types.TEAM_SUCCESS:
       return Object.assign({}, state, {
-        teams: state.teams
+        loading: false,
+        teamId: action.teamData.id,
+        teamA: {
+          members: [...action.teamData.teamA.team],
+          proof: [...action.teamData.teamA.proofs]
+        },
+        teamB: {
+          members: [...action.teamData.teamB.team],
+          proof: [...action.teamData.teamB.proofs]
+        },
       });
-
+    case types.TEAM_ERROR:
+      return Object.assign({}, state, {
+        loading: false,
+        error: action.error
+      });
+    case types.TEAM_REQUEST:
+      return Object.assign({}, state, {
+        loading: true, 
+        error: null
+      });
     default: 
       return state;
   }

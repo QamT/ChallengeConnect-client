@@ -1,10 +1,10 @@
 import React from 'react';
 import ChallengeCard from '../ChallengeCard';
 
-export default ({ challenges }) => (
+export default () => (
   <div>
-    <ul>
-      {challenges.map(challenge => <ChallengeCard challenge={challenge} />)}
+    <ul className='grid'>
+      <h2>hello</h2>
     </ul>
   </div>
 )
