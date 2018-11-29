@@ -2,8 +2,9 @@ import * as types from '../actions/actionType';
 
 const initialState = {
   currentChallenge: {
+    id: 12345,
     challenges: ['feed a homeless person', 'read a book', 'do a 100 pushups'],
-    active: true,
+    active: false,
     complete: false,
     proofs: [
       {

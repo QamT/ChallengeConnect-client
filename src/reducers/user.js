@@ -3,11 +3,13 @@ import * as types from '../actions/actionType';
 const initialState = {
   user: {
     id: 123,
-    currentChallengeId: `noah's challenge`,
+    currentChallengeId: 'challenge',
     admin: {
       isAdmin: true,
+      usersRequest: null,
       rejectedUser: null,
       acceptedUser: null,
+      proofChallenged: null,
       acceptedProof: null,
       rejectedProof: null
     },

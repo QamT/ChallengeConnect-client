@@ -1,7 +1,11 @@
 import React from 'react';
 
 export default ({ challenge }) => (
-  <div>
-    <li>{challenge}</li>
-  </div>
+  <>
+    <li className='challengeCard'>
+      <div className='challengeCard__container'>
+        {challenge}
+      </div>
+    </li>
+  </>
 )

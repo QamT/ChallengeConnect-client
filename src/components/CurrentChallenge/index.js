@@ -3,23 +3,20 @@ import React from 'react';
 import TeamList from '../TeamList';
 import ChallengeList from '../ChallengeList';
 import Admin from '../Admin';
-import ProofModal from '../ProofModal';
 
 export default ({ user, currentChallenge, teams }) => (
-  <div className='currentChallenge'>
-    <div className='modal'>
-      <div className='modal-content'><ProofModal /></div>
-    </div>
+  <div className='challengeCard'>
     <div 
       className={
-        `currentChallenge__container
-         currentChallenge__container--${currentChallenge.active ? 'active' : 'standBy'}`
+        `challengeCard__container
+         challengeCard__container--${currentChallenge.active ? 'active' : 'standBy'}`
       }
     >
       {user.admin.isAdmin && <Admin />}
-      <TeamList team={teams.myTeam.members} />
+      <TeamList myTeam={true} team={teams.myTeam.members} />
       <ChallengeList currentChallenge={currentChallenge} />
-      <TeamList otherTeam={teams.otherTeam.members} />
+      <TeamList team={teams.otherTeam.members} />
+      {(user.admin.isAdmin && !currentChallenge.active) && <button>Start Challenge</button>}
     </div>
   </div>
 )

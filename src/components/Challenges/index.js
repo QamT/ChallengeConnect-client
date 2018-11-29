@@ -17,7 +17,7 @@ export class Challenges extends React.Component {
 
     return (
       <div>
-        {user.currentChallengeId || user.admin.isAdmin ? 
+        {user.currentChallengeId ? 
           <CurrentChallenge 
             user={user}
             currentChallenge = {currentChallenge}
@@ -25,8 +25,8 @@ export class Challenges extends React.Component {
           /> : 
           <AddChallenge />
         }
-        <AllChallenges challenges={[`Katy's Challenge`, `Megan's Challenge`]}/>
-        <Chat />
+        {!user.currentChallengeId && <AllChallenges challenges={[`Katy's Challenge`, `Megan's Challenge`, `Peter's Challenge`, `Kevin's Challenge`]}/>}
+        <Chat className={`chat chat--${user.currentChallengeId ? 'big' : 'small'}`} />
       </div>
     )
   }

@@ -7,7 +7,7 @@ const initialState = {
       score: 2,
     },
     otherTeam: {
-      members: ['decoy', 'decoy', 'decoy', 'decoy'],
+      members: ['decoy', 'decoy', 'decoy'],
       score: 4
     }
   }

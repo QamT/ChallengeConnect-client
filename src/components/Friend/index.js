@@ -1,13 +1,12 @@
 import React from 'react';
 
-export default ({ friends }) => {
-  const list = friends.map((friend => <li>{friend} <span>x</span></li>))
+import Search from '../Search';
+import FriendList from '../FriendList';
 
-  return (
-    <div>
-      <ul>
-        {list}
-      </ul>
-    </div>
-  )
-}
+export default () => (
+  <div>
+    <Search users={['Miles', 'John']}  />
+    <FriendList friends={['Kathy', 'Sarah', 'Melinda']} />
+    {/* <Result /> */}
+  </div>
+)

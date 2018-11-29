@@ -11,10 +11,12 @@ export class Leaderboard extends React.Component {
 
   render() {
     return (
-      <div>
-        <h1>Leaderboard</h1>
-        <LeaderScore leaders={this.props.leaders} />
-      </div>
+        <div className='leaderboard'>
+          <div className='leaderboard__container'>
+            <h3>Leaderboard</h3>
+            <LeaderScore leaders={this.props.leaders} />
+          </div>
+        </div>
     )
   }
 }

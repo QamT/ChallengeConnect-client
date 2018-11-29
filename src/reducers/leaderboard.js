@@ -4,16 +4,19 @@ const initialState = {
   leaders: [
     {
       id: 12,
+      picture: 'decoy',
       name: 'John',
       score: 50
     },
     {
       id: 123,
+      picture: 'decoy',
       name: 'Kelly',
       score: 40
     },
     {
       id: 1234,
+      picture: 'decoy',
       name: 'Kevin',
       score: 30
     }
@@ -28,7 +31,7 @@ export default (state = initialState, action) => {
         leaders: [...state.leaders]
       });
 
-    case types.FETCH_LEADERBOARD_SUCCESS:
+    case types.FETCH_LEADERBOARD_ERROR:
       return Object.assign({}, state, {
         error: action.error
       });

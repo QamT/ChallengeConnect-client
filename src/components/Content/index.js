@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Leaderboard from '../Leaderboard';
-import FriendList from '../FriendList';
+import Friend from '../Friend';
 import Challenges from '../Challenges';
 
 export default class Content extends Component {
@@ -8,31 +8,37 @@ export default class Content extends Component {
     super(props);
     this.load = this.load.bind(this);
     this.state = {
-      loading: false
+      isLoading: true
     }
   }
 
-  componentWillMount() {
+  componentDidMount() {
     this.load();
   }
 
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.current !== this.props.current) {
+      this.setState({ isLoading: true })
+      this.load();
+    }
+  }
+
   load() {
-    this.setState({ loading: true });
     setTimeout(() => { //change to fetch data
-      this.setState({ loading: false })
+      this.setState({ isLoading: false })
     }, 1200);
   }
 
   render() {
     return (
       <div>
-        {this.state.loading ? <p>Loading...</p> : 
+        {this.state.isLoading ? <p>Loading...</p> : 
         (() => {
           switch(this.props.current) {
             case 'Leaderboard':
               return <Leaderboard />;
             case `Friend's List`:
-              return <FriendList />
+              return <Friend />
             default: 
               return <Challenges />
           }
