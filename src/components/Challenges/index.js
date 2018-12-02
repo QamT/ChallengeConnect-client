@@ -17,12 +17,25 @@ export class Challenges extends React.Component {
     if (this.props.loading) return <div>---loading---</div>
     return (
       <div>
+<<<<<<< HEAD
         {currentChallenge ? 
           <CurrentChallenge /> : 
           <AddChallenge />
         }
         {!currentChallenge && <AllChallenges />}
         <Chat className={`chat chat--${currentChallenge ? 'big' : 'small'}`} />
+=======
+        {user.currentChallengeId ? 
+          <CurrentChallenge 
+            user={user}
+            currentChallenge = {currentChallenge}
+            teams={teams}
+          /> : 
+          <AddChallenge />
+        }
+        {!user.currentChallengeId && <AllChallenges challenges={[`Katy's Challenge`, `Megan's Challenge`, `Peter's Challenge`, `Kevin's Challenge`]}/>}
+        <Chat className={`chat chat--${user.currentChallengeId ? 'big' : 'small'}`} />
+>>>>>>> 919878c6e821db29ca43cf89afb65ddb3329a6b0
       </div>
     )
   }

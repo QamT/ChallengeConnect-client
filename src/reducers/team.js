@@ -1,6 +1,7 @@
 import * as types from '../actions/actionType';
 
 const initialState = {
+<<<<<<< HEAD
   teamId: null,
   teamA: {
     members: [],
@@ -12,6 +13,18 @@ const initialState = {
   },
   loading: true,
   error: null
+=======
+  teams: {
+    myTeam: {
+      members: ['Katy', 'Miles', 'Antonio'],
+      score: 2,
+    },
+    otherTeam: {
+      members: ['decoy', 'decoy', 'decoy'],
+      score: 4
+    }
+  }
+>>>>>>> 919878c6e821db29ca43cf89afb65ddb3329a6b0
 }
 
 export default (state = initialState, action) => {

@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 import { applyMiddleware, createStore } from 'redux';
+=======
+import { applyMiddleware, combineReducers, createStore } from 'redux';
+>>>>>>> 919878c6e821db29ca43cf89afb65ddb3329a6b0
 import thunk from 'redux-thunk';
 
 import reducer from './reducers';

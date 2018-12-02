@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import TeamList from '../TeamList';
 import ChallengeList from '../ChallengeList';
 import Admin from '../Admin';
+<<<<<<< HEAD
 import { fetchTeams } from '../../actions/team';
 
 export class CurrentChallenge extends React.Component {
@@ -42,3 +43,22 @@ const mapStateToProps = (state) => ({
 });
 
 export default connect(mapStateToProps)(CurrentChallenge);
+=======
+
+export default ({ user, currentChallenge, teams }) => (
+  <div className='challengeCard'>
+    <div 
+      className={
+        `challengeCard__container
+         challengeCard__container--${currentChallenge.active ? 'active' : 'standBy'}`
+      }
+    >
+      {user.admin.isAdmin && <Admin />}
+      <TeamList myTeam={true} team={teams.myTeam.members} />
+      <ChallengeList currentChallenge={currentChallenge} />
+      <TeamList team={teams.otherTeam.members} />
+      {(user.admin.isAdmin && !currentChallenge.active) && <button>Start Challenge</button>}
+    </div>
+  </div>
+)
+>>>>>>> 919878c6e821db29ca43cf89afb65ddb3329a6b0

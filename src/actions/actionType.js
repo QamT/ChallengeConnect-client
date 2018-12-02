@@ -6,6 +6,7 @@ export const AUTH_REQUEST = 'AUTH_REQUESTD';
 export const AUTH_SUCCESS = 'AUTH_SUCCESS';
 export const AUTH_ERROR = 'AUTH_ERROR';
 
+<<<<<<< HEAD
 //User
 
 export const USER_INFO_SUCCESS = 'USER_INFO_SUCCESS';
@@ -28,6 +29,16 @@ export const PROOF_SUCCESSA = 'PROOF_SUCCESSA'
 export const PROOF_SUCCESSB = 'PROOF_SUCCESSB'
 export const PROOF_ERROR = 'PROOF_ERROR'
 export const PROOF_REQUEST = 'PROOF_REQUEST'
+=======
+
+
+
+
+
+
+
+
+>>>>>>> 919878c6e821db29ca43cf89afb65ddb3329a6b0
 
 
 
@@ -37,6 +48,10 @@ export const FETCH_LEADERBOARD_SUCCESS = 'FETCH_LEADERBOARD_SUCCESS';
 export const FETCH_LEADERBOARD_ERROR= 'FETCH_LEADERBOARD_ERROR';
 
 //Challenges
+<<<<<<< HEAD
+=======
+export const FETCH_CHALLENGE_SUCCESS = 'FETCH_CHALLENGE_SUCCESS';
+>>>>>>> 919878c6e821db29ca43cf89afb65ddb3329a6b0
 export const FETCH_CHALLENGE_ACTIVE = 'FETCH_CHALLENGE_ACTIVE ';
 export const FETCH_CHALLENGE_COMPLETE = 'FETCH_CHALLENGES_COMPLETE';
 export const FETCH_PROOF_CHALLENGED = 'FETCH_PROOF_CHALLENGED';
@@ -44,6 +59,12 @@ export const ADD_CHALLENGE = 'ADD_CHALLENGE';
 
 //Global Challenges
 export const FETCH_CHALLENGES_SUCCESS = 'FETCH_CHALLENGES_SUCCESS';
+<<<<<<< HEAD
+=======
+
+//Team
+export const FETCH_TEAM_SUCCESS = 'FETCH_TEAM_SUCCESS';
+>>>>>>> 919878c6e821db29ca43cf89afb65ddb3329a6b0
 
 //User
 export const FETCH_USER_INFO_SUCCESS = 'FETCH_ADMIN_SUCCESS';
