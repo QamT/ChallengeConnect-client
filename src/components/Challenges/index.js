@@ -5,7 +5,7 @@ import CurrentChallenge from '../CurrentChallenge';
 import AllChallenges from '../AllChallenges';
 import AddChallenge from '../AddChallenge';
 import Chat from '../Chat';
-import { fetchChallenge } from '../../actions/challenge'
+import { fetchChallenge } from '../../actions/challenge';
 
 export class Challenges extends React.Component {
   componentDidMount() {

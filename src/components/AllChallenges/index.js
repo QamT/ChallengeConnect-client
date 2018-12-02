@@ -1,10 +1,23 @@
 import React from 'react';
-import ChallengeCard from '../ChallengeCard';
+import { connect } from 'react-redux';
 
-export default () => (
-  <div>
-    <ul className='grid'>
-      <h2>hello</h2>
-    </ul>
-  </div>
-)
+import ChallengeCard from '../ChallengeCard';
+import { fetchAllChallenges } from '../../actions/global';
+
+export class AllChallenges extends React.Component {
+  componentDidMount() {
+    this.props.dispatch(fetchAllChallenges());
+  }
+
+  render() {
+    return (
+      <div>
+        <ul className='grid'>
+         <h2>hello</h2>
+        </ul>
+      </div>
+    )
+  }
+}
+
+export default connect()(AllChallenges);
