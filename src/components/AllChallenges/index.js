@@ -1,23 +1,45 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import uuid from 'uuid/v4';
 
 import ChallengeCard from '../ChallengeCard';
-import { fetchAllChallenges } from '../../actions/global';
+import { requestChallenge } from '../../actions/user';
 
 export class AllChallenges extends React.Component {
-  componentDidMount() {
-    this.props.dispatch(fetchAllChallenges());
+  onClickRequest = (challengeId, adminId, group, teamId) => {
+    this.props.dispatch(requestChallenge(challengeId, adminId, group, teamId));
   }
 
   render() {
+    const { challenges, teams } = this.props;
+
     return (
       <div>
         <ul className='grid'>
-         <h2>hello</h2>
+         {challenges.map((challenge, index) => (
+           <ChallengeCard 
+            onClickRequest={this.onClickRequest}
+            key={uuid()}
+            admin={challenge.admin} 
+            challengeId={challenge.id}
+            title={challenge.title}
+            challenges={challenge.challenges}
+            teamId={challenge.teams}
+            teamA={teams[index].teamA.team}
+            teamB={teams[index].teamB.team}
+           />
+         ))}
         </ul>
       </div>
     )
   }
 }
 
-export default connect()(AllChallenges);
+const mapStateToProps = state => ({
+  challenges: state.global.challenges,
+  teams: state.global.teams
+})
+
+export default connect(mapStateToProps)(AllChallenges);
+
+

@@ -31,11 +31,7 @@ export default ({ className = 'modal', closeModal=null, data=null }) => {
   return (
     <div onClick={closeModal} className={className}>
       <div className='modal-content'>
-<<<<<<< HEAD
         yes
-=======
-        {content}
->>>>>>> 919878c6e821db29ca43cf89afb65ddb3329a6b0
       </div>
     </div>
   )

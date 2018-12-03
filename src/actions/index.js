@@ -4,4 +4,5 @@ export * from './challenge';
 export * from './team';
 export * from './user';
 export * from './proof';
-export * from '/global';
+export * from './global';
+

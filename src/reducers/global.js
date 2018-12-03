@@ -3,14 +3,13 @@ import * as types from '../actions/actionType';
 const initialState = {
   challenges: [],
   teams: [], 
-  loading: false,
+  loading: true,
   error: null
 }
 
 export default (state = initialState, action) => {
   switch (action.type) {
     case types.ALL_CHALLENGES_SUCCESS: 
-      console.log(action)
       return Object.assign({}, state, {
         loading: false,
         challenges: [...action.challenges.challenges],

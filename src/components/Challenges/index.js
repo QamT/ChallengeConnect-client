@@ -6,10 +6,12 @@ import AllChallenges from '../AllChallenges';
 import AddChallenge from '../AddChallenge';
 import Chat from '../Chat';
 import { fetchChallenge } from '../../actions/challenge';
+import { fetchAllChallenges } from '../../actions/global';
 
 export class Challenges extends React.Component {
   componentDidMount() {
-    this.props.dispatch(fetchChallenge(this.props.currentChallenge));
+    this.props.currentChallenge ? 
+      this.props.dispatch(fetchChallenge(this.props.currentChallenge)) : this.props.dispatch(fetchAllChallenges())
   }
 
   render() {
@@ -29,7 +31,7 @@ export class Challenges extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  loading: state.challenge.loading,
+  loading: state.user.currentChallenge ? state.challenge.loading : state.global.loading,
   currentChallenge: state.user.currentChallenge
 });
 
