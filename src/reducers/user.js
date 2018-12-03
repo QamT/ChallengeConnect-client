@@ -6,7 +6,10 @@ const initialState = {
   lastName: '',
   profilePic: null,
   currentChallenge: null,
-  challengeRequested: null,
+  challengeRequested: {
+    id: null,
+    title: null
+  },
   friends: [],
   loading: true,
   error: null
@@ -22,7 +25,9 @@ export default (state = initialState, action) => {
         lastName: action.userInfo.lastName,
         profilePic: action.userInfo.profilePic,
         currentChallenge: action.userInfo.currentChallenge.id,
-        challengeRequested: action.userInfo.currentChallenge.challengeRequested.id,
+        challengeRequested: {
+          id: action.userInfo.currentChallenge.challengeRequested.id
+        },
         friends: [...action.userInfo.friends.list]
       });
 
@@ -33,16 +38,24 @@ export default (state = initialState, action) => {
     });
 
     case types.REQUEST_CHALLENGE_SUCCESS: 
-      console.log(action)
       return Object.assign({}, state, {
-        challengeRequested: action.challenge
+        challengeRequested: {
+          id: action.challenge
+        }
+      });
+
+    case types.FETCH_CHALLENGE_INFO_SUCCESS:
+      return Object.assign({}, state, {
+        challengeRequested: {
+          title: action.challenge.title
+        }
       });
 
     case types.USER_REQUEST: 
       return Object.assign({}, state, {
         loading: true,
         error: null
-      })
+      });
 
     default: 
       return state;

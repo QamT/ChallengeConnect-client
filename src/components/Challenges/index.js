@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import CurrentChallenge from '../CurrentChallenge';
 import AllChallenges from '../AllChallenges';
 import AddChallenge from '../AddChallenge';
+import ChallengeInfo from '../ChallengeInfo';
 import Chat from '../Chat';
 import { fetchChallenge } from '../../actions/challenge';
 import { fetchAllChallenges } from '../../actions/global';
@@ -19,6 +20,7 @@ export class Challenges extends React.Component {
     if (this.props.loading) return <div>---loading---</div>
     return (
       <div>
+        {!currentChallenge && <ChallengeInfo />}
         {currentChallenge ? 
           <CurrentChallenge /> : 
           <AddChallenge />
