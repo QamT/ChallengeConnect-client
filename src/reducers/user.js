@@ -57,6 +57,14 @@ export default (state = initialState, action) => {
         error: null
       });
 
+    case types.ADD_CHALLENGE_SUCCESS:
+    return Object.assign({}, state, {
+      currentChallenge: action.challenge.id,
+      challengeRequested: {
+        id: null
+      }
+    });
+
     default: 
       return state;
   }

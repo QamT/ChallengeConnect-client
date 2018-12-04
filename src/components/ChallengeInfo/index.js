@@ -9,7 +9,6 @@ export class ChallengeInfo extends React.Component {
   }
 
   render() {
-    console.log(this.props.challengeId)
     return (
       <span tabIndex='0' data-content={this.props.title} className='challengeInfo'>
         I

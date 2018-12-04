@@ -24,7 +24,12 @@ export const requestChallengeSuccess = (challenge, title) => ({
 export const fetchChallengeInfoSuccess = (challenge) => ({
   type: types.FETCH_CHALLENGE_INFO_SUCCESS,
   challenge
-})
+});
+
+export const addChallengeSuccess = (challenge) => ({
+  type: types.ADD_CHALLENGE_SUCCESS,
+  challenge
+});
 
 export const fetchUserInfo = () => (dispatch, getState) => {
   dispatch(userRequest());
@@ -68,5 +73,18 @@ export const fetchChallengeInfo = challengeId => (dispatch, getState) => {
   .catch(e => dispatch(userInfoError(e)));
 };
 
-
+export const addChallenge = (data) => (dispatch, getState) => {
+  const authToken = getState().auth.authToken;
+  fetch(`${API_BASE_URL}challenge/add`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${authToken}`
+    },
+    body: JSON.stringify({ title: data.title, challenges: data.challenges })
+  })
+  .then(res => res.json())
+  .then(data => dispatch(addChallengeSuccess(data)))
+  .catch(e => dispatch(userInfoError(e)));
+}
 

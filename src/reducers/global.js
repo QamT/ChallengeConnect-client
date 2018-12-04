@@ -2,6 +2,23 @@ import * as types from '../actions/actionType';
 
 const initialState = {
   challenges: [],
+  challengeList: [
+    'Feed a homeless person',
+    'Do a 100 push ups',
+    'Read a book',
+    'Make spaghetti',
+    'Donate blood',
+    'Volunteer at an organization',
+    'Write a blog post',
+    'Hot pepper challenge',
+    'Ice bucket challenge',
+    'Get a victory royale win',
+    'Plant a tree',
+    'Go skydiving',
+    'Learn an instrument',
+    'Solve a rubik\'s cube',
+    'Get a celebrity\s autograph'
+  ],
   teams: [], 
   loading: true,
   error: null

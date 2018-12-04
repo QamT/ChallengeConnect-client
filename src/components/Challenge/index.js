@@ -33,7 +33,9 @@ export class Challenge extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
-  loading: state.user.loading
+  loading: state.user.loading,
+  currentChallenge: state.user.currentChallenge,
+  friends: state.user.friends
 })
 
 export default connect(mapStateToProps)(Challenge)
