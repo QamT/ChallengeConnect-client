@@ -1,39 +1,18 @@
 import * as types from '../actions/actionType';
 
 const initialState = {
-<<<<<<< HEAD
   userId: null,
   firstName: '',
   lastName: '',
   profilePic: null,
   currentChallenge: null,
+  challengeRequested: {
+    id: null,
+    title: null
+  },
   friends: [],
   loading: true,
   error: null
-=======
-  user: {
-    id: 123,
-    currentChallengeId: 'challenge',
-    admin: {
-      isAdmin: true,
-      usersRequest: null,
-      rejectedUser: null,
-      acceptedUser: null,
-      proofChallenged: null,
-      acceptedProof: null,
-      rejectedProof: null
-    },
-    challengeRequest: {
-      request: null,
-      status: null
-    },
-    score: 0,
-    proof: {
-      uploaded: null,
-      challenged: null
-    }
-  }
->>>>>>> 919878c6e821db29ca43cf89afb65ddb3329a6b0
 }
 
 export default (state = initialState, action) => {
@@ -46,6 +25,9 @@ export default (state = initialState, action) => {
         lastName: action.userInfo.lastName,
         profilePic: action.userInfo.profilePic,
         currentChallenge: action.userInfo.currentChallenge.id,
+        challengeRequested: {
+          id: action.userInfo.currentChallenge.challengeRequested.id
+        },
         friends: [...action.userInfo.friends.list]
       });
 
@@ -55,11 +37,33 @@ export default (state = initialState, action) => {
       error: action.error
     });
 
+    case types.REQUEST_CHALLENGE_SUCCESS: 
+      return Object.assign({}, state, {
+        challengeRequested: {
+          id: action.challenge
+        }
+      });
+
+    case types.FETCH_CHALLENGE_INFO_SUCCESS:
+      return Object.assign({}, state, {
+        challengeRequested: {
+          title: action.challenge.title
+        }
+      });
+
     case types.USER_REQUEST: 
       return Object.assign({}, state, {
         loading: true,
         error: null
-      })
+      });
+
+    case types.ADD_CHALLENGE_SUCCESS:
+    return Object.assign({}, state, {
+      currentChallenge: action.challenge.id,
+      challengeRequested: {
+        id: null
+      }
+    });
 
     default: 
       return state;

@@ -18,7 +18,6 @@ export class Challenge extends React.Component {
    this.setState({ filter })
  }
 
-<<<<<<< HEAD
  render() {
     return (
       <div>
@@ -28,30 +27,15 @@ export class Challenge extends React.Component {
           <div>Loading...</div> :
           <Content current={this.state.filter} />
         }
-=======
-export default class Challenge extends React.Component {
- state = {
-   filter: 'Challenges'
- }
-
- changeFilter = (filter) => {
-   this.setState({ filter })
- }
-
- render() {
-    return (
-      <div>
-        <h1 onClick={this.test}>ChallengeConnect</h1>
-        <ChallengeNav filter={this.state.filter} changeFilter={this.changeFilter} filters={['Leaderboard', 'Challenges', `Friend's List`]} />
-        <Content current={this.state.filter} />
->>>>>>> 919878c6e821db29ca43cf89afb65ddb3329a6b0
       </div>
     )
   }
 }
 
 const mapStateToProps = (state) => ({
-  loading: state.user.loading
+  loading: state.user.loading,
+  currentChallenge: state.user.currentChallenge,
+  friends: state.user.friends
 })
 
 export default connect(mapStateToProps)(Challenge)

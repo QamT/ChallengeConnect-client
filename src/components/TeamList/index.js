@@ -2,7 +2,6 @@ import React from 'react';
 import { connect } from 'react-redux';
 import uuid from 'uuid/v4';
 
-<<<<<<< HEAD
 export class TeamList extends React.Component {
   constructor(props) {
     super(props)
@@ -41,27 +40,3 @@ const mapStateToProps = state => ({
 });
 
 export default connect(mapStateToProps)(TeamList);
-=======
-export default ({ team=null, myTeam=false }) => {
-  let checks = 1;
-  let spots=[];
-
-  if ((team.length < 4 && myTeam) || team.length < 4) {
-    let blankSpots = `${myTeam ? 3 : 4}` - team.length;
-
-    for (let i = 0; i<blankSpots; i++) {
-      spots.push(<li>---</li>);
-    }
-  }
-
-  return (
-    <div className='challengeCard__team'>
-      <ul>
-        {myTeam && <li>Me <span>{('✔').repeat(checks)}</span></li>}
-        {team && team.map(team => <li>{team}</li>)}
-        {spots}
-      </ul>
-    </div>
-  )
-}
->>>>>>> 919878c6e821db29ca43cf89afb65ddb3329a6b0
