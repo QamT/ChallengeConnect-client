@@ -11,34 +11,10 @@ export default class Content extends Component {
     }
   }
 
-<<<<<<< HEAD
   render() {
     return (
       <div>
         {
-=======
-  componentDidMount() {
-    this.load();
-  }
-
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.current !== this.props.current) {
-      this.setState({ isLoading: true })
-      this.load();
-    }
-  }
-
-  load() {
-    setTimeout(() => { //change to fetch data
-      this.setState({ isLoading: false })
-    }, 1200);
-  }
-
-  render() {
-    return (
-      <div>
-        {this.state.isLoading ? <p>Loading...</p> : 
->>>>>>> 919878c6e821db29ca43cf89afb65ddb3329a6b0
         (() => {
           switch(this.props.current) {
             case 'Leaderboard':
