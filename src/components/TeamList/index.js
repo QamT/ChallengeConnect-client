@@ -3,10 +3,7 @@ import { connect } from 'react-redux';
 import uuid from 'uuid/v4';
 
 export class TeamList extends React.Component {
-  constructor(props) {
-    super(props)
-  }
-
+  
   render() {
     let spots=[];
     const team = this.props.team === 'A' ? this.props.teamA : this.props.teamB;

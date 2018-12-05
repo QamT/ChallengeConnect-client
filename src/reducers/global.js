@@ -17,7 +17,7 @@ const initialState = {
     'Go skydiving',
     'Learn an instrument',
     'Solve a rubik\'s cube',
-    'Get a celebrity\s autograph'
+    'Get a celebrity\'s autograph'
   ],
   teams: [], 
   loading: true,
