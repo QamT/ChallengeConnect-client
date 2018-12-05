@@ -15,6 +15,10 @@ export const challengeRequest = () => ({
   type: types.CHALLENGE_REQUEST
 });
 
+export const activateChallengeSuccess = () => ({
+  type: types.ACTIVATE_CHALLENGE_SUCCESS
+});
+
 export const fetchChallenge = challengeId => (dispatch, getState) => {
   dispatch(challengeRequest());
   const authToken = getState().auth.authToken;
@@ -26,5 +30,20 @@ export const fetchChallenge = challengeId => (dispatch, getState) => {
   })
   .then(res => res.json())
   .then(data => dispatch(challengeSuccess(data)))
+  .catch(e => dispatch(challengeError(e)))
+}
+
+export const activateChallenge = challengeId => (dispatch, getState) => {
+  const authToken = getState().auth.authToken;
+  fetch(`${API_BASE_URL}challenge/activate`, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${authToken}`
+    },
+    body: JSON.stringify({ challengeId })
+  })
+  .then(res => res.json())
+  .then(data => dispatch(activateChallengeSuccess()))
   .catch(e => dispatch(challengeError(e)))
 }

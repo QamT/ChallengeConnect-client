@@ -37,6 +37,18 @@ export default (state = initialState, action) => {
         error: null
       });
 
+    case types.UPLOAD_PROOF_SUCCESS:
+      return Object.assign({}, state, {
+        proofA: state.proofA.map(proof => proof.id === action.proof.id ? action.proof : proof),
+        proofB: state.proofB.map(proof => proof.id === action.proof.id ? action.proof : proof)
+      });
+
+    case types.CHALLENGE_PROOF_SUCCESS:
+      return Object.assign({}, state, {
+        proofA: state.proofA.map(proof => proof.id === action.proof.id ? {...proof, challenged: true} : proof),
+        proofB: state.proofB.map(proof => proof.id === action.proof.id ? {...proof, challenged: true} : proof)
+      });
+
     default: 
       return state
   }

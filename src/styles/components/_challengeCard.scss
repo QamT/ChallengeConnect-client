@@ -60,6 +60,57 @@
     left: .5rem;
     border: 1px solid black;
     padding: 0 .1rem;
+    cursor: pointer;
+
+    &:focus {
+      outline: none;
+    }
+
+    &-info {
+      position: absolute;
+      top: -.8rem;
+      left: -12rem;
+      background-color: #2B222A;
+      border-radius: 5px;
+      color: #fff;
+      padding: 1rem;
+      transition: all 0.3s linear;
+      width: 10rem;
+      visibility: hidden;
+      opacity: 0;
+
+      & > ul {
+        display: flex;
+        flex-direction: column;
+        margin: 0;
+
+        li {
+          display: flex;
+          justify-content: space-between;
+        }
+
+        .btn {
+          width: 1rem;
+          border: 1px solid #fff;
+          border-radius: 100rem;
+          text-align: center;
+          cursor: pointer;
+
+          &--accept {
+            border-color: green;
+          }
+
+          &--reject {
+            border-color: red;
+          }
+        }
+      }
+
+      &-display {
+        visibility: visible;
+        opacity: 1;
+      }
+    }
   }
 
   &__team {
@@ -103,5 +154,22 @@
     &--clear {
       color: black;
     }
+  }
+}
+
+.arrow {
+  &::after {
+    position: absolute;
+    top: 1.7rem;
+    left: 12.3rem;
+    border-top: 5px solid transparent;
+    border-bottom: 5px solid transparent;
+    border-left: 5px solid #2B222A;
+    content: " ";
+    font-size: 0;
+    line-height: 0;
+    opacity: 1;
+    margin-left: -5px;
+    width: 0;
   }
 }
