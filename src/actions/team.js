@@ -15,6 +15,16 @@ export const teamRequest = () => ({
   type: types.TEAM_REQUEST
 });
 
+export const addMemberA = user => ({
+  type: types.ADD_MEMBER_A,
+  user
+});
+
+export const addMemberB = user => ({
+  type: types.ADD_MEMBER_B,
+  user
+});
+
 export const fetchTeams = teamId => (dispatch, getState) => {
   dispatch(teamRequest());
   const authToken = getState().auth.authToken;

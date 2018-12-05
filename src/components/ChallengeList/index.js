@@ -26,7 +26,7 @@ export class ChallengeList extends React.Component {
   }
 
   render() {
-    const { challenges } = this.props
+    const { challenges, active } = this.props
     return (
       <div className='challengeCard__list'>
         <Modal 
@@ -37,19 +37,23 @@ export class ChallengeList extends React.Component {
         <ul>
           {challenges.map((challenge, index) => 
             <li key={uuid()}>
-              <Proof 
-                index={index}
-                team='a' 
-                displayModal={this.displayModal} 
-                proofId={this.props.proofA[index]} 
-              />
+              {active &&
+                <Proof 
+                  index={index}
+                  team='a' 
+                  displayModal={this.displayModal} 
+                  proofId={this.props.proofA[index]} 
+                />
+              }
               <p>{challenge}</p>
-              <Proof 
-                index={index}
-                team='b' 
-                displayModal={this.displayModal} 
-                proofId={this.props.proofB[index]} 
-              />
+              {active &&
+                <Proof 
+                  index={index}
+                  team='b' 
+                  displayModal={this.displayModal} 
+                  proofId={this.props.proofB[index]} 
+                />
+              }
             </li>
           )}
         </ul>
@@ -60,7 +64,8 @@ export class ChallengeList extends React.Component {
 //dont show proof when not active
 const mapStateToProps = state => ({
   proofA: state.team.teamA.proof,
-  proofB: state.team.teamB.proof
+  proofB: state.team.teamB.proof,
+  active: state.challenge.active 
 });
 
 export default connect(mapStateToProps)(ChallengeList);

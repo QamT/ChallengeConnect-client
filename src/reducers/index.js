@@ -7,6 +7,7 @@ import challengeReducer from './challenge';
 import teamReducer from './team';
 import userReducer from './user';
 import proofReducer from './proof';
+import adminReducer from './admin';
 import globalReducer from './global';
 
 const rootReducer = combineReducers({
@@ -17,6 +18,7 @@ const rootReducer = combineReducers({
   team: teamReducer,
   user: userReducer,
   proof: proofReducer,
+  admin: adminReducer,
   global: globalReducer
 });
 

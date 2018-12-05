@@ -4,11 +4,7 @@ import { connect } from 'react-redux';
 import { fetchProof } from '../../actions/proof';
 
 export class Proof extends React.Component {
-  constructor(props) {
-    super(props)
-  }
-
-  componentDidMount() {
+ componentDidMount() {
     this.props.dispatch(fetchProof(this.props.proofId, this.props.team));
   }
 

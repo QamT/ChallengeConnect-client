@@ -25,16 +25,24 @@ export default (state = initialState, action) => {
         active: action.challenge.active,
         completed: action.challenge.completed
       });
+
     case types.CHALLENGE_ERROR:
       return Object.assign({}, state, {
         loading: false,
         error: action.error
       });
+
     case types.CHALLENGE_REQUEST:
       return Object.assign({}, state, {
         loading: true,
         error: null
       });
+
+    case types.ACTIVATE_CHALLENGE_SUCCESS: 
+      return Object.assign({}, state, {
+        active: true
+      });
+
     default: 
       return state;
   }
