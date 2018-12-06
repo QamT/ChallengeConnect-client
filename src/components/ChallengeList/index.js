@@ -3,36 +3,37 @@ import { connect } from 'react-redux';
 import uuid from 'uuid/v4';
 
 import Proof from '../Proof';
-import Modal from '../Modal';
+import ProofModal from '../ProofModal';
 
 export class ChallengeList extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      showModal: false,
-      modalData: null
+      showModal: 'modal',
+      data: null
     }
   }
 
-  displayModal = (team, proofUrl=null) => {
+  displayModal = (challenged, proofGroup, proofId, proofUrl = null) => {
+    const { userTeam } = this.props;
     this.setState({ 
-      showModal: true,
-      modalData: {team, proofUrl}
+      showModal: 'modal display-modal',
+      data: {challenged, proofGroup, userTeam, proofId, proofUrl}
     });
   }
 
   closeModal = () => {
-    this.setState({ showModal: false });
+    this.setState({ showModal: 'modal' });
   }
 
   render() {
     const { challenges, active } = this.props
     return (
       <div className='challengeCard__list'>
-        <Modal 
+        <ProofModal 
           closeModal={this.closeModal} 
-          data={this.state.modalData}
-          className={this.state.showModal ? 'modal display-modal' : 'modal'}
+          data={this.state.data}
+          className={this.state.showModal}
         />
         <ul>
           {challenges.map((challenge, index) => 
@@ -61,12 +62,15 @@ export class ChallengeList extends React.Component {
     )
   }
 }
-//dont show proof when not active
+
 const mapStateToProps = state => ({
   proofA: state.team.teamA.proof,
   proofB: state.team.teamB.proof,
-  active: state.challenge.active 
+  active: state.challenge.active,
+  userTeam: state.team.teamA.members.find(member => member.id === state.user.userId) ? 'a' : 'b'
 });
 
 export default connect(mapStateToProps)(ChallengeList);
+
+
 
