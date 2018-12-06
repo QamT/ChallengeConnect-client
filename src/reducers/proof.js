@@ -45,8 +45,26 @@ export default (state = initialState, action) => {
 
     case types.CHALLENGE_PROOF_SUCCESS:
       return Object.assign({}, state, {
-        proofA: state.proofA.map(proof => proof.id === action.proof.id ? {...proof, challenged: true} : proof),
-        proofB: state.proofB.map(proof => proof.id === action.proof.id ? {...proof, challenged: true} : proof)
+        proofA: state.proofA.map(proof => 
+          proof.id === action.proof.id ? {...proof, challenged: true, reason: action.proof.reason} : proof),
+        proofB: state.proofB.map(proof => 
+          proof.id === action.proof.id ? {...proof, challenged: true, reason: action.proof.reason} : proof)
+      });
+
+    case types.CLEAR_PROOF:
+      return Object.assign({}, state, {
+        proofA: state.proofA.map(proof => 
+          proof.id === action.proof.id ? {...proof, challenged: false, reason: ''} : proof),
+        proofB: state.proofB.map(proof => 
+          proof.id === action.proof.id ? {...proof, challenged: false, reason: ''} : proof)
+      });
+
+    case types.DELETE_PROOF:
+      return Object.assign({}, state, {
+        proofA: state.proofA.map(proof => 
+          proof.id === action.proof.id ? {...proof, challenged: false, reason: '', user: null, url: ''} : proof),
+        proofB: state.proofB.map(proof => 
+          proof.id === action.proof.id ? {...proof, challenged: false, reason: '', user: null, url: ''} : proof)
       });
 
     default: 

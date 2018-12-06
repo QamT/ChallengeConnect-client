@@ -30,6 +30,16 @@ export default (state = initialState, action) => {
         userRequests: [...action.admin.usersRequest]
       });
 
+    case types.ACCEPT_CHALLENGE_PROOF_SUCCESS:
+      return Object.assign({}, state, {
+        proofChallenged: [...action.admin.proofChallenged]
+      });
+
+    case types.DENY_CHALLENGE_PROOF_SUCCESS:
+      return Object.assign({}, state, {
+        proofChallenged: [...action.admin.proofChallenged]
+      });
+
     default: 
       return state
   }

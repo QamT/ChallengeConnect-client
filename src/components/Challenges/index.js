@@ -15,6 +15,15 @@ export class Challenges extends React.Component {
       this.props.dispatch(fetchChallenge(this.props.currentChallenge)) : this.props.dispatch(fetchAllChallenges())
   }
 
+  componentDidUpdate(prevProps) {
+     if (this.props.currentChallenge && prevProps.currentChallenge !== this.props.currentChallenge) {
+       this.props.dispatch(fetchChallenge(this.props.currentChallenge));
+     }
+     if (!this.props.currentChallenge && prevProps.currentChallenge !== this.props.currentChallenge) {
+      this.props.dispatch(fetchAllChallenges());
+    }
+  }
+
   render() {
     const { currentChallenge } = this.props;
     if (this.props.loading) return <div>---loading---</div>

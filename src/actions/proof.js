@@ -32,6 +32,16 @@ export const challengeProofSuccess = proof => ({
   proof
 });
 
+export const clearProof = proof => ({
+  type: types.CLEAR_PROOF,
+  proof
+});
+
+export const deleteProof = proof => ({
+  type: types.DELETE_PROOF,
+  proof
+});
+
 export const fetchProof = (proofId, team='a') => (dispatch, getState) => {
   dispatch(proofRequest());
   const authToken = getState().auth.authToken;
