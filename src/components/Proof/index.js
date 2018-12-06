@@ -9,7 +9,6 @@ export class Proof extends React.Component {
   }
 
   render() {
-    
     const { index } = this.props;
     const proof = this.props.proof[this.props.team][index]
     const { team, displayModal } = this.props
