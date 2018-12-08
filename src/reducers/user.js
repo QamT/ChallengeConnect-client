@@ -58,12 +58,17 @@ export default (state = initialState, action) => {
       });
 
     case types.ADD_CHALLENGE_SUCCESS:
-    return Object.assign({}, state, {
-      currentChallenge: action.challenge.id,
-      challengeRequested: {
-        id: null
-      }
-    });
+      return Object.assign({}, state, {
+        currentChallenge: action.challenge.id,
+        challengeRequested: {
+          id: null
+        }
+      });
+
+    case types.RESET_USER_CHALLENGE_SUCCESS:
+      return Object.assign({}, state, {
+        currentChallenge: null
+      });
 
     default: 
       return state;

@@ -43,6 +43,11 @@ export default (state = initialState, action) => {
         active: true
       });
 
+    case types.COMPLETE_CHALLENGE_SUCCESS: 
+      return Object.assign({}, state, {
+        active: false
+      });
+
     default: 
       return state;
   }

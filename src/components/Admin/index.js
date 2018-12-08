@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import uuid from 'uuid/v4';
 
-import { addMemberA, addMemberB } from '../../actions/team';
+import { addMemberA, addMemberB, decreaseScoreA, decreaseScoreB } from '../../actions/team';
 import { acceptUser, rejectUser, acceptChallengeProof, denyChallengeProof } from '../../actions/admin';
 import { clearProof, deleteProof } from '../../actions/proof';
 
@@ -34,7 +34,8 @@ export class Admin extends React.Component {
   denyProof = (proofId, adminId, userId, teamId) => {
     let group = this.props.group.find(proof => proofId === proof.id) ? 'a' : 'b';
     this.props.dispatch(denyChallengeProof(proofId, adminId, userId, teamId, group));
-    this.props.dispatch(deleteProof(proofId))
+    this.props.dispatch(deleteProof(proofId));
+    group === 'a' ? this.props.dispatch(decreaseScoreA()) : this.props.dispatch(decreaseScoreB());
   }
 
   render() {

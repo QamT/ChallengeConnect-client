@@ -15,10 +15,32 @@ export const allChallengesRequest = () => ({
   type: types.ALL_CHALLENGES_REQUEST
 });
 
+export const leaderboardSuccess = (leaderboard) => ({
+  type: types.LEADERBOARD_SUCCESS,
+  leaderboard
+});
+
+export const leaderboardError = (error) => ({
+  type: types.LEADERBOARD_ERROR,
+  error
+});
+
+export const leaderboardRequest = () => ({
+  type: types.LEADERBOARD_REQUEST
+});
+
 export const fetchAllChallenges = () => (dispatch) => {
   dispatch(allChallengesRequest());
   fetch(`${API_BASE_URL}globalData/getChallenges`)
   .then(res => res.json())
   .then(data => dispatch(allChallengesSuccess(data)))
   .catch(e => dispatch(allChallengesError(e)))
+}
+
+export const fetchLeaderboard = () => (dispatch) => {
+  dispatch(leaderboardRequest());
+  fetch(`${API_BASE_URL}globalData/leaderboard`)
+  .then(res => res.json())
+  .then(data => dispatch(leaderboardSuccess(data)))
+  .catch(e => dispatch(leaderboardError(e)))
 }

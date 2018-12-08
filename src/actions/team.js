@@ -25,6 +25,22 @@ export const addMemberB = user => ({
   user
 });
 
+export const addScoreA = () => ({
+  type: types.ADD_SCORE_A
+});
+
+export const addScoreB = () => ({
+  type: types.ADD_SCORE_B
+});
+
+export const decreaseScoreA = () => ({
+  type: types.DECREASE_SCORE_A
+});
+
+export const decreaseScoreB = () => ({
+  type: types.DECREASE_SCORE_B
+});
+
 export const fetchTeams = teamId => (dispatch, getState) => {
   dispatch(teamRequest());
   const authToken = getState().auth.authToken;

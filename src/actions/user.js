@@ -31,6 +31,10 @@ export const addChallengeSuccess = (challenge) => ({
   challenge
 });
 
+export const resetUserChallengeSuccess = () => ({
+  type: types.RESET_USER_CHALLENGE_SUCCESS
+});
+
 export const fetchUserInfo = () => (dispatch, getState) => {
   dispatch(userRequest());
   const authToken = getState().auth.authToken;
@@ -85,6 +89,21 @@ export const addChallenge = (data) => (dispatch, getState) => {
   })
   .then(res => res.json())
   .then(data => dispatch(addChallengeSuccess(data)))
+  .catch(e => dispatch(userInfoError(e)));
+}
+
+export const resetChallenge = (challengeId, adminId, teamId, proofs) => (dispatch, getState) => {
+  const authToken = getState().auth.authToken;
+  fetch(`${API_BASE_URL}user/reset`, {
+    method: 'DELETE',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${authToken}`
+    },
+    body: JSON.stringify({ challengeId, adminId, teamId, proofs })
+  })
+  .then(res => res.json())
+  .then(data => dispatch(resetUserChallengeSuccess()))
   .catch(e => dispatch(userInfoError(e)));
 }
 
