@@ -11,6 +11,8 @@ const initialState = {
     title: null
   },
   friends: [],
+  friendRequests: [],
+  friendRequested: [],
   loading: true,
   error: null
 }
@@ -19,7 +21,6 @@ export default (state = initialState, action) => {
   switch (action.type) {
     case types.USER_INFO_SUCCESS:
       return Object.assign({}, state, {
-        loading: false,
         userId: action.userInfo.id,
         firstName: action.userInfo.firstName,
         lastName: action.userInfo.lastName,
@@ -28,7 +29,10 @@ export default (state = initialState, action) => {
         challengeRequested: {
           id: action.userInfo.currentChallenge.challengeRequested.id
         },
-        friends: [...action.userInfo.friends.list]
+        friends: [...action.userInfo.friends.list],
+        friendRequests: [...action.userInfo.friends.friendRequests],
+        friendRequested: [...action.userInfo.friends.friendRequested],
+        loading: false
       });
 
     case types.USER_INFO_ERROR: 
@@ -68,6 +72,27 @@ export default (state = initialState, action) => {
     case types.RESET_USER_CHALLENGE_SUCCESS:
       return Object.assign({}, state, {
         currentChallenge: null
+      });
+
+    case types.SEND_FRIEND_REQUEST_SUCCESS: 
+      return Object.assign({}, state, {
+        friendRequested: [...action.requests]
+      });
+
+    case types.ACCEPT_FRIEND_REQUEST_SUCCESS: 
+      return Object.assign({}, state, {
+        friends: [...action.user.list],
+        friendRequests: [...action.user.requests]
+      });
+
+    case types.REJECT_FRIEND_REQUEST_SUCCESS: 
+      return Object.assign({}, state, {
+        friendRequests: [...action.requests]
+      });
+
+    case types.REMOVE_FRIEND_SUCCESS: 
+      return Object.assign({}, state, {
+        friends: [...action.list]
       });
 
     default: 

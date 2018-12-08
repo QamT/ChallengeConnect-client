@@ -21,7 +21,12 @@ const initialState = {
   ],
   teams: [], 
   loading: true,
-  error: null
+  error: null,
+  leaders: [],
+  boardLoading: true,
+  boardError: null,
+  searchLoading: false,
+  searchUsers: []
 }
 
 export default (state = initialState, action) => {
@@ -42,6 +47,39 @@ export default (state = initialState, action) => {
       return Object.assign({}, state, {
         loading: true,
         error: null
+      });
+
+    case types.LEADERBOARD_SUCCESS: 
+      return Object.assign({}, state, {
+        boardLoading: false,
+        leaders: [...action.leaderboard.leaderboard]
+      });
+    case types.LEADERBOARD_ERROR: 
+      return Object.assign({}, state, {
+        boardLoading: false,
+        boardError: action.error
+      });
+
+    case types.LEADERBOARD_REQUEST: 
+      return Object.assign({}, state, {
+        boardLoading: true,
+        boardError: null
+      });
+
+    case types.SEARCH_USER_REQUEST: 
+      return Object.assign({}, state, {
+        searchLoading: true
+      });
+
+    case types.SEARCH_USER_SUCCESS: 
+      return Object.assign({}, state, {
+        searchLoading: false,
+        searchUsers: [...action.users]
+      });
+
+    case types.CLEAR_USER: 
+      return Object.assign({}, state, {
+        searchUsers: []
       });
     
     default: 

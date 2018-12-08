@@ -8,14 +8,17 @@
   'base/typography';
 
 @import 
+  'components/buttons',
   'components/challengeNav',
   'components/challengeCard',
   'components/challengeInfo',
   'components/chatBox',
   'components/friendsList',
+  'components/friendInfo',
   'components/modal',
   'components/leaderboard',
-  'components/proof';
+  'components/proof',
+  'components/search';
 
 @import 
   'layout/grid';

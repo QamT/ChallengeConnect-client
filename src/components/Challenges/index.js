@@ -19,6 +19,7 @@ export class Challenges extends React.Component {
      if (this.props.currentChallenge && prevProps.currentChallenge !== this.props.currentChallenge) {
        this.props.dispatch(fetchChallenge(this.props.currentChallenge));
      }
+     
      if (!this.props.currentChallenge && prevProps.currentChallenge !== this.props.currentChallenge) {
       this.props.dispatch(fetchAllChallenges());
     }

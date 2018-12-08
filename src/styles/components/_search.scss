@@ -1,0 +1,17 @@
+.search {
+  text-align: center;
+
+  ul {
+    margin: 1rem auto;
+    max-width: 20%;
+  }
+
+  &__result {
+    display: flex;
+    justify-content: space-around;
+
+    &-add {
+      cursor: pointer;
+    }
+  }
+}

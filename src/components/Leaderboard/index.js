@@ -2,14 +2,16 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import LeaderScore from '../LeaderScore';
-import { fetchLeaderboardSuccess } from '../../actions/leaderboard'
+import { fetchLeaderboard } from '../../actions/global'
 
 export class Leaderboard extends React.Component {
   componentDidMount() {
-    this.props.dispatch(fetchLeaderboardSuccess());
+    this.props.dispatch(fetchLeaderboard());
   }
 
   render() {
+    if (this.props.loading) return <div>Loading...</div>
+    
     return (
         <div className='leaderboard'>
           <div className='leaderboard__container'>
@@ -22,7 +24,8 @@ export class Leaderboard extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  leaders: state.leaderboard.leaders
+  loading: state.global.boardLoading,
+  leaders: state.global.leaders
 })
 
 export default connect(mapStateToProps)(Leaderboard);

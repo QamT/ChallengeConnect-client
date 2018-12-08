@@ -2,11 +2,13 @@ import React from 'react';
 
 import Search from '../Search';
 import FriendList from '../FriendList';
+import FriendInfo from '../FriendInfo';
 
 export default () => (
   <div>
-    <Search users={['Miles', 'John']}  />
-    <FriendList friends={['Kathy', 'Sarah', 'Melinda']} />
-    {/* <Result /> */}
+    <Search />
+    <FriendInfo />
+    <FriendList />
   </div>
 )
+
