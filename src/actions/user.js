@@ -21,18 +21,38 @@ export const requestChallengeSuccess = (challenge, title) => ({
   title
 });
 
-export const fetchChallengeInfoSuccess = (challenge) => ({
+export const fetchChallengeInfoSuccess = challenge => ({
   type: types.FETCH_CHALLENGE_INFO_SUCCESS,
   challenge
 });
 
-export const addChallengeSuccess = (challenge) => ({
+export const addChallengeSuccess = challenge => ({
   type: types.ADD_CHALLENGE_SUCCESS,
   challenge
 });
 
 export const resetUserChallengeSuccess = () => ({
   type: types.RESET_USER_CHALLENGE_SUCCESS
+});
+
+export const sendFriendRequestSuccess = requests => ({
+  type: types.SEND_FRIEND_REQUEST_SUCCESS,
+  requests
+});
+
+export const acceptFriendRequestSuccess = user => ({
+  type: types.ACCEPT_FRIEND_REQUEST_SUCCESS,
+  user
+});
+
+export const rejectFriendRequestSuccess = requests => ({
+  type: types.REJECT_FRIEND_REQUEST_SUCCESS,
+  requests
+});
+
+export const removeFriendSuccess = list => ({
+  type: types.REMOVE_FRIEND_SUCCESS,
+  list
 });
 
 export const fetchUserInfo = () => (dispatch, getState) => {
@@ -107,3 +127,62 @@ export const resetChallenge = (challengeId, adminId, teamId, proofs) => (dispatc
   .catch(e => dispatch(userInfoError(e)));
 }
 
+export const sendFriendRequest = userId => (dispatch, getState) => {
+  const authToken = getState().auth.authToken;
+  fetch(`${API_BASE_URL}user/friend/send`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${authToken}`
+    },
+    body: JSON.stringify({ userId })
+  })
+  .then(res => res.json())
+  .then(data => dispatch(sendFriendRequestSuccess(data)))
+  .catch(e => dispatch(userInfoError(e)));
+}
+
+export const acceptFriendRequest = userId => (dispatch, getState) => {
+  const authToken = getState().auth.authToken;
+  fetch(`${API_BASE_URL}user/friend/accept`, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${authToken}`
+    },
+    body: JSON.stringify({ userId })
+  })
+  .then(res => res.json())
+  .then(data => dispatch(acceptFriendRequestSuccess(data)))
+  .catch(e => dispatch(userInfoError(e)));
+}
+
+export const rejectFriendRequest = userId => (dispatch, getState) => {
+  const authToken = getState().auth.authToken;
+  fetch(`${API_BASE_URL}user/friend/reject`, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${authToken}`
+    },
+    body: JSON.stringify({ userId })
+  })
+  .then(res => res.json())
+  .then(data => dispatch(rejectFriendRequestSuccess(data)))
+  .catch(e => dispatch(userInfoError(e)));
+}
+
+export const removeFriend = userId => (dispatch, getState) => {
+  const authToken = getState().auth.authToken;
+  fetch(`${API_BASE_URL}user/friend/remove`, {
+    method: 'DELETE',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${authToken}`
+    },
+    body: JSON.stringify({ userId })
+  })
+  .then(res => res.json())
+  .then(data => dispatch(removeFriendSuccess(data)))
+  .catch(e => dispatch(userInfoError(e)));
+}

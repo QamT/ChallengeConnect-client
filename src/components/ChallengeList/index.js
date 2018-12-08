@@ -30,11 +30,13 @@ export class ChallengeList extends React.Component {
     const { challenges, active } = this.props
     return (
       <div className='challengeCard__list'>
-        <ProofModal 
-          closeModal={this.closeModal} 
-          data={this.state.data}
-          className={this.state.showModal}
-        />
+        {this.state.showModal.includes('display') &&
+          <ProofModal 
+            closeModal={this.closeModal} 
+            data={this.state.data}
+            className={this.state.showModal}
+          />
+        }
         <ul>
           {challenges.map((challenge, index) => 
             <li key={uuid()}>

@@ -1,0 +1,53 @@
+.friendInfo {
+    position: absolute;
+    top: 2rem;
+    right: 7rem;
+    border: 1px solid black;
+    padding: 0 .1rem;
+    cursor: pointer;
+
+    &:focus {
+      outline: none;
+    }
+
+  &__content {
+    position: absolute;
+    top: 3.9rem;
+    right: 2rem;
+    background-color: #2B222A;
+    border-radius: 5px;
+    color: #fff;
+    padding: 1rem;
+    transition: all 0.3s linear;
+    width: 10rem;
+    visibility: hidden;
+    opacity: 0;
+
+    &-display {
+      visibility: visible;
+      opacity: 1;
+    }
+
+    li {
+      display: flex;
+      justify-content: space-between;
+    }
+  }
+
+  &__arrow {
+    &::after {
+      position: absolute;
+      top: -.3rem;
+      right: 5.1rem;
+      border-right: 5px solid transparent;
+      border-left: 5px solid transparent;
+      border-bottom: 5px solid #2B222A;
+      content: " ";
+      font-size: 0;
+      line-height: 0;
+      opacity: 1;
+      margin-left: -5px;
+      width: 0;
+    }
+  }
+}
