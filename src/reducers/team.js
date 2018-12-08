@@ -4,11 +4,13 @@ const initialState = {
   teamId: null,
   teamA: {
     members: [],
-    proofs: []
+    proof: [],
+    score: 0
   },
   teamB: {
     members: [],
-    proofs: []
+    proof: [],
+    score: 0
   },
   loading: true,
   error: null
@@ -22,11 +24,13 @@ export default (state = initialState, action) => {
         teamId: action.teamData.id,
         teamA: {
           members: [...action.teamData.teamA.team],
-          proof: [...action.teamData.teamA.proofs]
+          proof: [...action.teamData.teamA.proofs],
+          score: action.teamData.teamA.score
         },
         teamB: {
           members: [...action.teamData.teamB.team],
-          proof: [...action.teamData.teamB.proofs]
+          proof: [...action.teamData.teamB.proofs],
+          score: action.teamData.teamB.score
         },
       });
 
@@ -53,6 +57,34 @@ export default (state = initialState, action) => {
         return Object.assign({}, state, {
           teamB: {
             members: [...state.teamB.members, action.user]
+          }
+        });
+
+      case types.ADD_SCORE_A:
+        return Object.assign({}, state, {
+          teamA: {
+            score: state.teamA.score + 1
+          }
+        });
+
+      case types.ADD_SCORE_B:
+        return Object.assign({}, state, {
+          teamB: {
+            score: state.teamB.score + 1
+          }
+        });
+
+      case types.DECREASE_SCORE_A:
+        return Object.assign({}, state, {
+          teamA: {
+            score: state.teamA.score - 1
+          }
+        });
+
+      case types.DECREASE_SCORE_B:
+        return Object.assign({}, state, {
+          teamB: {
+            score: state.teamB.score - 1
           }
         });
 

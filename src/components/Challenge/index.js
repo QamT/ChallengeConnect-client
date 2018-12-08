@@ -33,13 +33,11 @@ export class Challenge extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
-  loading: state.user.loading,
-  currentChallenge: state.user.currentChallenge,
-  friends: state.user.friends
+  loading: state.user.loading
 })
 
 export default connect(mapStateToProps)(Challenge)
 
-
+//add continuos refresh for new challenge only update if challenge changes
 
 

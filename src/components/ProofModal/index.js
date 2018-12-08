@@ -5,6 +5,7 @@ import ProofView from '../ProofView';
 import ProofForm from'../ProofForm';
 import { uploadProof } from '../../actions/proof';
 import { challengeProof } from '../../actions/proof';
+import { addScoreA, addScoreB } from '../../actions/team';
 
 export class ProofModal extends React.Component {
   componentDidMount() {
@@ -19,6 +20,7 @@ export class ProofModal extends React.Component {
     const { proofId, proofGroup: group} = this.props.data;
     const { teamId } = this.props;
     this.props.dispatch(uploadProof(proofId, teamId, group, file));
+    group === 'a' ? this.props.dispatch(addScoreA) : this.props.dispatch(addScoreB);
   }
 
   challengeProofSubmit = (reason) => {
@@ -33,11 +35,11 @@ export class ProofModal extends React.Component {
   }
 
   render() {
-    const { teamId, className, closeModal, data } = this.props;
+    const { className, data } = this.props;
     let content;
 
     if (data) {
-      const { challenged, proofId, proofGroup, proofUrl, userTeam } = data;
+      const { challenged, proofGroup, proofUrl, userTeam } = data;
       if (userTeam === proofGroup && !challenged && proofUrl) {
         content = <ProofView proofUrl={proofUrl} text='your team has uploaded proof' /> 
       } else if (userTeam === proofGroup && !challenged) {

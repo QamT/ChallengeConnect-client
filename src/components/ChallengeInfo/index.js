@@ -8,6 +8,10 @@ export class ChallengeInfo extends React.Component {
     if (this.props.challengeId) this.props.dispatch(fetchChallengeInfo(this.props.challengeId));
   }
 
+  componentDidUpdate() {
+    if (this.props.challengeId) this.props.dispatch(fetchChallengeInfo(this.props.challengeId));
+  }
+
   render() {
     return (
       <span tabIndex='0' data-content={this.props.title} className='challengeInfo'>
