@@ -104,23 +104,6 @@
             }
           }
         }
-
-        .btn {
-          width: 1rem;
-          max-height: 1rem;
-          border: 1px solid #fff;
-          border-radius: 100rem;
-          text-align: center;
-          cursor: pointer;
-
-          &--accept {
-            border-color: green;
-          }
-
-          &--reject {
-            border-color: red;
-          }
-        }
       }
 
       &-display {

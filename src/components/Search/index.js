@@ -33,7 +33,8 @@ export class Search extends React.Component {
         <div>
           <input 
             onChange = {this.handleSearch}
-            type='text' name='user' 
+            type='text' 
+            name='user' 
             aria-label='search users' 
             ref = {input => this.input = input}
           />
