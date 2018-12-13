@@ -1,43 +1,66 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom';
 
-import ChallengeNav from '../ChallengeNav';
+import Header from '../Header';
+import Navbar from '../Navbar';
 import Content from '../Content';
-import { fetchUserInfo } from '../../actions/user';
+import Loader from '../Loader';
+import { fetchUserInfo, refreshUserInfo } from '../../actions/user';
 
 export class Challenge extends React.Component {
  state = {
-   filter: 'Challenges'
+   section: 'Status',
+   sections: ['Leaderboard', 'Status', `Friend's List`]
  }
 
  componentDidMount() {
+  document.title = 'ChallengeConnect Overview';
   this.props.dispatch(fetchUserInfo());
+  this.refreshUserInfo();
  }
 
- changeFilter = (filter) => {
-   this.setState({ filter })
+ changeSection = (section) => {
+   this.setState({ section });
+ }
+
+ refreshUserInfo() {
+   this.refreshInterval = setInterval(() => this.props.dispatch(refreshUserInfo()), 1000 * 60)
+ }
+
+ componentWillMount() {
+   clearInterval(this.refreshInterval);
  }
 
  render() {
+    if (!this.props.auth) return <Redirect to ='/' />
+    
     return (
-      <div>
-        <h1>ChallengeConnect</h1>
-        <ChallengeNav filter={this.state.filter} changeFilter={this.changeFilter} filters={['Leaderboard', 'Challenges', `Friend's List`]} />
-        { (this.props.loading) ?
-          <div>Loading...</div> :
-          <Content current={this.state.filter} />
-        }
+      <div className='challenge'>
+        <Header />
+        <Navbar 
+          section={this.state.section} 
+          changeSection={this.changeSection} 
+          sections={this.state.sections} 
+        />
+        {this.props.loading ? <Loader /> : <Content current={this.state.section} />}
       </div>
     )
   }
 }
 
 const mapStateToProps = (state) => ({
-  loading: state.user.loading
+  loading: state.user.loading,
+  auth: state.auth.authToken
 });
 
 export default connect(mapStateToProps)(Challenge);
 
-//add continuos refresh for new challenge only update if challenge changes
+// -clean structure and names
+// -styling - background
+
+// -transitions and animations
+//responsiveness
+// -best practices
 
 
