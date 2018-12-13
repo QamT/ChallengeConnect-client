@@ -1,0 +1,10 @@
+.challenges {
+
+  &-left {
+    animation: slide-content-left .6s ease-in-out;
+  }
+
+  &-right {
+    animation: slide-content-right .6s ease-in-out;
+  }
+}
