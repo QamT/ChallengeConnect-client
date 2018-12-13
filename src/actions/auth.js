@@ -4,6 +4,7 @@ import * as types from './actionType';
 import { API_BASE_URL } from '../config';
 import { clearAuthToken, saveAuthToken } from '../local-storage';
 
+
 export const setAuthToken = authToken => ({
   type: types.SET_AUTH_TOKEN,
   authToken

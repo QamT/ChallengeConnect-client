@@ -26,7 +26,7 @@ export default (state = initialState, action) => {
     case types.AUTH_SUCCESS: 
       return Object.assign({}, state, {
         loading: false,
-        currentUser: action.currentUser
+        currentUser: action.currentUser.id
       });
     case types.AUTH_ERROR: 
       return Object.assign({}, state, {

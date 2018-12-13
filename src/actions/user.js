@@ -6,6 +6,11 @@ export const userInfoSuccess = userInfo => ({
   userInfo
 });
 
+export const refreshUserInfoSuccess = challenge => ({
+  type: types.REFRESH_USER_INFO_SUCCESS,
+  challenge
+})
+
 export const userInfoError = error => ({
   type: types.USER_INFO_ERROR,
   error
@@ -66,6 +71,22 @@ export const fetchUserInfo = () => (dispatch, getState) => {
   })
   .then(res => res.json())
   .then(data => dispatch(userInfoSuccess(data)))
+  .catch(e => dispatch(userInfoError(e)));
+}
+
+export const refreshUserInfo = () => (dispatch, getState) => {
+  const authToken = getState().auth.authToken;
+  const challengeId = getState().user.currentChallenge;
+  fetch(`${API_BASE_URL}user/user`, {
+    method: 'GET',
+    headers: {
+      Authorization: `Bearer ${authToken}`
+    }
+  })
+  .then(res => res.json())
+  .then(({ currentChallenge }) => {
+    if (currentChallenge.id !== challengeId) dispatch(refreshUserInfoSuccess(currentChallenge.id));
+  })
   .catch(e => dispatch(userInfoError(e)));
 }
 

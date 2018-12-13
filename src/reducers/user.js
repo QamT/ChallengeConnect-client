@@ -35,11 +35,16 @@ export default (state = initialState, action) => {
         loading: false
       });
 
+    case types.REFRESH_USER_INFO_SUCCESS: 
+      return Object.assign({}, state, {
+        currentChallenge: action.challenge
+      });
+
     case types.USER_INFO_ERROR: 
-    return Object.assign({}, state, {
-      loading: false,
-      error: action.error
-    });
+      return Object.assign({}, state, {
+        loading: false,
+        error: action.error
+      });
 
     case types.REQUEST_CHALLENGE_SUCCESS: 
       return Object.assign({}, state, {
