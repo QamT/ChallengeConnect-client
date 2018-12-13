@@ -10,7 +10,7 @@ import Error from './routes/Error';
 
 export default () => (
   <Router>
-    <div>
+    <>
       <Switch>
         <Route exact path='/' component={Home} />
         <Route path='/register' component={Register} />
@@ -19,6 +19,6 @@ export default () => (
         <Route path='/challenge' component={Challenge} />
         <Route component={Error} />
       </Switch>
-    </div>
+    </>
   </Router>
 )

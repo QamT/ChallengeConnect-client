@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import uuid from 'uuid/v4';
 
+import Loader from '../Loader';
 import { fetchUsers, clearUser } from '../../actions/global';
 import { sendFriendRequest } from '../../actions/user';
 
@@ -27,6 +28,10 @@ export class Search extends React.Component {
     this.props.dispatch(sendFriendRequest(userId));
   }
 
+  componentWillUnmount() {
+    this.props.dispatch(clearUser());
+  }
+
   render() {
     return (
       <div className='search'>
@@ -41,7 +46,7 @@ export class Search extends React.Component {
         </div>
         <div>
           <ul>
-            {this.props.loading && <li>Loading...</li>}
+            {this.props.loading && <li><Loader /></li>}
             {this.props.results.length > 0 &&
               this.props.results.map(result => 
                 <li className='search__result' key={uuid()}>

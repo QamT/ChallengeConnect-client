@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import uuid from 'uuid/v4';
 
+import Loader from '../Loader';
 import { API_BASE_URL } from '../../config';
 import { removeFriend } from '../../actions/user';
 
@@ -41,7 +42,7 @@ export class FriendList extends React.Component {
   };
 
   render() {
-    if (this.state.loading) return <div>loading...</div>
+    if (this.state.loading) return <Loader />
     return (
       <div className='friendsList'>
         <ul className='friendsList__container'>
