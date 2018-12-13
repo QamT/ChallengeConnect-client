@@ -1,0 +1,47 @@
+.navbar {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding-top: 6rem;
+  margin-bottom: 2rem;
+
+  ul {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    padding: 0;
+    color: $primary-color;
+
+    .highlight {
+      border-bottom: 3px solid $neon;
+      font-weight: bold;
+
+      &-left {
+        animation: slide-left .6s ease-in-out;
+      }
+
+      &-right {
+        animation: slide-right .6s ease-in-out;
+      }
+    }
+  }
+
+  li {
+    cursor: pointer;
+    font-size: 1.2rem;
+    margin: 0 2.6rem;
+    font-weight: 500;
+    line-height: 1.5;
+    text-transform: uppercase;
+
+    &:hover {
+      font-weight: bold;
+    }
+
+    &:focus {
+      outline: none;
+      font-weight: bold;
+    }
+  }
+}
+

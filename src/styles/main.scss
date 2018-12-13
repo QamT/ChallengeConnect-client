@@ -9,23 +9,29 @@
 
 @import 
   'components/buttons',
-  'components/challengeNav',
   'components/challengeCard',
   'components/challengeInfo',
   'components/chatBox',
-  'components/friendsList',
+  'components/friendCard',
   'components/friendInfo',
+  'components/leaderCard',
+  'components/loader',
   'components/modal',
-  'components/leaderboard',
+  'components/navbar',
   'components/proof',
   'components/search';
 
 @import 
-  'layout/grid';
-  // 'layout/navigation';
+  'layout/grid',
+  'layout/header';
 
-// @import 
-//   'pages/challenge',
+@import 
+  'pages/challenge';
+
+@import 
+  'sections/friend',
+  'sections/leaderboard',
+  'sections/status';
 
 @import 
   'vendor/normalize';

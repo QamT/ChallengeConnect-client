@@ -1,6 +1,7 @@
 .leaderboard {
   display: flex;
   justify-content: center;
+  animation: slide-content-left .5s ease-in-out;
 
   &__container {
     display: flex;

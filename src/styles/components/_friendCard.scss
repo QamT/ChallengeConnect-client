@@ -1,6 +1,7 @@
 .friendsList {
   display: flex;
   border: 1px solid black;
+  animation: slide-content-right .5s ease-in-out;
 
   &__container {
     width: 100%;

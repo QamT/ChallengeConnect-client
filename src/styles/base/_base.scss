@@ -8,10 +8,11 @@ html, body {
 
 body {
   overscroll-behavior-y: none;
+  background: $secondary-color;
 }
 
-ul {
-  padding: 0;
+ul, p {
+  margin: 0;
 }
 
 li {
