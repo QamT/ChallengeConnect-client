@@ -3,4 +3,5 @@
 $primary-color: #364860;
 $secondary-color: #F2F7FA;
 $neon: #4FF0C0;
-$outline: #CEF2F2;
+$neon-gradient: linear-gradient(to right, #4FC8D1, $neon);
+$card-text-color: rgba(255, 255, 255, .85);
