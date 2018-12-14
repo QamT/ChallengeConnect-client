@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import LeaderScore from '../LeaderScore';
+import LeaderCard from '../LeaderCard';
 import Loader from '../Loader';
 import { fetchLeaderboard } from '../../actions/global'
 
@@ -12,14 +12,13 @@ export class Leaderboard extends React.Component {
 
   render() {
     if (this.props.loading) return <Loader />;
-    
+   
     return (
-      <div className='leaderboard'>
+      <section className='leaderboard'>
         <div className='leaderboard__container'>
-          <h3>Leaderboard</h3>
-          <LeaderScore leaders={this.props.leaders} />
+          <LeaderCard leaders={this.props.leaders} />
         </div>
-      </div>
+      </section>
     )
   }
 }
@@ -30,3 +29,4 @@ const mapStateToProps = state => ({
 })
 
 export default connect(mapStateToProps)(Leaderboard);
+
