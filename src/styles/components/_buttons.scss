@@ -35,6 +35,9 @@
   &:focus {
     outline: none;
     background: #fff;
+  }
+
+  &:active {
     transform: scale(1);
   }
 }

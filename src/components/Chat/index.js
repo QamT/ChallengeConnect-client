@@ -13,7 +13,9 @@ export default class Chat extends React.Component{
       message: '',
       messages: []
     }   
-    
+  }
+
+  componentDidMount() {
     this.socket = io(SOCKET_URL);
 
     this.socket.on('RECEIVE_MESSAGE', data => {
