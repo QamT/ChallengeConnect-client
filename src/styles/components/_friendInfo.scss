@@ -1,53 +1,74 @@
+i[class~='users'] {
+  position: absolute;
+  top: 7.1rem;
+  right: 26.5rem;
+  cursor: pointer;
+  box-shadow: 0 0 5px 0 rgba(0, 0, 0, .5) !important;
+  transition: all .3s;
+  animation: slide-content-right .6s ease-in-out;
+
+  &:focus {
+    outline: none;
+    box-shadow: 0 0 5px 0 #fff !important;
+  }
+
+  &:active {
+    transform: scale(.9);
+  }
+}
+
+i.inverted.circular.icon {
+  background: $neon !important;
+  color: $primary-color !important;
+
+  &:focus {
+    color: $neon !important;
+    background: $primary-color !important;
+  }
+}
+
 .friendInfo {
-    position: absolute;
-    top: 2rem;
-    right: 7rem;
-    border: 1px solid black;
-    padding: 0 .1rem;
-    cursor: pointer;
+  min-width: 20%;
+  position: absolute;
+  top: 9.7rem;
+  right: 19.5rem;
+  background: #fff;
+  border-radius: 5px;
+  box-shadow: 0 0 5px 0 rgba(0, 0, 0, .4);
+  user-select: none;
 
-    &:focus {
-      outline: none;
-    }
+  ul {
+    padding: .8rem .4rem 1rem .6rem;
+  }
 
-  &__content {
-    position: absolute;
-    top: 3.9rem;
-    right: 2rem;
-    background-color: #2B222A;
-    border-radius: 5px;
-    color: #fff;
-    padding: 1rem;
-    transition: all 0.3s linear;
-    width: 10rem;
-    visibility: hidden;
-    opacity: 0;
+  li {
+    display: flex;
+    justify-content: space-between;
+    padding: .4rem 0;
+    color: rgba(0, 0, 0, .8);
 
-    &-display {
-      visibility: visible;
-      opacity: 1;
-    }
-
-    li {
+    span:first-of-type {
       display: flex;
-      justify-content: space-between;
+
+      .name {
+        display: flex;
+        align-self: center;
+        margin-left: .4rem;
+      }
     }
   }
 
-  &__arrow {
-    &::after {
-      position: absolute;
-      top: -.3rem;
-      right: 5.1rem;
-      border-right: 5px solid transparent;
-      border-left: 5px solid transparent;
-      border-bottom: 5px solid #2B222A;
-      content: " ";
-      font-size: 0;
-      line-height: 0;
-      opacity: 1;
-      margin-left: -5px;
-      width: 0;
-    }
+  &-title {
+    color: $primary-color;
+    text-transform: uppercase;
+    border-bottom: 1px solid $neon;
+    padding: .7rem .6rem;
+    font-weight: 400;
+  }
+
+  &-arrow {
+    position: absolute;
+    left: 8.6rem;
+    top: -1rem;
   }
 }

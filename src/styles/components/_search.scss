@@ -1,18 +1,124 @@
 .search {
   text-align: center;
-  animation: slide-content-right .8s ease-in-out;
+  animation: slide-content-right .6s ease-in-out;
 
-  ul {
-    margin: 1rem auto;
-    max-width: 20%;
+  &__bar {
+    
+    input {
+      width: 25%;
+      border: none;
+      background: $primary-color;
+      color: rgba(255, 255, 255, 0.85);
+      line-height: 1.4;
+      padding: .6rem .6rem .6rem 1.2rem;
+      border-radius: 10rem;
+      box-shadow: 0 0 5px 0 rgba(0, 0, 0, .7);
+      z-index: 2;
+      position: relative;
+  
+      &::placeholder {
+        color: rgba(255, 255, 255, 0.3);
+      }
+  
+      &:focus {
+        outline: none;
+        box-shadow: 0 -1px 7px 0 $neon;
+      }
+    }
+
+    i {
+      margin-left: -2rem;
+      color: rgba(255, 255, 255, 0.5);
+      cursor: pointer;
+      transition: color .2s;
+      animation: none;
+      position: relative;
+      z-index: 5;
+
+      &:focus {
+        outline: none;
+        color: rgba(255, 255, 255, 0.9);
+      }
+
+      &:active {
+        transform: scale(.98);
+      }
+
+      &:hover {
+        color: rgba(255, 255, 255, 0.9);
+      }
+    }
   }
 
-  &__result {
-    display: flex;
-    justify-content: space-around;
+  &__results {
+    position: absolute;
+    width: 100%;
+    left: 38%;
+
+    ul {
+      width: 23%;
+      margin-top: -.1rem;
+      margin-left: .7rem;
+      background: $primary-color;
+      border-radius: 5px;
+      border-top-left-radius: 0;
+      border-top-right-radius: 0;
+      box-shadow: 0 0 5px 0 rgba(0, 0, 0, .3);
+    }
+
+    li {
+      padding: 1rem .7rem;
+      display: flex;
+      justify-content: space-between;
+      border-bottom: 1px solid  rgba(255, 255, 255, 0.06);
+      color: rgba(255, 255, 255, 0.75);
+
+      span:first-of-type {
+        display: flex;
+        align-items: center;
+
+        .name {
+          margin-left: .6rem;
+        }
+      }
+    }
 
     &-add {
       cursor: pointer;
+      display: flex;
+      align-self: center;
+      margin-right: .7rem;
+      margin-bottom: .3rem;
+      
+      i {
+        color: $darker-white;
+      }
+
+      i[title~='send'] {
+        &:hover {
+          color: #fff;
+          transform: scale(1.05);
+        }
+      
+        &:focus {
+          color: #fff;
+          transform: scale(1.05);
+        }
+      }
+      
+      i[title~='accept'] {
+        color: #96deda;
+      
+        &:hover {
+          transform: scale(1.05);
+          color: darken(#96deda, 5%);
+        }
+      
+        &:focus {
+          transform: scale(1.05);
+          color: darken(#96deda, 5%);
+        }
+      }
     }
   }
 }

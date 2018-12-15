@@ -57,8 +57,6 @@ const mapStateToProps = (state) => ({
 export default connect(mapStateToProps)(Challenge);
 
 // -clean structure and names
-// -styling - background
-
 // -transitions and animations
 //responsiveness
 // -best practices
