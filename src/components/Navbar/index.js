@@ -34,6 +34,7 @@ export default class Navbar extends React.Component {
                 key={uuid()}
                 className={section === current ? className : null}
                 value={section} 
+                aria-label={`${section} section`}
                 onClick={e => changeSection(e.target.getAttribute('value'))} 
                 onKeyDown={e => (e.key === 'Enter' && changeSection(e.target.getAttribute('value')))}
                 tabIndex='0'
