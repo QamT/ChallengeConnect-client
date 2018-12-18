@@ -18,14 +18,16 @@ export class ProfileCard extends React.Component {
   }
 
   render() {
-    const { user, userId, displayProfile, friends, friendRequests, friendRequested} = this.props;
+    const { user, userId, displayProfile, friends, friendRequests, friendRequested, side = ''} = this.props;
     const friend = friends.find(friend => user.id === friend);
     const requests = friendRequests.find(person => person.id === user.id);
     const requested = friendRequested.find(person=> person.id === user.id);
 
     return (
-      <div className='profile__card'>
-        <span className='profile__card-arrow'><Icon name='caret right' /></span>
+      <div className={side ? 'profile__card profile__card--right' : 'profile__card'}>
+        <span className={side ? 'profile__card-arrow profile__card-arrow--right' : 'profile__card-arrow'}>
+          <Icon name={side ? 'caret left' : 'caret right'} />
+        </span>
         <div className='profile__card-top'>
           <span className='outer-ring-1'>
             <span className='outer-ring-2'>
@@ -75,9 +77,9 @@ export class ProfileCard extends React.Component {
             </span>
           </span>
           <span className='profile__card-status'>
-            {user.currentChallenge.id ? 
+            {user.currentChallenge ? user.currentChallenge.id ? 
               `${user.firstName} is currently part of a challenge` : 
-              `${user.firstName} is not in an active challenge`
+              `${user.firstName} is not in an active challenge` : null
             }
           </span>
         </div>

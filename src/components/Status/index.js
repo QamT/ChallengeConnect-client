@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import CurrentChallenge from '../CurrentChallenge';
 import AllChallenges from '../AllChallenges';
 import AddChallenge from '../AddChallenge';
-import ChallengeInfo from '../ChallengeInfo';
 import Chat from '../Chat';
 import Loader from '../Loader';
 import { fetchChallenge } from '../../actions/challenge';
@@ -13,7 +12,7 @@ import { fetchAllChallenges } from '../../actions/global';
 export class Status extends React.Component {
   componentDidMount() {
     this.props.currentChallenge ? 
-      this.props.dispatch(fetchChallenge(this.props.currentChallenge)) : this.props.dispatch(fetchAllChallenges())
+      this.props.dispatch(fetchChallenge(this.props.currentChallenge)) : this.props.dispatch(fetchAllChallenges());
   }
 
   componentDidUpdate(prevProps) {
@@ -28,22 +27,19 @@ export class Status extends React.Component {
 
   render() {
     const { currentChallenge, direction, loading } = this.props;
-    let className='challenges';
-    if (loading) return <Loader />
 
+    let className='challenges';
     if (direction === 'right') className='challenges challenges-left';
     if (direction === 'left') className='challenges challenges-right';
+
+    if (loading) return <Loader />
     
     return (
-      <div className={className}>
-        {!currentChallenge && <ChallengeInfo />}
-        {currentChallenge ? 
-          <CurrentChallenge /> : 
-          <AddChallenge />
-        }
+      <section className={className}>
+        {currentChallenge ? <CurrentChallenge /> : <AddChallenge />}
         {!currentChallenge && <AllChallenges />}
         <Chat className={`chat chat--${currentChallenge ? 'big' : 'small'}`} />
-      </div>
+      </section>
     )
   }
 }
@@ -54,3 +50,16 @@ const mapStateToProps = state => ({
 });
 
 export default connect(mapStateToProps)(Status);
+
+// -error handling
+// -responsiveness
+// -styling
+// -refactor
+// -loading indicator
+// -edge cases
+// -accessibility
+// -clean structure and names
+// -understand code
+// -transitions and animations
+// -best practices
+// -mock data

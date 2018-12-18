@@ -1,4 +1,6 @@
 .challenges {
+  background: $secondary-color;
+  height: 100%;
 
   &-left {
     animation: slide-content-left .6s ease-in-out;

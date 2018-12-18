@@ -1,7 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import uuid from 'uuid/v4';
+import { Icon } from 'semantic-ui-react';
+import { CSSTransition, TransitionGroup } from 'react-transition-group';
 
+import Profile from '../Profile';
 import Loader from '../Loader';
 import { API_BASE_URL } from '../../config';
 import { removeFriend } from '../../actions/user';
@@ -9,11 +11,13 @@ import { removeFriend } from '../../actions/user';
 export class FriendList extends React.Component {
   state = {
     friends: [],
-    loading: false
+    loading: true,
+    class: 'friendCard'
   }
 
   componentDidMount() {
-    this.fetchFriends(this.props.friendIds)
+    this.fetchFriends(this.props.friendIds);
+    setTimeout(() => this.setState({ class: 'friendCard friendCard-active'}), 1000);
   }
 
   componentDidUpdate(prevProps) {
@@ -23,7 +27,6 @@ export class FriendList extends React.Component {
   }
 
   fetchFriends(friendIds) {
-    this.setState({ loading: true });
     fetch(`${API_BASE_URL}user/friend/info`, {
       method: 'PATCH',
       headers: {
@@ -33,31 +36,53 @@ export class FriendList extends React.Component {
       body: JSON.stringify({ friendIds })
     })
     .then(res => res.json())
-    .then(data => this.setState({ friends: data, loading: false }))
+    .then(data => {
+      this.setState({ friends: data.sort((a, b) => a.firstName.localeCompare(b.firstName)), loading: false })
+    })
     .catch(e => console.log(e));
   }
 
-  removeFriend = (userId) => {
-    this.props.dispatch(removeFriend(userId));
+  removeFriend = (e, userId) => {
+    if (e.key === 'Enter' || e.type === 'click') {
+      this.props.dispatch(removeFriend(userId));
+    }
   };
 
   render() {
     if (this.state.loading) return <Loader />
+
+    const length = this.state.friends.length;
     return (
-      <div className='friendsList'>
-        <ul className='friendsList__container'>
-          {this.state.friends.map((friend =>
-             <li key={uuid()}>
-             [P] {friend.firstName} {friend.lastName} 
-             <span 
-              className='friendsList__remove'
-              onClick={() => this.removeFriend(friend.id)} 
-              tabIndex='0'
-            >
-            x
-            </span>
-            </li>))
-          }
+      <div className={this.state.class}>
+        <h4 className='friendCard__count'>{length} {length === 1 ? 'friend' : 'friends'}</h4>
+        <ul>
+          <TransitionGroup className='friendCard__container'>
+            {this.state.friends.map(friend =>
+              <CSSTransition key={friend.id} enter={false} timeout={350} classNames='slide'>
+                <li>
+                  <span>
+                    <Profile user={friend} />
+                    <span className='name'>{friend.firstName} {friend.lastName}</span>
+                  </span>
+                  <Icon 
+                    name='remove user' 
+                    title='remove friend from list'
+                    onClick={(e) => this.removeFriend(e, friend.id)} 
+                    onKeyDown={(e) => this.removeFriend(e, friend.id)} 
+                    tabIndex='0'
+                  />
+                </li>
+              </CSSTransition>)
+            }
+            {length === 0 &&
+              <CSSTransition 
+                timeout={375} 
+                classNames='slide'
+              >
+                <li>No friends added</li>
+              </CSSTransition>
+            }
+          </TransitionGroup>
         </ul>
       </div>
     )
@@ -70,3 +95,4 @@ const mapStateToProps = state => ({
 });
 
 export default connect(mapStateToProps)(FriendList)
+

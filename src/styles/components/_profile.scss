@@ -1,20 +1,34 @@
 .profile {
   position: relative;
   color: #fff;
+  max-height: 50px;
 
   & > img {
     border-radius: 50%;
-    box-shadow: 0px 0px 8px 0px rgba(0,0,0,0.7);
     transition: all .3s;
+    box-shadow: 0px 0px 8px 0px rgba(#000, 0.7);
 
     &:focus {
       outline: none;
-      transform: scale(1.2);
+      box-shadow: 0 0px 10px 0px $neon;
     }
   }
 
   & > i, & > img {
     cursor: pointer;
+  }
+
+  & > i {
+    transition: all .3s;
+    box-shadow: 0px 0px 8px 0px rgba(#000, 0.7) !important;
+    
+    &:focus {
+      outline: none;
+    }
+  }
+
+  i.teal.user.icon {
+    margin: 0;
   }
 
   &__card {
@@ -23,8 +37,15 @@
     top: -1.5rem;
     right: 4rem;
     z-index: 2;
-    box-shadow: 2px 2px 5px 0px rgba(0,0,0,0.4);
+    box-shadow: 2px 2px 5px 0px rgba(#000, 0.4);
     animation: expand .4s ease-in-out;
+    border-radius: 5px;
+
+    &--right {
+      top: -1.5rem;
+      right: -20.5rem;
+      animation: expand-right .4s ease-in-out;
+    }
 
     &-arrow {
       position: absolute;
@@ -32,29 +53,30 @@
       left: 19.6rem;
       color: #80d0c7;
       animation: fade .1s ease-in-out; 
+
+      &--right {
+        top: 2.5rem;
+        left: -.8rem;
+      }
     }
 
-    &-top, &-bottom {
-      border-radius: 5px;
-    }
+  &-top, &-bottom {
+    border-radius: 5px;
+  }
 
-    &-top {
+   &-top {
       background: $profile-gradient;
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      padding: 2.4rem 4rem;
+      padding: 2.2rem 4rem;
       border-bottom-left-radius: 0;
       border-bottom-right-radius: 0;
 
       img {
         border: 3px solid #fff;
         border-radius: 50%;
-      }
-
-      i.teal.user.icon {
-        margin: 0;
       }
 
       h4 {
@@ -68,7 +90,7 @@
 
     &-bottom {
       background: darken(#fff, 2%);
-      color: rgba(0, 0, 0, 0.3);
+      color: rgba(0, 0, 0, 0.5);
       text-align: center;
       padding: 2rem 0 1rem 0;
       border-top-left-radius: 0;
@@ -76,17 +98,17 @@
     }
 
     &-about {
-      display: block;
       margin-bottom: 2.8rem;
       display: flex;
       justify-content: center;
+      margin-left: 0;
       
       & > span {
-        display: block;
+        display: block !important;
         background: #fff;
         width: 90%;
         padding: .6rem 0 .6rem 1rem;
-        box-shadow: 3px 3px 5px 0px rgba(0,0,0,0.3);
+        box-shadow: 3px 3px 5px 0px rgba(#000, 0.3);
         text-align: left;
 
        h5 {
@@ -107,56 +129,10 @@
       position: absolute;
       top: .7rem;
       right: .7rem;
-
-      i[title~='send'],
-      i[title~='accept'] {
-        transition: all .3s;
-        cursor: pointer;
-
-        &:focus {
-          outline: none;
-        }
-
-        &:active {
-          transform: scale(1.2);
-        }
-      }
-
-      i[title='friend'] {
-        color: $darker-white;
-      }
-
-      i[title~='sent'] {
-        color: $lighter-black;
-      }
-
-      i[title~='send'] {
-        color: $darker-white;
-
-        &:hover {
-          color: $lighter-black;
-        }
-
-        &:focus {
-          color: $lighter-black;
-        }
-      }
-
-      i[title~='accept'] {
-        color: #96deda;
-
-        &:hover {
-          color: $darker-white;
-        }
-
-        &:focus {
-          color: $darker-white;
-        }
-      }
     }
 
     &-status {
-      color: #a3bded;
+      color: $another-blue;
     }
 
     &-close {
@@ -183,7 +159,7 @@
 .outer-ring-1 {
   height: 80px;
   width: 80px;
-  border: 1px solid rgba(255, 255, 255, .3);
+  border: 1px solid rgba(#fff, .3);
   border-radius: 50%;
   display: flex;
   justify-content: center;
@@ -193,10 +169,57 @@
 .outer-ring-2 {
   height: 68.5px;
   width: 68.5px;
-  border: 2px solid rgba(255, 255, 255, .5);
+  border: 2px solid rgba(#fff, .5);
   border-radius: 50%;
   display: flex;
   justify-content: center;
   align-items: center;
 }
+
+i[title~='send'],
+i[title~='accept'] {
+  transition: all .3s;
+  cursor: pointer;
+
+  &:focus {
+    outline: none;
+  }
+
+  &:active {
+    transform: scale(1.2);
+  }
+}
+
+i[title='friend'] {
+  color: $darker-white;
+}
+
+i[title~='sent'] {
+  color: $darker-white;
+}
+
+i[title~='send'] {
+  color: $darker-white;
+
+  &:hover {
+    color: $lighter-black;
+  }
+
+  &:focus {
+    color: $lighter-black;
+  }
+}
+
+i[title~='accept'] {
+  color: #96deda;
+
+  &:hover {
+    color: $darker-white;
+  }
+
+  &:focus {
+    color: $darker-white;
+  }
+}
+
 

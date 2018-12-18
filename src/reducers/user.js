@@ -7,8 +7,7 @@ const initialState = {
   profilePic: null,
   currentChallenge: null,
   challengeRequested: {
-    id: null,
-    title: null
+    id: null
   },
   friends: [],
   friendRequests: [],
@@ -50,13 +49,6 @@ export default (state = initialState, action) => {
       return Object.assign({}, state, {
         challengeRequested: {
           id: action.challenge
-        }
-      });
-
-    case types.FETCH_CHALLENGE_INFO_SUCCESS:
-      return Object.assign({}, state, {
-        challengeRequested: {
-          title: action.challenge.title
         }
       });
 

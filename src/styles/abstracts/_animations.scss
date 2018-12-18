@@ -20,6 +20,21 @@
   }
 }
 
+@keyframes slide-down {
+  0%{
+    position: absolute;
+    left: 50%;
+    opacity: 0;
+    transform: translate(-50%, -20px);
+  }
+  100%{
+    position: absolute;
+    left: 50%;
+    opacity: 1;
+    transform: translate(-50%, 0px);
+  }
+}
+
 @keyframes loading {
   0%{
     transform: scaleY(.1);
@@ -98,6 +113,39 @@
   }
 }
 
+@keyframes expand-right {
+  0%{
+    transform: scale(0);
+    transform-origin: 0% 10%;
+    opacity: 1;
+  }
+  100%{
+    transform: scale(1);
+    transform-origin: 0% 10%;
+    opacity: 1;
+  }
+}
+
+@keyframes slide-card-left {
+  0%{
+    transform: translateX(100px);
+    opacity: 0;
+  }
+  100%{
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes glow {
+  0%{
+    color: #fff;
+  }
+  100%{
+    color: rgba(255, 255, 255, .4);
+  }
+}
+
 .left-exit {
   opacity: 1;
   transform: translateX(0);
@@ -132,5 +180,44 @@
   opacity: 0;
   transition: all .4s ease-in-out;
 }
+
+.expand-right-exit {
+  transform: scale(1);
+  transform-origin: 0% 10%;
+  opacity: 1;
+}
+
+.expand-right-exit-active {
+  transform: scale(0);
+  transform-origin: 0% 10%;
+  opacity: 0;
+  transition: all .4s ease-in-out;
+}
+
+.slide-enter {
+  transform: translateX(100px);
+  opacity: 0;
+}
+
+.slide-enter-active  {
+  transform: translateX(0);
+  opacity: 1;
+  transition: all .4s ease-in-out;
+}
+
+.slide-exit {
+  transform: translateX(0);
+  opacity: 1;
+}
+
+.slide-exit-active {
+  transform: translateX(100px);
+  opacity: 0;
+  transition: all .35s ease-in-out;
+}
+
+
+
+
 
 

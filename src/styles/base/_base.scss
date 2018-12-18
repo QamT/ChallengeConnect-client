@@ -1,8 +1,9 @@
 html {
+  background: $secondary-color;
   box-sizing: border-box;
 }
 
-html, body {
+html, body, main {
   height: 100%;
 }
 
@@ -40,6 +41,15 @@ label {
 
 button {
   cursor: pointer;
+}
+
+h1,
+h2, 
+h3,
+h4,
+h5,
+h6 {
+  margin: 0;
 }
 
 a {

@@ -3,17 +3,17 @@ import { API_BASE_URL } from '../config';
 
 const axios = require("axios");
 
-export const proofSuccessA = (proof) => ({
+export const proofSuccessA = proofs => ({
   type: types.PROOF_SUCCESSA,
-  proof
+  proofs
 });
 
-export const proofSuccessB = (proof) => ({
+export const proofSuccessB = proofs => ({
   type: types.PROOF_SUCCESSB,
-  proof
+  proofs
 });
 
-export const proofError = (error) => ({
+export const proofError = error => ({
   type: types.PROOF_ERROR,
   error
 });
@@ -42,10 +42,10 @@ export const deleteProof = proof => ({
   proof
 });
 
-export const fetchProof = (proofId, team='a') => (dispatch, getState) => {
+export const fetchProofs = (proofIds, team) => (dispatch, getState) => {
   dispatch(proofRequest());
   const authToken = getState().auth.authToken;
-  fetch(`${API_BASE_URL}team/proof/${proofId}`, {
+  fetch(`${API_BASE_URL}team/proof/${proofIds}`, {
     method: 'GET',
     headers: {
       Authorization: `Bearer ${authToken}`
@@ -53,6 +53,24 @@ export const fetchProof = (proofId, team='a') => (dispatch, getState) => {
   })
   .then(res => res.json())
   .then(data => team==='a' ? dispatch(proofSuccessA(data)) : dispatch(proofSuccessB(data)))
+  .catch(error => dispatch(proofError(error)));
+}
+
+export const refreshProofsInfo = (proofIds, team) => (dispatch, getState) => {
+  const authToken = getState().auth.authToken;
+  const proofs = team === 'a' ? getState().proof.proofA : getState().proof.proofB;
+  fetch(`${API_BASE_URL}team/proof/${proofIds}`, {
+    method: 'GET',
+    headers: {
+      Authorization: `Bearer ${authToken}`
+    }
+  })
+  .then(res => res.json())
+  .then(data => {
+    if (JSON.stringify(data) !== JSON.stringify(proofs)) {
+      team==='a' ? dispatch(proofSuccessA(data)) : dispatch(proofSuccessB(data));
+    }
+  })
   .catch(error => dispatch(proofError(error)));
 }
 
@@ -69,7 +87,7 @@ export const uploadProof = (proofId, teamId, group, file) => (dispatch, getState
       'Content-Type': 'multipart/form-data'
     }
   })
-  .then(data => dispatch(uploadProofSuccess(data)))
+  .then(data => dispatch(uploadProofSuccess(data.data)))
   .catch(error => dispatch(proofError(error)))
 }
 

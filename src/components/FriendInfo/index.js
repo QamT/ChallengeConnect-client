@@ -1,7 +1,10 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import uuid from 'uuid/v4'
+import { Icon } from 'semantic-ui-react';
+import { CSSTransition, TransitionGroup } from 'react-transition-group';
 
+import Profile from '../Profile';
 import { acceptFriendRequest, rejectFriendRequest } from '../../actions/user';
 
 export class FriendInfo extends React.Component {
@@ -9,67 +12,87 @@ export class FriendInfo extends React.Component {
     displayInfo: false
   }
 
-  displayInfo = () => {
-    this.setState(prevState => 
-      ({ displayInfo: !prevState.displayInfo })
-    );
+  displayInfo = e => {
+    if (e.key === 'Enter' || e.type === 'click') {
+      this.setState(prevState => 
+        ({ displayInfo: !prevState.displayInfo })
+      );
+    }
   }
 
-  acceptFriendRequest = userId => {
-    this.props.dispatch(acceptFriendRequest(userId));
+  acceptFriendRequest = (e, userId) => {
+    if (e.key === 'Enter' || e.type === 'click') {
+      this.props.dispatch(acceptFriendRequest(userId));
+    }
   }
 
-  rejectFriendRequest = userId => {
-    this.props.dispatch(rejectFriendRequest(userId));
+  rejectFriendRequest = (e, userId) => {
+    if (e.key === 'Enter' || e.type === 'click') {
+      this.props.dispatch(rejectFriendRequest(userId));
+    }
   }
 
   render() {
     const { friendRequests, friendRequested } = this.props;
-    let shouldDisplay = this.state.displayInfo ? 
-      'friendInfo__content friendInfo__content-display' : 'friendInfo__content';
-    
+
     return (
       <>
-        <span className='friendInfo' onClick={this.displayInfo} tabIndex='0'>F</span>
-        <div className={shouldDisplay}>
-          <span className='friendInfo__arrow'></span>
-          <h4>Friend Requests</h4>
-          <ul>
-            {friendRequests.length > 0 ? 
-              friendRequests.map(user => 
-                <li key={uuid()}>
-                  <span 
-                    className='btn btn--accept'
-                    onClick={() => this.acceptFriendRequest(user.id)}
-                    tabIndex='0'
-                  >
-                  A
-                  </span>
-                  <span>[P] {user.firstName} {user.lastName}</span>
-                  <span 
-                    className='btn btn--reject'
-                    onClick={() => this.rejectFriendRequest(user.id)}
-                    tabIndex='0'
-                  >
-                  R
-                  </span>
-                </li>
-              ) : 
-              <li key='1'>No friend requests</li>
-            }
-          </ul>
-          <h4>Friends Requested</h4>
-          <ul>
-            {friendRequested.length > 0 ? 
-              friendRequested.map(user => 
-                <li key={uuid()}>
-                  <span>[P] {user.firstName} {user.lastName}</span>
-                </li>
-              ) : 
-              <li key='2'>No friend requests sent</li>
-            }
-          </ul>
-        </div>
+        <Icon name='users' inverted circular onClick={this.displayInfo} onKeyDown={this.displayInfo} tabIndex='0' />
+        {this.state.displayInfo && 
+          <>
+            <div className='infoBox'>
+              <span className='infoBox-arrow'><Icon name='caret up' /></span>
+              <h4 className='infoBox-title'>Friend Requests</h4>
+              <ul>
+                <TransitionGroup>
+                  {friendRequests.map(user => 
+                    <CSSTransition key={user.id} enter={false} timeout={375} classNames='slide'>
+                      <li>
+                        <span>
+                          <Profile user={user} size='42' />
+                          <span className='name'>{user.firstName} {user.lastName}</span>
+                        </span>
+                        <span className='btn-actions'>
+                          <Icon 
+                            name='checkmark' 
+                            title='accept friend request'
+                            circular 
+                            onClick={e => this.acceptFriendRequest(e, user.id)} 
+                            onKeyDown={e => this.acceptFriendRequest(e, user.id)} 
+                            tabIndex='0' 
+                          />
+                          <Icon 
+                            name='close' 
+                            title='reject friend request'
+                            circular 
+                            onClick={e => this.rejectFriendRequest(e, user.id)} 
+                            onKeyDown={e => this.rejectFriendRequest(e, user.id)} 
+                            tabIndex='0' 
+                          />
+                        </span>
+                      </li>
+                    </CSSTransition>)
+                  }
+                </TransitionGroup> 
+                {friendRequests.length === 0 && <li key='1'>No friend requests</li>}
+              </ul>
+              <h4 className='infoBox-title'>Friend's Requested</h4>
+              <ul>
+                {friendRequested.length > 0 ? 
+                  friendRequested.map(user => 
+                    <li key={uuid()}>
+                      <span>
+                        <Profile user={user} size='42' />
+                        <span className='name'>{user.firstName} {user.lastName}</span>
+                      </span>
+                    </li>
+                  ) : 
+                  <li key='2'>No friend requests sent</li>
+                }
+              </ul>
+            </div>
+          </>
+        }
       </>
     )
   }

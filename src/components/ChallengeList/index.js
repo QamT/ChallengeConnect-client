@@ -3,73 +3,56 @@ import { connect } from 'react-redux';
 import uuid from 'uuid/v4';
 
 import Proof from '../Proof';
-import ProofModal from '../ProofModal';
+import { fetchProofs, refreshProofsInfo } from '../../actions/proof'
 
 export class ChallengeList extends React.Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      showModal: 'modal',
-      data: null
-    }
+  componentDidMount() {
+    const { proofIdsA, proofIdsB } = this.props;
+
+    this.props.dispatch(fetchProofs(proofIdsA, 'a'));
+    this.props.dispatch(fetchProofs(proofIdsB, 'b'));
+    this.refreshProofsInfo();
   }
 
-  displayModal = (challenged, proofGroup, proofId, proofUrl = null) => {
-    const { userTeam } = this.props;
-    this.setState({ 
-      showModal: 'modal display-modal',
-      data: {challenged, proofGroup, userTeam, proofId, proofUrl}
-    });
+  refreshProofsInfo() {
+    const { proofIdsA, proofIdsB } = this.props;
+
+    this.refreshInterval = setInterval(() => {
+      this.props.dispatch(refreshProofsInfo(proofIdsA, 'a'));
+      this.props.dispatch(refreshProofsInfo(proofIdsB, 'b'));
+    }, 1000 * 10);
   }
 
-  closeModal = () => {
-    this.setState({ showModal: 'modal' });
+  componentWillUnmount() {
+    clearInterval(this.refreshInterval);
   }
 
   render() {
-    const { challenges, active } = this.props
+    const { challenges, proofA, proofB, active } = this.props
     return (
-      <div className='challengeCard__list'>
-        {this.state.showModal.includes('display') &&
-          <ProofModal 
-            closeModal={this.closeModal} 
-            data={this.state.data}
-            className={this.state.showModal}
-          />
-        }
-        <ul>
-          {challenges.map((challenge, index) => 
-            <li key={uuid()}>
-              {active &&
-                <Proof 
-                  index={index}
-                  team='a' 
-                  displayModal={this.displayModal} 
-                  proofId={this.props.proofA[index]} 
-                />
-              }
-              <p>{challenge}</p>
-              {active &&
-                <Proof 
-                  index={index}
-                  team='b' 
-                  displayModal={this.displayModal} 
-                  proofId={this.props.proofB[index]} 
-                />
-              }
-            </li>
-          )}
-        </ul>
-      </div>
+      <ul className='challengeCard-challenges'>
+        {challenges.map((challenge, index) => 
+          <li key={uuid()} className={active ? 'active' : 'standby'}>
+            <span>
+              {active && <Proof proof={proofA[index]} team='a' />}
+              <span>{!active && <span className='number'>{index + 1}.</span>} {challenge}</span>
+              {active && <Proof proof={proofB[index]} team='b' />}
+            </span>
+            {(index !== challenges.length - 1 && active) && <hr />}
+          </li>
+        )}
+      </ul>
     )
   }
 }
 
 const mapStateToProps = state => ({
-  proofA: state.team.teamA.proof,
-  proofB: state.team.teamB.proof,
-  active: state.challenge.active,
-  userTeam: state.team.teamA.members.find(member => member.id === state.user.userId) ? 'a' : 'b'
+  challenges: state.challenge.challenges,
+  proofIdsA: state.team.teamA.proof,
+  proofIdsB: state.team.teamB.proof,
+  proofA: state.proof.proofA,
+  proofB: state.proof.proofB,
+  active: state.challenge.active
 });
 
 export default connect(mapStateToProps)(ChallengeList);

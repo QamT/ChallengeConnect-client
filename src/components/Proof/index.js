@@ -1,64 +1,37 @@
 import React from 'react';
-import { connect } from 'react-redux';
+import { Icon } from 'semantic-ui-react';
+import { CSSTransition } from 'react-transition-group';
 
-import { fetchProof } from '../../actions/proof';
+import ProofCard from '../ProofCard';
 
-export class Proof extends React.Component {
- componentDidMount() {
-    this.props.dispatch(fetchProof(this.props.proofId, this.props.team));
+export default class Proof extends React.Component {
+  state = {
+    showProof: false
+  }
+
+  displayProof = e => {
+    if (e.key === 'Enter' || e.type === 'click') {
+      this.setState(prevState => ({ showProof: !prevState.showProof }));
+    }
   }
 
   render() {
-    const { index } = this.props;
-    const proof = this.props.proof[this.props.team][index]
-    const { team, displayModal } = this.props
-    let proofUrl;
-    let challenged;
-    if (this.props.loading) return <span className='challengeCard__proof challengeCard__proof--clear'>&#9745;</span>
-    
-    if (proof) {
-      challenged = proof.challenged;
-      proofUrl = proof.url || null;
-    }
-    
-    let proofStatus;
-    if (proofUrl && challenged) {
-      proofStatus = <span 
-                      className='challengeCard__proof challengeCard__proof--challenged'
-                      onClick={() => displayModal(challenged, team, proof.id, proofUrl)} 
-                    >
-                      &#9745;
-                    </span>;
-    } else if (proofUrl) {
-      proofStatus = <span 
-                      className='challengeCard__proof challengeCard__proof--uploaded'
-                      onClick={() => displayModal(challenged, team, proof.id, proofUrl)} 
-                    >
-                      &#9745;
-                    </span>;
-    } else {
-      proofStatus = <span 
-                      className='challengeCard__proof challengeCard__proof--clear'
-                      onClick={() => displayModal(challenged, team, proof.id)} 
-                    >
-                      &#9745;
-                    </span>;
-    }
-
+    const { proof = null, team } = this.props;
+    const proofClass = (proof && proof.challenged) ? 'proof--challenged' : (proof && proof.url) ? 'proof--uploaded' : null;
+  
     return (
-      <>
-        {proofStatus}
-      </>
+      <div className={`proof ${proofClass}`}>
+        <Icon 
+          name='check circle' 
+          onClick={this.displayProof} 
+          onKeyDown={this.displayProof}
+          title='view proof' 
+          tabIndex='0' 
+        />
+        <CSSTransition timeout={400} in={this.state.showProof} classNames='expand' unmountOnExit>
+          <ProofCard proof={proof} team={team} displayProof={this.displayProof} />
+        </CSSTransition>
+      </div>
     )
   }
 }
-
-const mapStateToProps = state => ({
-  loading: state.proof.loading,
-  proof: {
-    a: state.proof.proofA,
-    b: state.proof.proofB
-  }
-});
-
-export default connect(mapStateToProps)(Proof);
