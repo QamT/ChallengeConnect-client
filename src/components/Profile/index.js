@@ -32,7 +32,8 @@ export default class Profile extends React.Component {
           /> :
           <Icon 
             name='user' 
-            circular size='big' 
+            circular 
+            size='large' 
             color='teal' 
             inverted 
             onClick={this.displayProfile} 

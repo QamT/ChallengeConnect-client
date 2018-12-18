@@ -75,9 +75,9 @@ export class ProfileCard extends React.Component {
             </span>
           </span>
           <span className='profile__card-status'>
-            {user.currentChallenge.id ? 
+            {user.currentChallenge ? user.currentChallenge.id ? 
               `${user.firstName} is currently part of a challenge` : 
-              `${user.firstName} is not in an active challenge`
+              `${user.firstName} is not in an active challenge` : null
             }
           </span>
         </div>

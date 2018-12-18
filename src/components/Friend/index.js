@@ -5,10 +5,9 @@ import FriendList from '../FriendList';
 import FriendInfo from '../FriendInfo';
 
 export default () => (
-  <div className='friend'>
+  <section className='friend'>
     <Search />
     <FriendInfo />
     <FriendList />
-  </div>
+  </section>
 )
-

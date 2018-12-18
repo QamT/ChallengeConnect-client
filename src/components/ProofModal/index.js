@@ -12,10 +12,6 @@ export class ProofModal extends React.Component {
     document.addEventListener('mousedown', this.handleClick, false);
   }
 
-  componentWillMount() {
-    document.removeEventListener('mousedown', this.handleClick, false);
-  }
-
   uploadProofSubmit = (file) => {
     const { proofId, proofGroup: group} = this.props.data;
     const { teamId } = this.props;
@@ -32,6 +28,10 @@ export class ProofModal extends React.Component {
   handleClick = (e) => {
     if (this.modal.contains(e.target)) return;
     if (this.props.className === 'modal display-modal') this.props.closeModal();
+  }
+
+  componentWillUnmount() {
+    document.removeEventListener('mousedown', this.handleClick, false);
   }
 
   render() {

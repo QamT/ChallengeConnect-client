@@ -4,17 +4,31 @@
 
   & > img {
     border-radius: 50%;
-    box-shadow: 0px 0px 8px 0px rgba(0,0,0,0.7);
     transition: all .3s;
+    box-shadow: 0px 0px 8px 0px rgba(0,0,0,0.7);
 
     &:focus {
       outline: none;
-      transform: scale(1.2);
+      box-shadow: 0 0px 10px 0px $neon;
     }
   }
 
   & > i, & > img {
     cursor: pointer;
+  }
+
+  & > i {
+    transition: all .3s;
+    box-shadow: 0px 0px 8px 0px rgba(0,0,0,0.7) !important;
+    
+    &:focus {
+      outline: none;
+      transform: scale(1.1);
+    }
+  }
+
+  i.teal.user.icon {
+    margin: 0;
   }
 
   &__card {
@@ -53,10 +67,6 @@
         border-radius: 50%;
       }
 
-      i.teal.user.icon {
-        margin: 0;
-      }
-
       h4 {
         margin: 0;
         margin-top: .1rem;
@@ -82,7 +92,7 @@
       justify-content: center;
       
       & > span {
-        display: block;
+        display: block !important;
         background: #fff;
         width: 90%;
         padding: .6rem 0 .6rem 1rem;
@@ -107,52 +117,6 @@
       position: absolute;
       top: .7rem;
       right: .7rem;
-
-      i[title~='send'],
-      i[title~='accept'] {
-        transition: all .3s;
-        cursor: pointer;
-
-        &:focus {
-          outline: none;
-        }
-
-        &:active {
-          transform: scale(1.2);
-        }
-      }
-
-      i[title='friend'] {
-        color: $darker-white;
-      }
-
-      i[title~='sent'] {
-        color: $lighter-black;
-      }
-
-      i[title~='send'] {
-        color: $darker-white;
-
-        &:hover {
-          color: $lighter-black;
-        }
-
-        &:focus {
-          color: $lighter-black;
-        }
-      }
-
-      i[title~='accept'] {
-        color: #96deda;
-
-        &:hover {
-          color: $darker-white;
-        }
-
-        &:focus {
-          color: $darker-white;
-        }
-      }
     }
 
     &-status {
@@ -198,5 +162,51 @@
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+i[title~='send'],
+i[title~='accept'] {
+  transition: all .3s;
+  cursor: pointer;
+
+  &:focus {
+    outline: none;
+  }
+
+  &:active {
+    transform: scale(1.2);
+  }
+}
+
+i[title='friend'] {
+  color: $darker-white;
+}
+
+i[title~='sent'] {
+  color: $darker-white;
+}
+
+i[title~='send'] {
+  color: $darker-white;
+
+  &:hover {
+    color: $lighter-black;
+  }
+
+  &:focus {
+    color: $lighter-black;
+  }
+}
+
+i[title~='accept'] {
+  color: #96deda;
+
+  &:hover {
+    color: $darker-white;
+  }
+
+  &:focus {
+    color: $darker-white;
+  }
 }
 

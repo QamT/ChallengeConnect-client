@@ -34,7 +34,7 @@ export const searchUserSuccess = (users) => ({
   users
 });
 
-export const clearUser = () => ({
+export const clearResult = () => ({
   type: types.CLEAR_USER
 });
 
@@ -58,7 +58,7 @@ export const fetchLeaderboard = () => (dispatch) => {
   .catch(e => dispatch(leaderboardError(e)))
 }
 
-export const fetchUsers = (name) => (dispatch) => {
+export const fetchResults = (name) => (dispatch) => {
   dispatch(searchUserRequest());
   fetch(`${API_BASE_URL}globalData/findUser/${name}`)
   .then(res => res.json())
