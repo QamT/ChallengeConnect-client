@@ -18,7 +18,7 @@ export class Header extends React.Component {
         <button className='btn-logout' 
           onClick={this.logout}
           onKeyDown={this.logout} 
-          aria-label='logout button'
+          aria-label='logout'
         >
           <Icon name='sign-out' />Log Out
         </button>

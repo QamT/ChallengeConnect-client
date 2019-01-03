@@ -58,7 +58,7 @@ export class FriendList extends React.Component {
         <ul>
           <TransitionGroup className='friendCard__container'>
             {this.state.friends.map(friend =>
-              <CSSTransition key={friend.id} timeout={350} classNames='slide'>
+              <CSSTransition key={friend.id} enter={false} timeout={350} classNames='slide'>
                 <li>
                   <span>
                     <Profile user={friend} />

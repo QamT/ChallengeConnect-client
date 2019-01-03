@@ -40,16 +40,16 @@ export class FriendInfo extends React.Component {
         <Icon name='users' inverted circular onClick={this.displayInfo} onKeyDown={this.displayInfo} tabIndex='0' />
         {this.state.displayInfo && 
           <>
-            <div className='friendInfo'>
-              <span className='friendInfo-arrow'><Icon name='caret up' /></span>
-              <h4 className='friendInfo-title'>Friend Requests</h4>
+            <div className='infoBox'>
+              <span className='infoBox-arrow'><Icon name='caret up' /></span>
+              <h4 className='infoBox-title'>Friend Requests</h4>
               <ul>
                 <TransitionGroup>
                   {friendRequests.map(user => 
-                    <CSSTransition key={user.id} timeout={375} classNames='slide'>
+                    <CSSTransition key={user.id} enter={false} timeout={375} classNames='slide'>
                       <li>
                         <span>
-                          <Profile user={user} />
+                          <Profile user={user} size='42' />
                           <span className='name'>{user.firstName} {user.lastName}</span>
                         </span>
                         <span className='btn-actions'>
@@ -76,13 +76,13 @@ export class FriendInfo extends React.Component {
                 </TransitionGroup> 
                 {friendRequests.length === 0 && <li key='1'>No friend requests</li>}
               </ul>
-              <h4 className='friendInfo-title'>Friend's Requested</h4>
+              <h4 className='infoBox-title'>Friend's Requested</h4>
               <ul>
                 {friendRequested.length > 0 ? 
                   friendRequested.map(user => 
                     <li key={uuid()}>
                       <span>
-                        <Profile user={user} />
+                        <Profile user={user} size='42' />
                         <span className='name'>{user.firstName} {user.lastName}</span>
                       </span>
                     </li>

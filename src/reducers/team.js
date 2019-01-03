@@ -34,6 +34,22 @@ export default (state = initialState, action) => {
         },
       });
 
+    case types.REFRESH_TEAM_A_INFO_SUCCESS:
+      return Object.assign({}, state, {
+        teamA: {
+          ...state.teamA,
+          members: [...action.teamA.team]
+        }
+      });
+
+    case types.REFRESH_TEAM_B_INFO_SUCCESS:
+      return Object.assign({}, state, {
+        teamB: {
+          ...state.teamB,
+          members: [...action.teamB.team]
+        }
+      });
+
     case types.TEAM_ERROR:
       return Object.assign({}, state, {
         loading: false,
@@ -49,6 +65,7 @@ export default (state = initialState, action) => {
       case types.ADD_MEMBER_A: 
         return Object.assign({}, state, {
           teamA: {
+            ...state.teamA,
             members: [...state.teamA.members, action.user]
           }
         });
@@ -56,6 +73,7 @@ export default (state = initialState, action) => {
       case types.ADD_MEMBER_B: 
         return Object.assign({}, state, {
           teamB: {
+            ...state.teamB,
             members: [...state.teamB.members, action.user]
           }
         });
@@ -63,6 +81,7 @@ export default (state = initialState, action) => {
       case types.ADD_SCORE_A:
         return Object.assign({}, state, {
           teamA: {
+            ...state.teamA,
             score: state.teamA.score + 1
           }
         });
@@ -70,6 +89,7 @@ export default (state = initialState, action) => {
       case types.ADD_SCORE_B:
         return Object.assign({}, state, {
           teamB: {
+            ...state.teamB,
             score: state.teamB.score + 1
           }
         });
@@ -77,6 +97,7 @@ export default (state = initialState, action) => {
       case types.DECREASE_SCORE_A:
         return Object.assign({}, state, {
           teamA: {
+            ...state.teamA,
             score: state.teamA.score - 1
           }
         });
@@ -84,7 +105,20 @@ export default (state = initialState, action) => {
       case types.DECREASE_SCORE_B:
         return Object.assign({}, state, {
           teamB: {
+            ...state.teamB,
             score: state.teamB.score - 1
+          }
+        });
+
+      case types.REFRESH_SCORE_SUCCESS: 
+        return Object.assign({}, state, {
+          teamA: {
+            ...state.teamA,
+            score: action.teams.teamA.score
+          },
+          teamB: {
+            ...state.teamB,
+            score: action.teams.teamB.score
           }
         });
 

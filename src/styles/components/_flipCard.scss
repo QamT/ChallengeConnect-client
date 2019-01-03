@@ -1,0 +1,55 @@
+/* Based on https://davidwalsh.name/css-flip */
+
+.Flipcard,
+.Flipcard-flipper,
+.Flipcard-front,
+.Flipcard-back {
+  outline: none;
+}
+
+.Flipcard {
+  perspective: 1000px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.Flipcard-flipper {
+  transition: .33s ease-in;
+  transform-style: preserve-3d;
+  position: relative;
+  height: 25rem;
+  width: 25rem;
+  display: flex;
+  align-items: center;
+}
+
+.Flipcard-front,
+.Flipcard-back {
+  backface-visibility: hidden;
+  transition: transform .6s ease-in, opacity .4s ease-in;
+  transform-style: preserve-3d;
+  position: absolute;
+  left: 0;
+  right: 0;
+  overflow-x: hidden;
+  display: flex;
+  justify-content: center;
+}
+
+.Flipcard-front {
+  z-index: 2;
+  transform: rotateY(0deg);
+}
+
+.Flipcard-back {
+  transform: rotateY(-180deg);
+}
+
+.Flipcard--flipped > .Flipcard-front {
+  transform: rotateY(180deg);
+}
+
+.Flipcard--flipped > .Flipcard-back {
+  transform: rotateY(0deg);
+}

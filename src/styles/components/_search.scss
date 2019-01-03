@@ -3,21 +3,20 @@
   animation: slide-content-right .6s ease-in-out;
 
   &__bar {
-    
     input {
       width: 25%;
       border: none;
       background: $primary-color;
-      color: rgba(255, 255, 255, 0.85);
+      color: rgba(#fff, 0.85);
       line-height: 1.4;
       padding: .6rem .6rem .6rem 1.2rem;
       border-radius: 10rem;
-      box-shadow: 0 0 5px 0 rgba(0, 0, 0, .7);
+      box-shadow: 0 0 5px 0 rgba(#000, .7);
       z-index: 2;
       position: relative;
   
       &::placeholder {
-        color: rgba(255, 255, 255, 0.3);
+        color: rgba(#fff, 0.3);
       }
   
       &:focus {
@@ -28,7 +27,7 @@
 
     i {
       margin-left: -2rem;
-      color: rgba(255, 255, 255, 0.5);
+      color: rgba(#fff, 0.5);
       cursor: pointer;
       transition: color .2s;
       animation: none;
@@ -37,7 +36,7 @@
 
       &:focus {
         outline: none;
-        color: rgba(255, 255, 255, 0.9);
+        color: rgba(#fff, 0.9);
       }
 
       &:active {
@@ -45,7 +44,7 @@
       }
 
       &:hover {
-        color: rgba(255, 255, 255, 0.9);
+        color: rgba(#fff, 0.9);
       }
     }
   }
@@ -63,15 +62,15 @@
       border-radius: 5px;
       border-top-left-radius: 0;
       border-top-right-radius: 0;
-      box-shadow: 0 0 5px 0 rgba(0, 0, 0, .3);
+      box-shadow: 0 0 5px 0 rgba(#000, .3);
     }
 
     li {
       padding: 1rem .7rem;
       display: flex;
       justify-content: space-between;
-      border-bottom: 1px solid  rgba(255, 255, 255, 0.06);
-      color: rgba(255, 255, 255, 0.75);
+      border-bottom: 1px solid  rgba(#fff, 0.06);
+      color: rgba(#fff, 0.75);
 
       span:first-of-type {
         display: flex;
@@ -103,6 +102,11 @@
         &:focus {
           color: #fff;
           transform: scale(1.05);
+        }
+
+        &:active {
+          color: #fff;
+          transform: scale(1);
         }
       }
       

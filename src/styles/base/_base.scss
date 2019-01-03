@@ -1,8 +1,9 @@
 html {
+  background: $secondary-color;
   box-sizing: border-box;
 }
 
-html, body {
+html, body, main {
   height: 100%;
 }
 

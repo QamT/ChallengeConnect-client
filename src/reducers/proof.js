@@ -12,17 +12,13 @@ export default (state = initialState, action) => {
     case types.PROOF_SUCCESSA: 
       return Object.assign({}, state, {
         loading: false,
-        proofA: (() => {
-          return state.proofA.length < 5 ? [...state.proofA, action.proof] : [...state.proofA]
-        })()
+        proofA: [...action.proofs]
       });
 
     case types.PROOF_SUCCESSB: 
       return Object.assign({}, state, {
         loading: false,
-        proofB: (() => {
-          return state.proofB.length < 5 ? [...state.proofB, action.proof] : [...state.proofB]
-        })()
+        proofB: [...action.proofs]
       });
 
     case types.PROOF_ERROR: 
@@ -54,17 +50,17 @@ export default (state = initialState, action) => {
     case types.CLEAR_PROOF:
       return Object.assign({}, state, {
         proofA: state.proofA.map(proof => 
-          proof.id === action.proof.id ? {...proof, challenged: false, reason: ''} : proof),
+          proof.id === action.proof ? {...proof, challenged: false, reason: ''} : proof),
         proofB: state.proofB.map(proof => 
-          proof.id === action.proof.id ? {...proof, challenged: false, reason: ''} : proof)
+          proof.id === action.proof ? {...proof, challenged: false, reason: ''} : proof)
       });
 
     case types.DELETE_PROOF:
       return Object.assign({}, state, {
         proofA: state.proofA.map(proof => 
-          proof.id === action.proof.id ? {...proof, challenged: false, reason: '', user: null, url: ''} : proof),
+          proof.id === action.proof ? {...proof, challenged: false, reason: '', user: null, url: ''} : proof),
         proofB: state.proofB.map(proof => 
-          proof.id === action.proof.id ? {...proof, challenged: false, reason: '', user: null, url: ''} : proof)
+          proof.id === action.proof ? {...proof, challenged: false, reason: '', user: null, url: ''} : proof)
       });
 
     default: 

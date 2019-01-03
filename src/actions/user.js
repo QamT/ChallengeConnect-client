@@ -26,11 +26,6 @@ export const requestChallengeSuccess = (challenge, title) => ({
   title
 });
 
-export const fetchChallengeInfoSuccess = challenge => ({
-  type: types.FETCH_CHALLENGE_INFO_SUCCESS,
-  challenge
-});
-
 export const addChallengeSuccess = challenge => ({
   type: types.ADD_CHALLENGE_SUCCESS,
   challenge
@@ -90,7 +85,7 @@ export const refreshUserInfo = () => (dispatch, getState) => {
   .catch(e => dispatch(userInfoError(e)));
 }
 
-export const requestChallenge = (challengeId, adminId, group, teamId) => (dispatch, getState) => {
+export const requestChallenge = (challengeId, adminId, group) => (dispatch, getState) => {
   const authToken = getState().auth.authToken;
   fetch(`${API_BASE_URL}challenge/request`, {
     method: 'POST',
@@ -98,25 +93,12 @@ export const requestChallenge = (challengeId, adminId, group, teamId) => (dispat
       'Content-Type': 'application/json',
       Authorization: `Bearer ${authToken}`
     },
-    body: JSON.stringify({challengeId, adminId, group, teamId})
+    body: JSON.stringify({ challengeId, adminId, group })
   })
   .then(res => res.json())
   .then(data => dispatch(requestChallengeSuccess(data)))
   .catch(e => userInfoError(e));
 }
-
-export const fetchChallengeInfo = challengeId => (dispatch, getState) => {
-  const authToken = getState().auth.authToken;
-  fetch(`${API_BASE_URL}challenge/${challengeId}`, {
-    method: 'GET',
-    headers: {
-      Authorization: `Bearer ${authToken}`
-    }
-  })
-  .then(res => res.json())
-  .then(data => dispatch(fetchChallengeInfoSuccess(data)))
-  .catch(e => dispatch(userInfoError(e)));
-};
 
 export const addChallenge = (data) => (dispatch, getState) => {
   const authToken = getState().auth.authToken;

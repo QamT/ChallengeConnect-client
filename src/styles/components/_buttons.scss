@@ -1,4 +1,4 @@
-.btn-logout {
+.btn-logout, .btn-add {
   display: flex;
   align-self: center;
   color: $primary-color;
@@ -29,9 +29,29 @@
   }
 }
 
+.btn-add {
+  width: 80%;
+  margin: .5rem auto;
+  display: flex;
+  justify-content: center;
+  font-weight: bold;
+
+  &:active {
+    transform: scale(.95);
+  }
+}
+
 .btn-actions {
   display: flex;
   align-self: center;
+
+  &--vertical {
+    flex-direction: column;
+    
+    i {
+      margin: .2rem 0;
+    }
+  }
 
   i[class~='checkmark'], i[class~='close'] {
     cursor: pointer;
@@ -60,14 +80,14 @@
   }
 
   i[class~='close'] {
-    color: #BD3D3A;
+    color: $error;
 
     &:hover {
-      background: lighten(#BD3D3A, 45%);
+      background: lighten($error, 45%);
     }
 
     &:focus {
-      background: lighten(#BD3D3A, 45%);
+      background: lighten($error, 45%);
     }
   }
 }

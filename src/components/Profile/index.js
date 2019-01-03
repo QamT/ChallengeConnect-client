@@ -9,14 +9,14 @@ export default class Profile extends React.Component {
     showProfile: false
   }
 
-  displayProfile = (e) => {
+  displayProfile = e => {
     if (e.key === 'Enter' || e.type === 'click') {
       this.setState(prevState => ({ showProfile: !prevState.showProfile }));
     }
   }
 
   render() {
-    const { user } = this.props;
+    const { user, side = '', size = 50 } = this.props;
     
     return (
       <div className='profile'>
@@ -26,8 +26,8 @@ export default class Profile extends React.Component {
             onClick={this.displayProfile}
             onKeyDown={this.displayProfile}
             alt={`${user.firstName} profile`}
-            height='50'
-            width='50'
+            height={size}
+            width={size}
             tabIndex='0'
           /> :
           <Icon 
@@ -42,8 +42,13 @@ export default class Profile extends React.Component {
             aria-label={`${user.firstName} profile`}
           />
         }
-        <CSSTransition timeout={400} in={this.state.showProfile} classNames='expand' unmountOnExit>
-          <ProfileCard user={user} displayProfile={this.displayProfile} />
+        <CSSTransition 
+          timeout={400} 
+          in={this.state.showProfile} 
+          classNames={side === 'right' ? 'expand-right' : 'expand'} 
+          unmountOnExit
+        >
+          <ProfileCard user={user} displayProfile={this.displayProfile} side={side} />
         </CSSTransition>
       </div>
     )

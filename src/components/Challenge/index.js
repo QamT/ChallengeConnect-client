@@ -28,13 +28,13 @@ export class Challenge extends React.Component {
    this.refreshInterval = setInterval(() => this.props.dispatch(refreshUserInfo()), 1000 * 60)
  }
 
- componentWillMount() {
+ componentWillUnmount() {
    clearInterval(this.refreshInterval);
  }
 
  render() {
     if (!this.props.auth) return <Redirect to ='/' />
-    
+   
     return (
       <div className='challenge'>
         <Header />
@@ -56,6 +56,7 @@ const mapStateToProps = (state) => ({
 
 export default connect(mapStateToProps)(Challenge);
 
+//refresh friends info as well
 // -clean structure and names
 // -transitions and animations
 //responsiveness

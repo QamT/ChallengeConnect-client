@@ -3,11 +3,13 @@ import * as types from '../actions/actionType';
 const initialState = {
   admin: null,
   userRequests: [],
-  proofChallenged: []
+  proofChallenged: [],
+  error: null
 }
 
 export default (state = initialState, action) => {
   switch(action.type) {
+
     case types.ADMIN_SUCCESS: 
       return Object.assign({}, state, {
         admin: action.admin.user,
@@ -16,6 +18,12 @@ export default (state = initialState, action) => {
       });
 
     case types.ADMIN_ERROR: 
+      return Object.assign({}, state, {
+        error: action.error.message,
+        userRequests: [...action.error.admin.usersRequest]
+      });
+
+    case types.CLEAR_ERROR: 
       return Object.assign({}, state, {
         error: null
       });

@@ -9,8 +9,7 @@ const store = createStore(reducer, applyMiddleware(thunk));
 
 const authToken = loadAuthToken();
 if (authToken) {
-  const token = authToken;
-  store.dispatch(setAuthToken(token));
+  store.dispatch(setAuthToken(authToken));
 }
 
 export default store;
