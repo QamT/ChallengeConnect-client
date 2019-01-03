@@ -1,0 +1,18 @@
+.timer {
+  position: absolute;
+  top: .32rem;
+  right: .8rem;
+  padding: 1px 1.2rem;
+  color: $cool-blue;
+  background: $primary-color;
+  box-shadow: 0 0 5px 0 rgba(#000, .6);
+  border-radius: 3px;
+  font-weight: bold;
+  transition: background .3s;
+  animation: slide-down-relative .35s ease-in-out;
+
+  &:hover {
+    background: #fff;
+    cursor: default;
+  }
+}

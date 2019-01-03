@@ -21,66 +21,66 @@ const initialState = {
   ],
   teams: [], 
   loading: true,
-  error: null,
   leaders: [],
   boardLoading: true,
-  boardError: null,
   searchLoading: false,
-  searchUsers: []
+  searchUsers: [],
+  globalError: null
 }
 
 export default (state = initialState, action) => {
   switch (action.type) {
     case types.ALL_CHALLENGES_SUCCESS: 
-      return Object.assign({}, state, {
+      return {...state, 
         loading: false,
         challenges: [...action.challenges.challenges],
         teams: [...action.challenges.teams]
-      });
+      };
+
     case types.ALL_CHALLENGES_ERROR: 
-      return Object.assign({}, state, {
+      return {...state,
         loading: false,
-        error: action.error
-      });
+        globalError: action.error
+      };
 
     case types.ALL_CHALLENGES_REQUEST: 
-      return Object.assign({}, state, {
+      return {...state,
         loading: true,
-        error: null
-      });
+        globalError: null
+      };
 
     case types.LEADERBOARD_SUCCESS: 
-      return Object.assign({}, state, {
+      return {...state,
         boardLoading: false,
-        leaders: [...action.leaderboard.leaderboard]
-      });
+        leaders: [...action.leaderboard]
+      };
+
     case types.LEADERBOARD_ERROR: 
-      return Object.assign({}, state, {
+      return {...state,
         boardLoading: false,
-        boardError: action.error
-      });
+        globalError: action.error
+      };
 
     case types.LEADERBOARD_REQUEST: 
-      return Object.assign({}, state, {
+      return {...state,
         boardLoading: true,
-        boardError: null
-      });
+        globalError: null
+      };
 
     case types.SEARCH_USER_REQUEST: 
-      return Object.assign({}, state, {
-        searchLoading: true
-      });
+      return { ...state, searchLoading: true };
 
     case types.SEARCH_USER_SUCCESS: 
-      return Object.assign({}, state, {
+      return {...state,
         searchLoading: false,
         searchUsers: [...action.users]
-      });
+      };
 
-    case types.CLEAR_USER: 
-      return Object.assign({}, state, {
-        searchUsers: []
-      });
+    case types.SEARCH_USER_ERROR:
+      return { ...state, globalError: action.error }
+
+    case types.CLEAR_RESULTS: 
+      return { ...state, searchUsers: [] };
     
     default: 
       return state;

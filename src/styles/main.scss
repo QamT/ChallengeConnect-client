@@ -8,19 +8,21 @@
   'base/typography';
 
 @import 
+  'components/addChallengeCard',
   'components/buttons',
   'components/challengeCard',
-  'components/challengeInfo',
   'components/chatBox',
+  'components/flipCard',
   'components/friendCard',
-  'components/friendInfo',
+  'components/infoBox',
   'components/leaderCard',
   'components/loader',
-  'components/modal',
   'components/navbar',
   'components/profile',
   'components/proof',
-  'components/search';
+  'components/search',
+  'components/timer',
+  'components/winnerCard';
 
 @import 
   'layout/grid',

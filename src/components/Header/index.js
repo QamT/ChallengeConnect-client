@@ -1,30 +1,24 @@
 import React from 'react';
-import { connect } from 'react-redux';
+import { func } from 'prop-types';
 import { Icon } from 'semantic-ui-react';
 
-import { logout } from '../../actions/auth';
+const Header = ({ logout }) => (
+  <header className='header' role='banner'>
+    <h1>ChallengeConnect</h1>
+    <button className='btn-logout' 
+      onClick={logout}
+      onKeyDown={logout} 
+      aria-label='logout'
+    >
+      <Icon name='sign-out' />Log Out
+    </button>
+  </header>
+)
 
-export class Header extends React.Component {
-  logout = (e) => {
-    if (e.key === 'Enter' || e.type === 'click') {
-      this.props.dispatch(logout());
-    }
-  }
-
-  render() {
-    return (
-      <header className='header' role='banner'>
-        <h1>ChallengeConnect</h1>
-        <button className='btn-logout' 
-          onClick={this.logout}
-          onKeyDown={this.logout} 
-          aria-label='logout button'
-        >
-          <Icon name='sign-out' />Log Out
-        </button>
-      </header>
-    )
-  }
+Header.propTypes = {
+  logout: func.isRequired
 }
 
-export default connect()(Header);
+export default Header;
+
+//add profile edit 

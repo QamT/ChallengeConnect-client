@@ -1,28 +1,65 @@
 import React from 'react';
+import { string } from 'prop-types';
 import { connect } from 'react-redux';
 
+import Loader from '../Loader';
 import { resetChallenge } from '../../actions/user';
-import { completeChallenge } from '../../actions/challenge';
 
 export class Winner extends React.Component {
-  componentDidMount() {
-    const { challengeId, teamId, team } = this.props;
-    this.props.dispatch(completeChallenge(challengeId, teamId, team));
+  static propTypes = {
+    winner: string.isRequired,
+    challengeId: string.isRequired,
+    teamId: string.isRequired,
+    userTeam: string.isRequired
   }
 
-  resetChallenge = () => {
-    const { challengeId, adminId, teamId, proofs } = this.props;
-    this.props.dispatch(resetChallenge(challengeId, adminId, teamId, proofs));
+  resetChallenge = e => {
+    const { challengeId, teamId, dispatch } = this.props;
+    if (e.key === 'Enter' || e.type === 'click') dispatch(resetChallenge(challengeId, teamId));
   }
 
   render() {
-    const { team } = this.props;
-  
+    const { winner, userTeam, loading } = this.props;
+    const isWinner = userTeam === winner;
+
+    if (loading) return <Loader />
+ 
     return (
-      <div className='challengeCard'>
-        <div className='challengeCard__container'>
-          <h3>team {team.toUpperCase()} has won</h3>
-          <button onClick={this.resetChallenge}>Done</button>
+      <div className='container'>
+        <div className={`winnerCard ${!isWinner && winner !== 'both' ? 'winnerCard--second' : null}`}>
+          {isWinner || winner === 'both' ?
+            <img 
+              src='https://res.cloudinary.com/qamnodeapp/image/upload/v1546773803/cup.png'
+              alt='trophy for first place'
+              height='100'
+              width='100'
+            /> :
+            <img 
+              className='darker'
+              src='https://res.cloudinary.com/qamnodeapp/image/upload/v1546835819/silver-medal.png'
+              alt='medal for second place'
+              height='100'
+              width='100'
+            />
+          }
+          <div>
+            <h3>{isWinner || winner === 'both' ? <>Congratulations</> : <>Challenge Over</>}</h3>
+            <p>
+              {isWinner ? 
+                <>Your team has completed all the challenges.</> : isWinner === 'both' ? 
+                <>Both teams have completed all the challenges.</> :
+                <>Other team has completed all the challenges.</>
+              }
+            </p>
+            <button 
+              className='btn-done'
+              onClick={this.resetChallenge} 
+              onKeyDown={this.resetChallenge}
+              aria-label='finish with challenge'
+            >
+              Cool
+            </button>
+          </div>
         </div>
       </div>
     )
@@ -31,10 +68,12 @@ export class Winner extends React.Component {
 
 const mapStateToProps = state => ({
   challengeId: state.challenge.challengeId,
-  adminId: state.challenge.adminId,
   teamId: state.challenge.teamId,
-  proofs: [...state.team.teamA.proof, ...state.team.teamB.proof]
+  userTeam: state.team.teamA.members.find(member => member.id === state.user.userId) ? 'a' : 'b',
+  loading: state.team.loading
 });
 
 export default connect(mapStateToProps)(Winner);
+
+
 

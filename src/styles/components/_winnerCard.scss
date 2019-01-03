@@ -1,0 +1,41 @@
+.winnerCard {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: $cool-blue;
+  width: 25%;
+  height: 20rem;
+  padding: 0 4rem;
+  border-radius: 5px;
+  box-shadow: 0px 3px 5px 0 rgba(#000, .4);
+  animation: fade .5s linear;
+
+  &--second {
+    background: $error;
+  }
+
+  & > div {
+    width: 100%;
+  }
+
+  h3 {
+    margin-top: 1.6rem;
+    margin-bottom: .1rem;
+    color: rgba(#000, .7);
+    letter-spacing: .5px;
+    text-align: center;
+  }
+
+  p {
+    color: rgba(#000, .5);
+    text-align: center;
+    line-height: 1.25;
+    margin-bottom: 1.6rem;
+  }
+
+  .darker {
+    border-radius: 10rem;
+    background: rgba(#000, .1);
+  }
+}

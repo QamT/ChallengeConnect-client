@@ -1,13 +1,34 @@
 import React from 'react';
+import { arrayOf, string, func, object, shape } from 'prop-types';
 import { connect } from 'react-redux';
-import uuid from 'uuid/v4'
+import { bindActionCreators } from 'redux';
 import { Icon } from 'semantic-ui-react';
-import { CSSTransition, TransitionGroup } from 'react-transition-group';
 
-import Profile from '../Profile';
+import FriendInfoCard from '../FriendInfoCard';
 import { acceptFriendRequest, rejectFriendRequest } from '../../actions/user';
 
 export class FriendInfo extends React.Component {
+  static propTypes = {
+    requests: arrayOf(shape({
+      _id: string.isRequired,
+      firstName: string.isRequired,
+      lastName: string.isRequired,
+      profilePic: object,
+      currentChallenge: object,
+      about: string
+    })),
+    requested: arrayOf(shape({
+      _id: string.isRequired,
+      firstName: string.isRequired,
+      lastName: string.isRequired,
+      profilePic: object,
+      currentChallenge: object,
+      about: string
+    })),
+    acceptFriendRequest: func.isRequired,
+    rejectFriendRequest: func.isRequired
+  }
+
   state = {
     displayInfo: false
   }
@@ -22,76 +43,37 @@ export class FriendInfo extends React.Component {
 
   acceptFriendRequest = (e, userId) => {
     if (e.key === 'Enter' || e.type === 'click') {
-      this.props.dispatch(acceptFriendRequest(userId));
+      this.props.acceptFriendRequest(userId);
     }
   }
 
   rejectFriendRequest = (e, userId) => {
     if (e.key === 'Enter' || e.type === 'click') {
-      this.props.dispatch(rejectFriendRequest(userId));
+      this.props.rejectFriendRequest(userId);
     }
   }
 
   render() {
-    const { friendRequests, friendRequested } = this.props;
-
+    const { requests, requested } = this.props;
+   
     return (
       <>
-        <Icon name='users' inverted circular onClick={this.displayInfo} onKeyDown={this.displayInfo} tabIndex='0' />
+        <Icon 
+          name='users' 
+          inverted circular
+          title='friend requests and friends requested' 
+          aria-label='friend requests and friends requested' 
+          onClick={this.displayInfo} 
+          onKeyDown={this.displayInfo} 
+          tabIndex='0' 
+        />
         {this.state.displayInfo && 
-          <>
-            <div className='friendInfo'>
-              <span className='friendInfo-arrow'><Icon name='caret up' /></span>
-              <h4 className='friendInfo-title'>Friend Requests</h4>
-              <ul>
-                <TransitionGroup>
-                  {friendRequests.map(user => 
-                    <CSSTransition key={user.id} timeout={375} classNames='slide'>
-                      <li>
-                        <span>
-                          <Profile user={user} />
-                          <span className='name'>{user.firstName} {user.lastName}</span>
-                        </span>
-                        <span className='btn-actions'>
-                          <Icon 
-                            name='checkmark' 
-                            title='accept friend request'
-                            circular 
-                            onClick={e => this.acceptFriendRequest(e, user.id)} 
-                            onKeyDown={e => this.acceptFriendRequest(e, user.id)} 
-                            tabIndex='0' 
-                          />
-                          <Icon 
-                            name='close' 
-                            title='reject friend request'
-                            circular 
-                            onClick={e => this.rejectFriendRequest(e, user.id)} 
-                            onKeyDown={e => this.rejectFriendRequest(e, user.id)} 
-                            tabIndex='0' 
-                          />
-                        </span>
-                      </li>
-                    </CSSTransition>)
-                  }
-                </TransitionGroup> 
-                {friendRequests.length === 0 && <li key='1'>No friend requests</li>}
-              </ul>
-              <h4 className='friendInfo-title'>Friend's Requested</h4>
-              <ul>
-                {friendRequested.length > 0 ? 
-                  friendRequested.map(user => 
-                    <li key={uuid()}>
-                      <span>
-                        <Profile user={user} />
-                        <span className='name'>{user.firstName} {user.lastName}</span>
-                      </span>
-                    </li>
-                  ) : 
-                  <li key='2'>No friend requests sent</li>
-                }
-              </ul>
-            </div>
-          </>
+          <FriendInfoCard 
+            requests={requests} 
+            requested={requested} 
+            acceptFriendRequest={this.acceptFriendRequest}
+            rejectFriendRequest={this.rejectFriendRequest}
+          />
         }
       </>
     )
@@ -99,8 +81,16 @@ export class FriendInfo extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  friendRequests: state.user.friendRequests,
-  friendRequested: state.user.friendRequested
+  requests: state.user.friendRequests,
+  requested: state.user.friendRequested,
 });
 
-export default connect(mapStateToProps)(FriendInfo);
+const mapDispatchToProps = dispatch => (
+  bindActionCreators({
+    acceptFriendRequest,
+    rejectFriendRequest
+  }, dispatch)
+);
+
+export default connect(mapStateToProps, mapDispatchToProps)(FriendInfo);
+

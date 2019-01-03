@@ -1,39 +1,42 @@
 import React from 'react';
-import { connect } from 'react-redux';
-import uuid from 'uuid/v4';
+import { string, arrayOf, shape, object } from 'prop-types';
+import { CSSTransition, TransitionGroup } from 'react-transition-group';
 
-export class TeamList extends React.Component {
-  
-  render() {
-    let spots=[];
-    const team = this.props.team === 'A' ? this.props.teamA : this.props.teamB;
-    for (let i = team.length; i<5; i++) {
-      spots.push(<li key={uuid()}>---</li>);
-    }
-    
-    const teamList = team.map(member => (
-      <li key={uuid()}>
-        <span>{member.profilePic.url || 'profInfo'}</span>
+import Profile from '../Profile';
 
-        {`${member.firstName} ${member.lastName}`}
-      </li>
-    ))
+const TeamList = ({ team = [], group }) => {
+  let spots=[];
 
-    return (
-      <div className='challengeCard__team'>
-        <ul>
-          {teamList}
-          {spots}
-        </ul>
-      </div>
-    )
+  for (let i = team.length; i < 5; i++) {
+    spots.push(<li key={`${group}${i}`} className='empty'>---</li>);
   }
+
+  return (
+    <ul className='challengeCard-team challengeCard-team--current'>
+      <TransitionGroup component={null}>
+        {team.map(member => (
+          <CSSTransition key={member.id} timeout={400} classNames='slide'>
+            <li>
+              <Profile user={member} /><span className='name'>{`${member.firstName} ${member.lastName}`}</span>
+            </li>
+          </CSSTransition>
+          ))
+        }
+      </TransitionGroup>
+      {spots}
+    </ul>
+  )
 }
 
-const mapStateToProps = state => ({
-  teamId: state.team.teamId,
-  teamA: state.team.teamA.members,
-  teamB: state.team.teamB.members
-});
+TeamList.propTypes = {
+  team: arrayOf(shape({
+    id: string,
+    firstName: string,
+    lastName: string,
+    profilePic: object,
+    about: string
+  })),
+  group: string.isRequired
+}
 
-export default connect(mapStateToProps)(TeamList);
+export default TeamList;

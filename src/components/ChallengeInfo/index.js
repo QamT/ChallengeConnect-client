@@ -1,31 +1,69 @@
 import React from 'react';
+import { arrayOf, object } from 'prop-types';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { Icon } from 'semantic-ui-react';
 
-import { fetchChallengeInfo } from '../../actions/user';
+import ChallengeInfoCard from '../ChallengeInfoCard';
+import { acceptChallenge, rejectChallenge } from '../../actions/user';
 
 export class ChallengeInfo extends React.Component {
-  componentDidMount() {
-    if (this.props.challengeId) this.props.dispatch(fetchChallengeInfo(this.props.challengeId));
+  static propTypes = {
+    requests: arrayOf(object)
   }
 
-  componentDidUpdate() {
-    if (this.props.challengeId) this.props.dispatch(fetchChallengeInfo(this.props.challengeId));
+  state = {
+    displayInfo: false
+  }
+
+  displayInfo = e => {
+    if (e.key === 'Enter' || e.type === 'click') this.setState(prevState => ({ displayInfo: !prevState.displayInfo }));
+  }
+
+  acceptChallenge = (e, userId, challengeId, teamId) => {
+    if (e.key === 'Enter' || e.type === 'click') this.props.acceptChallenge(userId, challengeId, teamId);
+  }
+
+  rejectChallenge = (e, userId) => {
+    if (e.key === 'Enter' || e.type === 'click') this.props.rejectChallenge(userId);
   }
 
   render() {
+    const { requests } = this.props;
+     
     return (
-      <span tabIndex='0' data-content={this.props.title} className='challengeInfo'>
-        I
-      </span>
+      <>
+        <Icon 
+          name='users' 
+          inverted circular
+          title='challenges requested and challenge requests' 
+          aria-label='challenges requested and challenge requests' 
+          onClick={this.displayInfo} 
+          onKeyDown={this.displayInfo} 
+          tabIndex='0' 
+        />
+        {this.state.displayInfo &&
+          <ChallengeInfoCard 
+            requests={requests} 
+            acceptChallenge={this.acceptChallenge} 
+            rejectChallenge={this.rejectChallenge}
+          />
+        }
+      </>
     )
   }
 }
-  
+
 const mapStateToProps = state => ({
-  challengeId: state.user.challengeRequested.id,
-  title: state.user.challengeRequested.title || 'No challenged requested yet.'
+  requests: state.user.challengeRequests.filter(request => request.id !== null)
 });
 
-export default connect(mapStateToProps)(ChallengeInfo);
+const mapDispatchToProps = dispatch => (
+  bindActionCreators({
+    acceptChallenge,
+    rejectChallenge
+  }, dispatch)
+);
 
+export default connect (mapStateToProps, mapDispatchToProps)(ChallengeInfo);
 

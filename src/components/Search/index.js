@@ -1,55 +1,59 @@
 import React from 'react';
+import { bool, arrayOf, object } from 'prop-types';
 import { connect } from 'react-redux';
-import uuid from 'uuid/v4';
+import { bindActionCreators } from 'redux';
 import { Icon } from 'semantic-ui-react';
 
-import Profile from '../Profile';
-import { fetchResults, clearResult } from '../../actions/global';
+import SearchResults from '../SearchResults';
+import { fetchResults, clearResults } from '../../actions/global';
 import { sendFriendRequest, acceptFriendRequest } from '../../actions/user';
 
 export class Search extends React.Component {
+  static propTypes = {
+    loading: bool.isRequired,
+    results: arrayOf(object),
+    friends: arrayOf(object),
+    friendRequests: arrayOf(object),
+    friendRequested: arrayOf(object)
+  }
+
   handleSearch = () => {
-    let name = this.input.value.split(' ');
-    let value;
-
-    if (!(/^[a-z A-Z]+$/.test(name[0]))) {
-      this.props.dispatch(clearResult());
-      return;
-    } else if (name.length > 1) {
-      value = `${name[0]}+${name[1]}`;
-    } else {
-      value = name[0];
-    }
-
-    this.props.dispatch(fetchResults(value));
+    const name = this.input.value.split(' ');
+    let value, blank = true;
+    if (name.length > 2) blank = name.slice(2).every(value => value === '');
+ 
+    if (!(/^[a-z A-Z]+$/.test(name[0])) || !blank) return this.props.clearResults();
+    
+    value = name.length > 1 ? `${name[0]}+${name[1]}` : name[0];
+    this.props.fetchResults(value);
   }
 
   sendFriendRequest = (e, userId) => {
     if (e.key === 'Enter' || e.type === 'click') {
-      this.props.dispatch(sendFriendRequest(userId));
+      this.props.sendFriendRequest(userId);
     }
   }
 
   acceptFriendRequest = (e, userId) => {
     if (e.key === 'Enter' || e.type === 'click') {
-      this.props.dispatch(acceptFriendRequest(userId));
+      this.props.acceptFriendRequest(userId);
     }
   }
 
   clearInput = (e) => {
     if (e.key === 'Enter' || e.type === 'click') {
       this.input.value = '';
-      this.props.dispatch(clearResult());
+      this.props.clearResults();
     }
   }
 
   componentWillUnmount() {
-    this.props.dispatch(clearResult());
+    this.props.clearResults();
   }
 
   render() {
-    const { results, friends, friendRequests, friendRequested, loading} = this.props;
-
+    const { results, friends, friendRequests, friendRequested, loading } = this.props;
+   
     return (
       <div className='search'>
         <div className='search__bar'>
@@ -72,43 +76,16 @@ export class Search extends React.Component {
             <Icon name='search' /> 
           }
         </div>
-        <div className='search__results'>
-          <ul>
-            {results.length > 0 &&
-              results.map(result => 
-                <li key={uuid()}>
-                  <span>
-                    <Profile user={result} /> 
-                    <span className='name'>{result.firstName} {result.lastName}</span>
-                  </span>
-                  <span 
-                    className='search__results-add'>
-                    {
-                      friends.find(friend => result.id === friend) ? <Icon name='user outline' title='friend' /> :
-                      friendRequested.find(person=> person.id === result.id) ? <Icon name='user' title='friend request sent' /> :
-                      friendRequests.find(person => person.id === result.id) ? 
-                      <Icon 
-                        name='add user' 
-                        title='accept friend request' 
-                        tabIndex='0' 
-                        onClick={e => this.acceptFriendRequest(e, result.id)} 
-                        onKeyDown={e => this.acceptFriendRequest(e, result.id)} 
-                      /> :
-                      <Icon 
-                        name='add user' 
-                        title='send friend request' 
-                        tabIndex='0' 
-                        onClick={e => this.sendFriendRequest(e, result.id)}
-                        onKeyDown={e => this.sendFriendRequest(e, result.id)}  
-                      /> 
-                    }
-                  </span>
-                </li>
-              )
-            }
-            {results.length === 0 && this.input && this.input.value.length > 0 && !loading && <li>No results found</li>}
-          </ul>
-        </div>
+        <SearchResults 
+          results={results}
+          acceptFriendRequest={this.acceptFriendRequest}
+          sendFriendRequest={this.sendFriendRequest}
+          input={this.input}
+          friends={friends}
+          friendRequests={friendRequests}
+          friendRequested={friendRequested}
+          loading={loading}
+        />
       </div>
     )
   }
@@ -122,4 +99,13 @@ const mapStateToProps = state => ({
   friendRequested: state.user.friendRequested
 });
 
-export default connect(mapStateToProps)(Search);
+const mapDispatchToProps = dispatch => (
+  bindActionCreators({
+    fetchResults,
+    clearResults,
+    sendFriendRequest,
+    acceptFriendRequest
+  }, dispatch)
+);
+
+export default connect(mapStateToProps, mapDispatchToProps)(Search);

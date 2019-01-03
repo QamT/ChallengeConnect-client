@@ -1,45 +1,68 @@
 import React from 'react';
+import { shape, string, arrayOf, object } from 'prop-types';
 import { connect } from 'react-redux';
-import uuid from 'uuid/v4';
 
+import ChallengeInfo from '../ChallengeInfo';
 import ChallengeCard from '../ChallengeCard';
 import { requestChallenge } from '../../actions/user';
 
 export class AllChallenges extends React.Component {
-  onClickRequest = (challengeId, adminId, group, teamId) => {
-    this.props.dispatch(requestChallenge(challengeId, adminId, group, teamId));
+  static propTypes = {
+    challenges: arrayOf(shape({
+      id: string,
+      admin: string,
+      title: string,
+      challenges: arrayOf(string),
+    })).isRequired,
+    teams: arrayOf(shape({
+      id: string,
+      teamA: object,
+      teamB: object
+    })).isRequired,
+    requested: arrayOf(string)
+  }
+
+  requestChallenge = (e, challengeId, adminId, group) => {
+    if (e.key === 'Enter' || e.type === 'click') {
+      this.props.dispatch(requestChallenge(challengeId, adminId, group));
+    }
   }
 
   render() {
-    const { challenges, teams } = this.props;
+    const { challenges, teams, requested } = this.props;
 
     return (
-      <div>
+      <>
+        <h3 className='challengeCard-title'>
+          <span>
+            Join a challenge
+            <ChallengeInfo />
+          </span>
+        </h3>
         <ul className='grid'>
          {challenges.map((challenge, index) => (
            <ChallengeCard 
-            onClickRequest={this.onClickRequest}
-            key={uuid()}
+            requestChallenge={this.requestChallenge}
+            key={challenge.id}
             admin={challenge.admin} 
             challengeId={challenge.id}
+            request={requested}
             title={challenge.title}
             challenges={challenge.challenges}
-            teamId={challenge.teams}
             teamA={teams[index].teamA.team}
             teamB={teams[index].teamB.team}
-           />
-         ))}
+           />))
+          }
         </ul>
-      </div>
+      </>
     )
   }
 }
 
 const mapStateToProps = state => ({
   challenges: state.global.challenges,
-  teams: state.global.teams
-})
+  teams: state.global.teams,
+  requested: state.user.challengeRequested
+});
 
 export default connect(mapStateToProps)(AllChallenges);
-
-

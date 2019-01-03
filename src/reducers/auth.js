@@ -10,29 +10,20 @@ const initialState = {
 export default (state = initialState, action) => {
   switch (action.type) {
     case types.SET_AUTH_TOKEN: 
-      return Object.assign({}, state, {
-        authToken: action.authToken
-      });
+      return { ...state, authToken: action.authToken };
+
     case types.CLEAR_AUTH: 
-      return Object.assign({}, state, {
-        authToken: null,
-        currentUser: null
-      });
+      return { ...state, authToken: null, currentUser: null };
+
     case types.AUTH_REQUEST: 
-      return Object.assign({}, state, {
-        loading: true,
-        error: null
-      });
+      return { ...state, loading: true, error: null };
+
     case types.AUTH_SUCCESS: 
-      return Object.assign({}, state, {
-        loading: false,
-        currentUser: action.currentUser.id
-      });
+      return { ...state, loading: false, currentUser: action.currentUser.id };
+
     case types.AUTH_ERROR: 
-      return Object.assign({}, state, {
-        loading: false,
-        error: action.error
-      });
+      return { ...state, loading: false, error: action.error };
+      
     default: 
       return state
   }
