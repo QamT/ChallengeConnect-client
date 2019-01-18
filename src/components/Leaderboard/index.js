@@ -1,4 +1,5 @@
 import React from 'react';
+import { bool, arrayOf, shape, string, object, number } from 'prop-types';
 import { connect } from 'react-redux';
 
 import LeaderCard from '../LeaderCard';
@@ -6,6 +7,19 @@ import Loader from '../Loader';
 import { fetchLeaderboard } from '../../actions/global'
 
 export class Leaderboard extends React.Component {
+  static propTypes = {
+    loading: bool.isRequired,
+    leaders: arrayOf(shape({
+      id: string.isRequired,
+      firstName: string.isRequired,
+      lastName: string.isRequired,
+      profilePic: object,
+      currentChallenge: object,
+      about: string,
+      score: number.isRequired
+    }))
+  }
+
   componentDidMount() {
     this.props.dispatch(fetchLeaderboard());
   }
@@ -29,4 +43,6 @@ const mapStateToProps = state => ({
 })
 
 export default connect(mapStateToProps)(Leaderboard);
+
+
 

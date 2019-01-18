@@ -26,7 +26,7 @@ export default class FlipCard extends React.Component {
    
     return (
       <div className='Flipcard' tabIndex='0'>
-        <div className={classes.join(' ') }>
+        <div className={classes.join(' ')}>
           {[0, 1].map(index => {
             const child = this.props.children[index];
             let zero = 0;

@@ -1,52 +1,124 @@
 import React from 'react';
+import { bool, string, shape, arrayOf, object, number } from 'prop-types';
 import { connect } from 'react-redux';
-import { Icon } from 'semantic-ui-react';
+import { bindActionCreators } from 'redux';
 
+import AdminContainer from '../AdminContainer';
+import Winner from '../Winner';
 import TeamList from '../TeamList';
 import ChallengeList from '../ChallengeList';
-import Admin from '../Admin';
-import Winner from '../Winner';
+import Timer from '../Timer';
 import Loader from '../Loader';
 import { fetchAdmin, refreshAdminInfo } from '../../actions/admin';
-import { fetchTeams, refreshTeamInfo, refreshScore } from '../../actions/team';
-import { fetchIsActive, activateChallenge } from '../../actions/challenge';
+import { fetchTeams, refreshTeamInfo } from '../../actions/team';
+import { 
+  fetchIsActive, 
+  fetchIsComplete, 
+  startChallengeTimer, 
+  endChallengeTimer ,
+  completeChallenge
+} from '../../actions/challenge';
 
 export class CurrentChallenge extends React.Component {
+  static propTypes = {
+    loading: bool.isRequired,
+    completedTime: string,
+    adminId: string.isRequired,
+    challengeId: string.isRequired,
+    teamId: string.isRequired,
+    isAdmin: bool.isRequired,
+    title: string.isRequired,
+    active: bool.isRequired,
+    scoreA: number.isRequired,
+    scoreB: number.isRequired,
+    teamA: arrayOf(shape({
+      id: string,
+      firstName: string,
+      lastName: string,
+      profilePic: object,
+      about: string
+    })),
+    teamB: arrayOf(shape({
+      id: string,
+      firstName: string,
+      lastName: string,
+      profilePic: object,
+      about: string
+    })),
+    proofsChallenged: object
+  }
+
   state = {
-    error: null
+    leader: null
   }
 
   componentDidMount() {
-    this.props.dispatch(fetchAdmin(this.props.adminId));
-    this.props.dispatch(fetchTeams(this.props.teamId));
-    this.refreshInfo();
+    const { fetchAdmin, winner, fetchTeams, adminId, teamId } = this.props;
+    fetchTeams(teamId);
+    if (!winner) {
+      fetchAdmin(adminId);
+      this.refreshInfo();
+    }
   }
 
   refreshInfo() {
-    const { isAdmin, active, adminId, challengeId, teamId } = this.props;
+    const { 
+      active, 
+      adminId, 
+      challengeId, 
+      teamId, 
+      refreshAdminInfo, 
+      fetchIsActive, 
+      refreshTeamInfo, 
+      fetchIsComplete
+    } = this.props;
 
     this.refreshInterval = setInterval(() => {
-      if (isAdmin) this.props.dispatch(refreshAdminInfo(adminId));
-      if (!active) this.props.dispatch(fetchIsActive(challengeId));
-      if (!active) {
-        this.props.dispatch(refreshTeamInfo(teamId, 'a'));
-        this.props.dispatch(refreshTeamInfo(teamId, 'b'));
-      }
-      if (active) this.props.dispatch(refreshScore(teamId));
-    }, 1000 * 10);
+      refreshAdminInfo(adminId);
+      refreshTeamInfo(teamId);
+      if (!active) fetchIsActive(challengeId);
+      if (active) fetchIsComplete(challengeId);
+    }, 1000 * 60);
   }
 
-  activateChallenge = (e, challengeId) => {
-    this.setState({ error: null });
+  setWinner() {
+    const { scoreA, scoreB, proofsChallenged, challengeId, endChallengeTimer } = this.props;
+    const { leader } = this.state;
+    const proofA = proofsChallenged.a === 0;
+    const proofB = proofsChallenged.b === 0;
+   
+    if (scoreA === 5 && proofA && scoreB !== 5) return this.startChallengeTimer('a');
+    if (scoreB === 5 && proofB && scoreA !==5) return this.startChallengeTimer('b');
+    if (scoreA === 5 && scoreB === 5 && proofA && proofB) return this.startChallengeTimer('both');
+    if (leader !== null) this.setState({ leader: null });
 
-    if (e.key === 'Enter' || e.type === 'click') {
-      if (this.props.teamB.length === 0) {
-        this.setState({ error: 'Must have at least one member on both teams' });
-        return;
+    endChallengeTimer(challengeId);
+  }
+
+  startChallengeTimer(leader) {
+    const { startChallengeTimer, challengeId } = this.props;
+    this.setState({ leader });
+    startChallengeTimer(challengeId);
+  }
+
+  completeChallenge = () => {
+    const { challengeId, teamId, completeChallenge } = this.props;
+    const { leader } = this.state;
+    if (leader) completeChallenge(challengeId, teamId, leader);
+  }
+
+  componentDidUpdate(prevProps) {
+    const { scoreA, winner, scoreB, proofsChallenged, active } = this.props; 
+    const proof = prevProps.proofsChallenged.a !== proofsChallenged.a || prevProps.proofsChallenged.b !== proofsChallenged.b;
+
+    if (!active || winner) return;
+    if (
+        (prevProps.scoreA !== scoreA && scoreA === 5) || 
+        (prevProps.scoreB !== scoreB && scoreB === 5) || 
+        (proof && (scoreA === 5 || scoreB === 5)) 
+       ) { 
+        this.setWinner();
       }
-
-      this.props.dispatch(activateChallenge(challengeId));
-    }
   }
 
   componentWillUnmount() {
@@ -54,47 +126,32 @@ export class CurrentChallenge extends React.Component {
   }
 
   render() {
-    const { loading, isAdmin, active, title, challengeId, scoreA, scoreB, teamA, teamB } = this.props;
-    const { error } = this.state;
-
+    const { loading, winner, completedTime = null, isAdmin, active, title, teamA, teamB } = this.props;
+   
+    if (winner) return <Winner winner={winner} />
     if (loading) return <Loader />
-    
-    if (scoreA === 5 || scoreB === 5) {
-      const team = scoreA === 5 ? 'a' : 'b';
-      return <Winner team={team} />
-    }
 
     return (
-      <section className='container'>
+      <div className='container'>
         <div className='challengeCard challengeCard--current'>
-          {(error && isAdmin) && <span className='challengeCard__error'>{error}</span>}
-          {isAdmin && <Admin />}
-          <h3 className={active ? null : 'nonactive'}>{title}</h3>
+          <h3 className={active ? null : 'inactive'}>{title}</h3>
+          {isAdmin && <AdminContainer />}
+          {completedTime && <Timer time={completedTime} completeChallenge={this.completeChallenge} />}
           <div className='challengeCard__content challengeCard__content--current'>
-            <TeamList team={teamA} />
+            <TeamList team={teamA} group='a' />
             <ChallengeList />
-            <TeamList team={teamB} />
+            <TeamList team={teamB} group='b' />
           </div>
-          {(isAdmin && !active) && 
-            <span
-              className='challengeCard__activate' 
-              onClick={e => this.activateChallenge(e, challengeId)}
-              onKeyDown={e => this.activateChallenge(e, challengeId)}
-              title='start challenge'
-              tabIndex='0'
-            >
-              <Icon name='angle right' data-name='arrow 1' />
-              <Icon name='angle right' data-name='arrow 2' />
-            </span>
-          }
         </div>
-      </section>
+      </div>
     )
   }
 }
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
   loading: state.team.loading,
+  winner: state.challenge.winner,
+  completedTime: state.challenge.completedTime,
   adminId: state.challenge.adminId,
   challengeId: state.challenge.challengeId,
   isAdmin: state.admin.admin === state.user.userId,
@@ -104,18 +161,25 @@ const mapStateToProps = (state) => ({
   scoreA: state.team.teamA.score,
   scoreB: state.team.teamB.score,
   teamA: state.team.teamA.members,
-  teamB: state.team.teamB.members
+  teamB: state.team.teamB.members,
+  proofsChallenged: {
+    a: state.team.teamA.proofs.filter(proof => proof.challenged === true).length,
+    b: state.team.teamB.proofs.filter(proof => proof.challenged === true).length
+  },
 });
 
-export default connect(mapStateToProps)(CurrentChallenge);
+const mapDispatchToProps = dispatch => (
+  bindActionCreators({
+    fetchAdmin,
+    refreshAdminInfo,
+    fetchTeams,
+    refreshTeamInfo,
+    fetchIsActive,
+    fetchIsComplete,
+    startChallengeTimer,
+    endChallengeTimer,
+    completeChallenge
+  }, dispatch)
+)
 
-//give everybody on winning team a point when challenge is completed ---
-// -error handling
-// -styling
-// -refactor
-// -edge cases
-// -accessibility
-// -clean structure and names
-// -understand code
-// -transitions and animations
-// -best practices
+export default connect(mapStateToProps, mapDispatchToProps)(CurrentChallenge);

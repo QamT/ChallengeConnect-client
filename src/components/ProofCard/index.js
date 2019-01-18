@@ -1,45 +1,59 @@
 import React from 'react';
+import { shape, string, bool, object, func } from 'prop-types';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import { Icon } from 'semantic-ui-react';
 
 import ProofUpload from '../ProofUpload';
 import ProofView from '../ProofView';
-import { uploadProof } from '../../actions/proof';
-import { challengeProof } from '../../actions/proof';
-import { addScoreA, addScoreB } from '../../actions/team';
+import { uploadProof, challengeProof } from '../../actions/team'
 
 export class ProofCard extends React.Component {
+  static propTypes = {
+    proof: shape({
+      _id: string.isRequired,
+      url: string,
+      challenged: bool.isRequired,
+      user: object,
+      reason: string
+    }).isRequired,
+    team: string.isRequired,
+    displayProof: func.isRequired,
+    userTeam: string.isRequired,
+    adminId: string.isRequired,
+    teamId: string.isRequired
+  }
+
   state = {
     file: '',
     error: null
   }
 
   onUploadSubmit = file => {
-    const { proof, teamId, team } = this.props;
+    const { proof, teamId, team, uploadProof, displayProof } = this.props;
     if (!/^.*\.(jpg|jpeg|png|mp4)$/.test(file.name)) {
-      this.setState({ error: 'File must be an image or video' });
-      return;
+      return this.setState({ error: 'File must be an image or video' });
     }
+
     this.setState({ error: null });
     this.setState({ file: file.name });
-
+    uploadProof(proof._id, teamId, team, file);
     setTimeout(() => {
-      this.props.dispatch(uploadProof(proof.id, teamId, team, file));
-      team === 'a' ? this.props.dispatch(addScoreA) : this.props.dispatch(addScoreB);
-    }, 1500);
+      const e = { key: 'Enter'};
+      displayProof(e);
+    }, 800);
   }
 
   onChallengeSubmit = reason => {
-    const { proof, adminId } = this.props;
-    this.props.dispatch(challengeProof(proof.id, adminId, reason));
+    const { proof, adminId, teamId, challengeProof } = this.props;
+    challengeProof(proof._id, adminId, teamId, reason);
   }
 
   render() {
     const { proof, team, userTeam, displayProof } = this.props;
-    const noAction = userTeam !== team && !proof.url;
-
-    if (noAction) return null;
-
+  
+    if (userTeam !== team && !proof.url) return null;
+    
     return (
       <div className='proof__card'>
         <Icon name='caret right' />
@@ -71,5 +85,14 @@ const mapStateToProps = state => ({
   teamId: state.team.teamId
 });
 
-export default connect(mapStateToProps)(ProofCard);
+const mapDispatchToProps = dispatch => (
+  bindActionCreators({
+    uploadProof,
+    challengeProof,
+  }, dispatch)
+)
+
+export default connect(mapStateToProps, mapDispatchToProps)(ProofCard);
+
+
 

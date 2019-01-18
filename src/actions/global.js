@@ -1,12 +1,12 @@
 import * as types from './actionType';
 import { API_BASE_URL } from '../config';
 
-export const allChallengesSuccess = (challenges) => ({
+export const allChallengesSuccess = challenges => ({
   type: types.ALL_CHALLENGES_SUCCESS,
   challenges
 });
 
-export const allChallengesError = (error) => ({
+export const allChallengesError = error => ({
   type: types.ALL_CHALLENGES_ERROR,
   error
 });
@@ -15,12 +15,12 @@ export const allChallengesRequest = () => ({
   type: types.ALL_CHALLENGES_REQUEST
 });
 
-export const leaderboardSuccess = (leaderboard) => ({
+export const leaderboardSuccess = leaderboard => ({
   type: types.LEADERBOARD_SUCCESS,
   leaderboard
 });
 
-export const leaderboardError = (error) => ({
+export const leaderboardError = error => ({
   type: types.LEADERBOARD_ERROR,
   error
 });
@@ -29,21 +29,27 @@ export const leaderboardRequest = () => ({
   type: types.LEADERBOARD_REQUEST
 });
 
-export const searchUserSuccess = (users) => ({
+export const searchUserSuccess = users => ({
   type: types.SEARCH_USER_SUCCESS,
   users
-});
-
-export const clearResult = () => ({
-  type: types.CLEAR_USER
 });
 
 export const searchUserRequest = () => ({
   type: types.SEARCH_USER_REQUEST
 });
 
+export const searchUserError = error => ({
+  type: types.SEARCH_USER_ERROR,
+  error
+});
+
+export const clearResults = () => ({
+  type: types.CLEAR_RESULTS
+});
+
 export const fetchAllChallenges = () => (dispatch) => {
   dispatch(allChallengesRequest());
+
   fetch(`${API_BASE_URL}globalData/getChallenges`)
   .then(res => res.json())
   .then(data => dispatch(allChallengesSuccess(data)))
@@ -52,16 +58,18 @@ export const fetchAllChallenges = () => (dispatch) => {
 
 export const fetchLeaderboard = () => (dispatch) => {
   dispatch(leaderboardRequest());
+
   fetch(`${API_BASE_URL}globalData/leaderboard`)
   .then(res => res.json())
-  .then(data => dispatch(leaderboardSuccess(data)))
+  .then(({ leaderboard }) => dispatch(leaderboardSuccess(leaderboard)))
   .catch(e => dispatch(leaderboardError(e)))
 }
 
-export const fetchResults = (name) => (dispatch) => {
+export const fetchResults = name => (dispatch) => {
   dispatch(searchUserRequest());
+
   fetch(`${API_BASE_URL}globalData/findUser/${name}`)
   .then(res => res.json())
   .then(data => dispatch(searchUserSuccess(data)))
-  .catch(e => console.log(e));
+  .catch(e => dispatch(searchUserError(e)));
 }

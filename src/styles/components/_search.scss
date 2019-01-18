@@ -1,6 +1,5 @@
 .search {
   text-align: center;
-  animation: slide-content-right .6s ease-in-out;
 
   &__bar {
     input {
@@ -11,8 +10,8 @@
       line-height: 1.4;
       padding: .6rem .6rem .6rem 1.2rem;
       border-radius: 10rem;
-      box-shadow: 0 0 5px 0 rgba(#000, .7);
-      z-index: 2;
+      box-shadow: 0 2px 5px 0 rgba(#000, .5);
+      z-index: 3;
       position: relative;
   
       &::placeholder {
@@ -21,21 +20,20 @@
   
       &:focus {
         outline: none;
-        box-shadow: 0 -1px 7px 0 $neon;
+        box-shadow: 0 0px 7px 0 $neon;
       }
     }
 
     i {
+      position: relative;
       margin-left: -2rem;
       color: rgba(#fff, 0.5);
       cursor: pointer;
-      transition: color .2s;
       animation: none;
-      position: relative;
-      z-index: 5;
+      z-index: 3;
+      transition: all .3s;
 
       &:focus {
-        outline: none;
         color: rgba(#fff, 0.9);
       }
 
@@ -53,6 +51,7 @@
     position: absolute;
     width: 100%;
     left: 38%;
+    z-index: 2;
 
     ul {
       width: 23%;
@@ -78,11 +77,12 @@
 
         .name {
           margin-left: .6rem;
+          text-align: left;
         }
       }
     }
 
-    &-add {
+    &-actions {
       cursor: pointer;
       display: flex;
       align-self: center;
@@ -90,38 +90,23 @@
       margin-bottom: .3rem;
       
       i {
-        color: $darker-white;
+        color: rgba(#fff, 0.75);
+        transition: all .3s;
       }
 
-      i[title~='send'] {
-        &:hover {
+      i[title~='send'], i[title~='accept'] {
+        &:hover, &:focus {
           color: #fff;
-          transform: scale(1.05);
-        }
-      
-        &:focus {
-          color: #fff;
-          transform: scale(1.05);
         }
 
         &:active {
           color: #fff;
-          transform: scale(1);
+          transform: scale(.90);
         }
       }
       
       i[title~='accept'] {
         color: #96deda;
-      
-        &:hover {
-          transform: scale(1.05);
-          color: darken(#96deda, 5%);
-        }
-      
-        &:focus {
-          transform: scale(1.05);
-          color: darken(#96deda, 5%);
-        }
       }
     }
   }

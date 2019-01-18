@@ -11,8 +11,8 @@ export const adminError = error => ({
   error
 });
 
-export const clearError = () => ({
-  type: types.CLEAR_ERROR
+export const clearAdminError = () => ({
+  type: types.CLEAR_ADMIN_ERROR
 })
 
 export const adminRequest = () => ({
@@ -39,8 +39,19 @@ export const denyChallengeProofSuccess = admin => ({
   admin
 });
 
+export const addMemberA = team => ({
+  type: types.ADD_MEMBER_A,
+  team
+});
+
+export const addMemberB = team => ({
+  type: types.ADD_MEMBER_B,
+  team
+});
+
 export const fetchAdmin = adminId => (dispatch, getState) => {
   const authToken = getState().auth.authToken;
+
   fetch(`${API_BASE_URL}admin/${adminId}`, {
     method: 'GET',
     headers: {
@@ -56,6 +67,7 @@ export const refreshAdminInfo = adminId => (dispatch, getState) => {
   const authToken = getState().auth.authToken;
   const currentRequests = getState().admin.userRequests.length;
   const currentChallenged = getState().admin.proofChallenged.length;
+
   fetch(`${API_BASE_URL}admin/${adminId}`, {
     method: 'GET',
     headers: {
@@ -68,11 +80,12 @@ export const refreshAdminInfo = adminId => (dispatch, getState) => {
       dispatch(adminSuccess(admin));
     }
   })
-  .catch(e => console.log(e))
+  .catch(e => dispatch(adminError(e)))
 }
 
 export const acceptUser = (adminId, userId, challengeId, group, teamId) => (dispatch, getState) => {
   const authToken = getState().auth.authToken;
+
   fetch(`${API_BASE_URL}admin/acceptUser`, {
     method: 'POST',
     headers: {
@@ -83,13 +96,17 @@ export const acceptUser = (adminId, userId, challengeId, group, teamId) => (disp
   })
   .then(res => res.json())
   .then(data => {
-    data.message ? dispatch(adminError(data)) : dispatch(acceptUserSuccess(data))
+    const { admin, team = '', message = '' } = data;
+    if (message) dispatch(adminError(data));
+    if (!message) dispatch(acceptUserSuccess(admin));
+    if (team) group === 'a' ? dispatch(addMemberA(team)) : dispatch(addMemberB(team));
   })
   .catch(e => dispatch(adminError(e)))
 }
 
 export const rejectUser = (adminId, userId, challengeId) => (dispatch, getState) => {
   const authToken = getState().auth.authToken;
+
   fetch(`${API_BASE_URL}admin/rejectUser`, {
     method: 'DELETE',
     headers: {
@@ -105,6 +122,7 @@ export const rejectUser = (adminId, userId, challengeId) => (dispatch, getState)
 
 export const acceptChallengeProof = (proofId, adminId) => (dispatch, getState) => {
   const authToken = getState().auth.authToken;
+
   fetch(`${API_BASE_URL}admin/acceptProof`, {
     method: 'PUT',
     headers: {
@@ -120,6 +138,7 @@ export const acceptChallengeProof = (proofId, adminId) => (dispatch, getState) =
 
 export const denyChallengeProof = (proofId, adminId, userId, teamId, group) => (dispatch, getState) => {
   const authToken = getState().auth.authToken;
+  
   fetch(`${API_BASE_URL}admin/denyProof`, {
     method: 'PUT',
     headers: {
@@ -130,5 +149,5 @@ export const denyChallengeProof = (proofId, adminId, userId, teamId, group) => (
   })
   .then(res => res.json())
   .then(data => dispatch(denyChallengeProofSuccess(data)))
-  .catch(e => console.log(e))
+  .catch(e => dispatch(adminError(e)))
 }

@@ -4,7 +4,6 @@ import * as types from './actionType';
 import { API_BASE_URL } from '../config';
 import { clearAuthToken, saveAuthToken } from '../local-storage';
 
-
 export const setAuthToken = authToken => ({
   type: types.SET_AUTH_TOKEN,
   authToken
@@ -37,25 +36,42 @@ const storeAuthInfo = (authToken, dispatch) => {
 
 export const login = (username, password) => dispatch => {
   dispatch(authRequest());
-  return (
-    fetch(`${API_BASE_URL}api/login`, {
-      method: 'POST',
-      headers: {
-        'content-type': 'application/json'
-      },
-      body: JSON.stringify({
-        username,
-        password
-      })
+
+  fetch(`${API_BASE_URL}api/login`, {
+    method: 'POST',
+    headers: {
+      'content-type': 'application/json'
+    },
+    body: JSON.stringify({
+      username,
+      password
     })
-    .then(res => res.json())
-    .then(({ token }) => storeAuthInfo(token, dispatch))
-    .catch(err => dispatch(authError(err)))
-  )
+  })
+  .then(res => res.json())
+  .then(({ token }) => storeAuthInfo(token, dispatch))
+  .catch(err => dispatch(authError(err)))
 }
 
 export const logout = () => (dispatch, getState) => {
   const authToken = getState().auth.authToken;
   dispatch(clearAuth());
   clearAuthToken(authToken);
+}
+
+export const refreshAuthToken = () => (dispatch, getState) => {
+  const authToken = getState().auth.authToken;
+
+  fetch(`${API_BASE_URL}api/refresh`, {
+    method: 'POST',
+    headers: {
+      Authorization: `Bearer ${authToken}`
+    },
+  })
+  .then(res => res.json())
+  .then(({ token }) => storeAuthInfo(token, dispatch))
+  .catch(err => {
+    dispatch(authError(err));
+    dispatch(clearAuth());
+    clearAuthToken(authToken);
+  })
 }
