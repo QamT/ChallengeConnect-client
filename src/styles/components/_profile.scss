@@ -31,6 +31,48 @@
     margin: 0;
   }
 
+  i[title~='send'],
+  i[title~='accept'] {
+    transition: all .3s;
+    cursor: pointer;
+
+    &:active {
+      transform: scale(1.1);
+    }
+  }
+
+  i[title='friend'] {
+    color: $darker-white;
+  }
+
+  i[title~='sent'] {
+    color: $darker-white;
+  }
+
+  i[title~='send'] {
+    color: $darker-white;
+
+    &:hover {
+      color: #96deda;
+    }
+
+    &:focus {
+      color: #96deda;
+    }
+  }
+
+  i[title~='accept'] {
+    color: #96deda;
+
+    &:hover {
+      color: #fff;
+    }
+
+    &:focus {
+      color: #fff;
+    }
+  }
+
   &__card {
     width: 20rem;
     position: absolute;
@@ -82,6 +124,7 @@
       h4 {
         margin: 0;
         margin-top: .1rem;
+        text-align: center;
         line-height: 1.4;
         font-weight: 400;
         color: $darker-white;
@@ -121,6 +164,7 @@
        p {
          font-size: .8rem;
          line-height: 1.6;
+         font-weight: 400;
        }
       }
     }
@@ -133,6 +177,7 @@
 
     &-status {
       color: $another-blue;
+      font-weight: 400;
     }
 
     &-close {
@@ -176,50 +221,5 @@
   align-items: center;
 }
 
-i[title~='send'],
-i[title~='accept'] {
-  transition: all .3s;
-  cursor: pointer;
-
-  &:focus {
-    outline: none;
-  }
-
-  &:active {
-    transform: scale(1.2);
-  }
-}
-
-i[title='friend'] {
-  color: $darker-white;
-}
-
-i[title~='sent'] {
-  color: $darker-white;
-}
-
-i[title~='send'] {
-  color: $darker-white;
-
-  &:hover {
-    color: $lighter-black;
-  }
-
-  &:focus {
-    color: $lighter-black;
-  }
-}
-
-i[title~='accept'] {
-  color: #96deda;
-
-  &:hover {
-    color: $darker-white;
-  }
-
-  &:focus {
-    color: $darker-white;
-  }
-}
 
 

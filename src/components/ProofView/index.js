@@ -1,8 +1,9 @@
 import React from 'react';
+import { string, func, bool } from 'prop-types';
 
-export default ({ proofUrl, proofUser, ownTeam, onSubmit, challenged }) => {
+const ProofView = ({ proofUrl, proofUser, ownTeam, onSubmit, challenged }) => {
   const type = proofUrl.charAt(proofUrl.length - 1) === '4' ? 'video' : 'image';
-  let challengeInput = '';
+  let challengeInput = null;
 
   const onChallengeSubmit = e => {
     e.preventDefault();
@@ -16,7 +17,7 @@ export default ({ proofUrl, proofUser, ownTeam, onSubmit, challenged }) => {
         <span>
           <video controls height='175'>
             <source src={proofUrl} type='video/mp4'/>
-            <p><a href={proofUrl}>{proofUser} proof</a></p>
+            <p><a href={proofUrl} target='_blank' rel='noopener noreferrer'>{proofUser} proof</a></p>
           </video>
         </span>
       }
@@ -39,6 +40,18 @@ export default ({ proofUrl, proofUser, ownTeam, onSubmit, challenged }) => {
     </div>
   )
 }
+
+ProofView.propTypes = {
+  proofUrl: string.isRequired,
+  proofUser: string.isRequired,
+  ownTeam: bool.isRequired,
+  onSubmit: func.isRequired,
+  challenged: bool.isRequired
+}
+
+export default ProofView;
+
+
 
 
 

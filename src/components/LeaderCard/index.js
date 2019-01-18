@@ -1,24 +1,24 @@
 import React from 'react';
-import uuid from 'uuid/v4';
+import { arrayOf, shape, string, object, number } from 'prop-types';
 
 import Profile from '../Profile';
 
-export default ({ leaders }) => (
+const LeaderCard = ({ leaders }) => (
   <div className='leaderCard'>
     <ul>
     {
       leaders.map((leader, index) => 
-        <li key={uuid()}>
-          <div className='leaderCard__score'>
+        <li key={leader.id}>
+          <div className='leaderCard__container'>
             <span><Profile user={leader} /></span> 
             <span className='leaderCard__main'>
               <span>
-                <span className='leaderCard__number'>
+                <span className='leaderCard-number'>
                   {index + 1}.
                 </span>
                 {leader.firstName} {leader.lastName}
               </span>
-              <span className='leaderCard__bar' style={{ width: `${leader.score}%` }}></span>
+              <span className='leaderCard-bar' style={{ width: `${leader.score}%` }}></span>
             </span>
             <span>{leader.score} points</span>
           </div>
@@ -29,3 +29,18 @@ export default ({ leaders }) => (
     </ul>
   </div>
 )
+
+LeaderCard.propTypes = {
+  leaders: arrayOf(shape({
+    id: string.isRequired,
+    firstName: string.isRequired,
+    lastName: string.isRequired,
+    profilePic: object,
+    currentChallenge: object,
+    about: string,
+    score: number.isRequired
+  }))
+}
+
+export default LeaderCard;
+

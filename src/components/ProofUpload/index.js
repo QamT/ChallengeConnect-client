@@ -1,21 +1,20 @@
 import React from 'react';
+import { string, func } from 'prop-types';
 import { Icon } from 'semantic-ui-react';
 
-export default ({ onSubmit, file, displayProof, error }) => {
-  let fileInput = null;
+const ProofUpload = ({ onSubmit, displayProof, file = null, error = null }) => {
+  let fileInput = null, fileType = '';
+  if (file) fileType = file.charAt(file.length - 1) === '4' ? 'video' : 'image';
 
   const onUploadSubmit = e => {
     e.preventDefault();
-    if (fileInput.files.length) onSubmit(fileInput.files[0]);
-    if (e.dataTransfer && e.dataTransfer.files.length) onSubmit(e.dataTransfer.files[0]);
+    if (fileInput.files.length > 0) onSubmit(fileInput.files[0]);
+    if (e.dataTransfer && e.dataTransfer.files.length > 0) onSubmit(e.dataTransfer.files[0]);
   };
 
   const preventDefault = e => {
     e.preventDefault();
   };
-  
-  let fileType = '';
-  if (file) fileType = file.charAt(file.length - 1) === '4' ? 'video' : 'image';
 
   return (
     <div className='proof__card-upload'>
@@ -27,6 +26,7 @@ export default ({ onSubmit, file, displayProof, error }) => {
           onKeyDown={displayProof} 
           tabIndex='0' 
           title='close proof'
+          aria-label='close proof'
         >
           X
         </span>
@@ -40,12 +40,22 @@ export default ({ onSubmit, file, displayProof, error }) => {
           id='proof' 
           name='proof' 
           accept='.jpg, .png, .mp4' 
-          ref = {input => fileInput = input}
+          ref={input => fileInput = input}
         />
         <label htmlFor='proof'>Drag files here or <span>Browse</span></label>
       </form>
     </div>
   )
 }
+
+ProofUpload.propTypes = {
+  onSubmit: func.isRequired,
+  displayProof: func.isRequired,
+  file: string,
+  error: string
+}
+
+export default ProofUpload;
+
 
 

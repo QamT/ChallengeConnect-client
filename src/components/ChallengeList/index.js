@@ -1,61 +1,37 @@
 import React from 'react';
+import { arrayOf, string, bool, object } from 'prop-types';
 import { connect } from 'react-redux';
-import uuid from 'uuid/v4';
 
 import Proof from '../Proof';
-import { fetchProofs, refreshProofsInfo } from '../../actions/proof'
 
-export class ChallengeList extends React.Component {
-  componentDidMount() {
-    const { proofIdsA, proofIdsB } = this.props;
-
-    this.props.dispatch(fetchProofs(proofIdsA, 'a'));
-    this.props.dispatch(fetchProofs(proofIdsB, 'b'));
-    this.refreshProofsInfo();
-  }
-
-  refreshProofsInfo() {
-    const { proofIdsA, proofIdsB } = this.props;
-
-    this.refreshInterval = setInterval(() => {
-      this.props.dispatch(refreshProofsInfo(proofIdsA, 'a'));
-      this.props.dispatch(refreshProofsInfo(proofIdsB, 'b'));
-    }, 1000 * 10);
-  }
-
-  componentWillUnmount() {
-    clearInterval(this.refreshInterval);
-  }
-
-  render() {
-    const { challenges, proofA, proofB, active } = this.props
-    return (
-      <ul className='challengeCard-challenges'>
-        {challenges.map((challenge, index) => 
-          <li key={uuid()} className={active ? 'active' : 'standby'}>
-            <span>
-              {active && <Proof proof={proofA[index]} team='a' />}
-              <span>{!active && <span className='number'>{index + 1}.</span>} {challenge}</span>
-              {active && <Proof proof={proofB[index]} team='b' />}
-            </span>
-            {(index !== challenges.length - 1 && active) && <hr />}
-          </li>
-        )}
-      </ul>
-    )
-  }
-}
+const ChallengeList = ({ challenges, proofA, proofB, active }) => (
+  <ul className='challengeCard-challenges'>
+    {challenges.map((challenge, index) => 
+      <li key={challenge} className={active ? 'active' : 'standby'}>
+        <div>
+          {active && <Proof proof={proofA[index]} team='a' />}
+          <span>{!active && <span className='number'>{index + 1}.</span>} {challenge}</span>
+          {active && <Proof proof={proofB[index]} team='b' />}
+        </div>
+        {(index !== challenges.length - 1 && active) && <hr />}
+      </li>
+    )}
+  </ul>
+)
 
 const mapStateToProps = state => ({
   challenges: state.challenge.challenges,
-  proofIdsA: state.team.teamA.proof,
-  proofIdsB: state.team.teamB.proof,
-  proofA: state.proof.proofA,
-  proofB: state.proof.proofB,
+  proofA: state.team.teamA.proofs,
+  proofB: state.team.teamB.proofs,
   active: state.challenge.active
 });
 
+ChallengeList.propTypes = {
+  challenges: arrayOf(string).isRequired,
+  proofA: arrayOf(object),
+  proofB: arrayOf(object),
+  active: bool.isRequired
+}
+
 export default connect(mapStateToProps)(ChallengeList);
-
-
 

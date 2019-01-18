@@ -1,0 +1,172 @@
+.chat {
+  max-height: 2rem;
+  position: fixed;
+  bottom: 0;
+  right: 1%;
+  width: 30%;
+  box-shadow: 0 0 5px 0 rgba(#000, .7);
+  border-top-left-radius: 3px;
+  border-top-right-radius: 3px;
+  z-index: 3;
+  overflow: hidden;
+  transition: max-height .5s;
+
+  &--display {
+    max-height: 27rem;
+  }
+
+  h4 {
+    position: relative;
+    color: $neon;
+    background: $primary-color;
+    padding: .45rem 0;
+    text-align: center;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    cursor: pointer; 
+    transition: all .3s;
+
+    i {
+      position: absolute;
+      right: .4rem;
+    }
+
+    &:focus {
+      outline: none;
+      color: $primary-color;
+      background: $neon;
+    }
+  }
+
+  &__box {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 23rem;
+    background: $secondary-color;
+
+    ul {
+      max-height: 21rem;
+      padding: .4rem 0;
+      overflow-x: hidden;
+      overflow-y: auto;
+    }
+
+    li {
+      width: 100%;
+      display: flex;
+      padding: .55rem .5rem;
+    }
+
+    .right {
+      justify-content: flex-end;
+
+    }
+
+    &-message {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      min-width: 30%;
+      max-width: 72%;
+      background: #fff;
+      margin: 0 .8rem;
+      text-align: left;
+      border-radius: 3px;
+      padding: .4em;
+      box-shadow: 0 0 8px 0 rgba($cool-blue, .5);
+
+      &--current {
+        background: $cool-blue;
+        box-shadow: 0 0 8px 0 rgba($cool-blue, .8);
+
+      }
+      
+      p {
+        font-size: 1.05rem;
+        color: rgba(#000, .7);
+        word-wrap: break-word;
+      }
+
+      i.left {
+        position: absolute;
+        top: .65rem;
+        left: -1.3rem;
+        color: #fff;
+      }
+
+      i.right {
+        position: absolute;
+        top: .65rem;
+        right: -1.5rem;
+        color: $cool-blue;
+      }
+    }
+
+    img {
+      border-radius: 10rem;
+      box-shadow: 0 0 5px 0 rgba(#000, .7);
+    }
+
+    i.user {
+      box-shadow: 0 0 5px 0 rgba(#000, .7) !important;
+    }
+  
+    &-input {
+      position: relative;
+
+      input {
+        width: 100%;
+        border: none;
+        font-size: 1.1rem;
+        padding: .55rem 0;
+        box-shadow: 0 0 4px 0 rgba(#000, .3);
+        color: rgba(#000, .8);
+        padding-left: .4rem;
+        z-index: 4;
+        transition: box-shadow .2s;
+
+        &:focus {
+          outline: none;
+        }
+
+        &::placeholder {
+          color: rgba(#000, .4);
+        }
+      }
+
+      i.send.inverted.circular.icon {
+        color: $neon;
+        position: absolute;
+        top: -1rem;
+        right: .4rem;
+        cursor: pointer;
+        box-shadow: 0 0 5px 0 rgba(#000, .7) !important;
+        transition: all .25s;
+
+        &:hover {
+          background: $primary-color !important;
+          color: $neon !important;
+        }
+      }
+    }
+
+    .name {
+      color: $cool-blue;
+      font-size: .97rem;
+    }
+
+    ::-webkit-scrollbar {
+      width: .28rem;
+    }
+  
+    ::-webkit-scrollbar-thumb {
+      background: rgba(#000, .2);
+    }
+  
+    ::-webkit-scrollbar-track {
+      background: none;
+    }
+  }
+}

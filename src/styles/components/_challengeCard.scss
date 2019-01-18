@@ -4,9 +4,9 @@
   flex-direction: column;
   height: 25rem;
   background: #fff;
-  box-shadow: 0px 0px 5px 0 #fff;
   border-radius: 5px;
-  box-shadow: 0px 0px 5px 0 rgba(#000, .7);
+  box-shadow: 0 0 7px 0 rgba(#000, .7);
+  animation: fade .3s linear;
 
   &--current {
     height: 27rem;
@@ -23,9 +23,31 @@
     padding: .2rem 0;
     border-top-left-radius: 5px;
     border-top-right-radius: 5px;
+    transition: background .3s;
   }
 
-  .requested, .nonactive {
+  &-title {
+    text-align: center;
+    margin: 3rem 0 0.2rem 0;
+    
+    & > span {
+      position: relative;
+      background: $primary-color;
+      color: $neon;
+      letter-spacing: .5px;
+      padding: .6rem 9rem;
+      border-top-left-radius: 5px;
+      border-top-right-radius: 5px;
+
+      i[class~='users'] {
+        top: 18%;
+        right: 1.5%;
+        font-size: .9rem;
+      }
+    }
+  }
+
+  .requested, .inactive {
     background: $cool-blue;
   }
 
@@ -113,7 +135,7 @@
         border-top: 1px solid rgba(#fff, .08);
       }
 
-      & > span {
+      & > div {
         width: 100%;
         display: flex;
         justify-content: space-between;
@@ -145,43 +167,15 @@
         display: flex;
         align-self: center;
         margin-left: .4rem;
+        margin-right: 1rem;
+        text-align: left;
       }
-    }
-  }
-
-  &__activate {
-    position: absolute;
-    right: .7rem;
-    bottom: .1rem;
-    padding: .3rem;
-    transition: all .3s;
-
-    i.angle.right.icon {
-      width: .5rem;
-      font-size: 1.8rem;
-      color: rgba(#fff, .4);
-      cursor: pointer;
-      animation: glow 1.25s linear infinite;
-      margin-top: .3rem;
-    }
-
-    i[data-name='arrow 1'] {
-      animation-delay: .1s !important;
-    }
-
-    i[data-name='arrow 2'] {
-      animation-delay: .2s !important;
-    }
-
-    &:focus {
-      outline: none;
-      border-radius: 50%;
-      box-shadow: 0 0 5px 0 #fff;
     }
   }
 
   &__error {
     color: $error;
+    font-weight: bold;
     position: absolute;
     top: 2.4rem;
     left: 50%;
@@ -189,5 +183,7 @@
     animation: slide-down .25s ease-in-out;
   }
 }
+
+
 
 

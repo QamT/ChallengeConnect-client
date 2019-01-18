@@ -9,6 +9,7 @@
     color: #fff;
     border-radius: 5px;
     padding: 1rem .8rem;
+    box-shadow: 0 0 5px 0 rgba(#000, .7);
   }
 
   &__type {
@@ -62,9 +63,6 @@
 
     fieldset {
       width: 100%;
-      position: relative;
-      display: flex;
-      align-items: center;
 
       & > div {
         width: 80%;
@@ -132,6 +130,7 @@
 
   &__error {
     color: $error;
+    font-weight: bold;
     position: absolute;
     top: 1rem;
     left: 50%;

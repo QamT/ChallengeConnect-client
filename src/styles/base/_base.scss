@@ -1,6 +1,9 @@
 html {
-  background: $secondary-color;
   box-sizing: border-box;
+  background-image: url("https://res.cloudinary.com/qamnodeapp/image/upload/q_100/v1547173360/reactapp/paper_texture_11.png");
+  // background-image: url("https://res.cloudinary.com/qamnodeapp/image/upload/q_100/v1547173353/reactapp/Seamless_Polygon_Backgrounds_Vol2.jpg");
+  background-attachment: fixed;
+  background-size: cover;
 }
 
 html, body, main {
@@ -59,4 +62,8 @@ a {
   &:visited {
     color: inherit;
   }
+}
+
+i:focus {
+  outline: none;
 }

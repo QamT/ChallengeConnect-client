@@ -1,4 +1,5 @@
 import React from 'react';
+import { bool } from 'prop-types';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 
@@ -7,59 +8,80 @@ import Navbar from '../Navbar';
 import Content from '../Content';
 import Loader from '../Loader';
 import { fetchUserInfo, refreshUserInfo } from '../../actions/user';
+import { logout, refreshAuthToken } from '../../actions/auth';
 
 export class Challenge extends React.Component {
- state = {
-   section: 'Status',
-   sections: ['Leaderboard', 'Status', `Friend's List`]
- }
+  static propTypes = {
+    loading: bool.isRequired,
+    hasAuthToken: bool.isRequired
+  }
 
- componentDidMount() {
-  document.title = 'ChallengeConnect Overview';
-  this.props.dispatch(fetchUserInfo());
-  this.refreshUserInfo();
- }
+  state = {
+    prevSection: '',
+    section: 'Status',
+    sections: ['Leaderboard', 'Status', `Friend's List`]
+  }
 
- changeSection = (section) => {
-   this.setState({ section });
- }
+  componentDidMount() {
+    document.title = 'ChallengeConnect Overview';
+    this.props.fetchUserInfo();
+    this.refreshUserInfo();
+  }
 
- refreshUserInfo() {
-   this.refreshInterval = setInterval(() => this.props.dispatch(refreshUserInfo()), 1000 * 60)
- }
+  changeSection = (e, section) => {
+    if (e.key === 'Enter' || e.type === 'click') {
+      this.setState({ prevSection: this.state.section });
+      this.setState({ section });
+    }
+  }
 
- componentWillUnmount() {
-   clearInterval(this.refreshInterval);
- }
+  refreshUserInfo() {
+    this.refreshInterval = setInterval(() => this.props.refreshUserInfo(), 1000 * 60);
+    this.refreshToken = setInterval(() => this.props.refreshAuthToken(), 1000 * 60 * 60);
+  }
 
- render() {
-    if (!this.props.auth) return <Redirect to ='/' />
-   
+  logout = e => {
+    if (e.key === 'Enter' || e.type === 'click') this.props.logout();
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.refreshInterval);
+    clearInterval(this.refreshToken);
+  }
+
+  render() {
+    if (!this.props.hasAuthToken) return <Redirect to ='/' />
+    const { prevSection, section, sections } = this.state;
+
     return (
       <div className='challenge'>
-        <Header />
+        <Header logout={this.logout} />
         <Navbar 
-          section={this.state.section} 
+          prevSection={prevSection}
+          section={section} 
+          sections={sections} 
           changeSection={this.changeSection} 
-          sections={this.state.sections} 
         />
-        {this.props.loading ? <Loader /> : <Content current={this.state.section} />}
+        {this.props.loading ? <Loader /> : <Content current={section} prev={prevSection} />}
       </div>
     )
   }
 }
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
   loading: state.user.loading,
-  auth: state.auth.authToken
+  hasAuthToken: state.auth.authToken !== null
 });
 
-export default connect(mapStateToProps)(Challenge);
+const actionCreators = {
+  fetchUserInfo,
+  refreshUserInfo,
+  logout,
+  refreshAuthToken
+};
 
-//refresh friends info as well
-// -clean structure and names
-// -transitions and animations
-//responsiveness
-// -best practices
+export default connect(mapStateToProps, actionCreators)(Challenge);
+
+
 
 

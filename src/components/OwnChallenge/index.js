@@ -1,53 +1,62 @@
 import React from 'react';
-import uuid from 'uuid/v4';
+import { bool, func } from 'prop-types';
 
-export default class SelectChallenge extends React.Component {
-  onSubmit = (e) => {
+const OwnChallenge = ({ addChallenge, flipped }) => {
+  let textInput = [], titleInput = null;
+
+  const onSubmit = e => {
     e.preventDefault();
-    const challenges = this.textInput.map(input => input.value);
-    this.props.onSubmit({ title: this.input.value, challenges });
-  }
+    const challenges = textInput.map(input => input.value);
+    addChallenge({ title: titleInput.value, challenges });
+  };
 
-  render() {
-    this.textInput = [];
+  const ownInputs = [1,2,3,4,5].map(i => (
+    <div key={`own${i}`}>
+      <input 
+        type='text' 
+        name={`challenge${i}`}
+        aria-label={`challenge${i}`}
+        ref={input => textInput[i-1] = input}
+        maxLength='35'
+        placeholder={`Challenge ${i}`}
+        autoComplete='off'
+        required
+        disabled={!flipped}
+      />
+    </div>
+  ));
 
-    const ownInputs = [1,2,3,4,5].map(i => (
-      <div key={uuid()}>
-        <input 
-          type='text' 
-          name={`challenge${i}`}
-          aria-label={`challenge${i}`}
-          ref={input => this.textInput[i-1] = input}
-          maxLength='20'
-          placeholder={`Challenge ${i}`}
-          autoComplete='off'
-          required
-        />
-      </div>
-    ));
-
-    return (
-      <>
-        <form onSubmit={this.onSubmit}>
-          <fieldset> 
-            <legend>New Challenge</legend>
-            <div>
-              <input 
-                type='text' 
-                name='title' 
-                aria-label='title'
-                ref={input => this.input = input}
-                maxLength='20'
-                placeholder='Title'
-                autoComplete='off'
-                required
-              />
-            </div>
-            {ownInputs}
-          </fieldset>
-          <button className='btn-add' type='submit'>Add Challenge</button>
-        </form>
-      </>
-    )
-  }
+  return (
+    <>
+      <form onSubmit={onSubmit}>
+        <fieldset> 
+          <legend>New Challenge</legend>
+          <div>
+            <input 
+              type='text' 
+              name='title' 
+              aria-label='title'
+              ref={input => titleInput = input}
+              maxLength='25'
+              placeholder='Title'
+              autoComplete='off'
+              required
+              disabled={!flipped}
+            />
+          </div>
+          {ownInputs}
+        </fieldset>
+        <button className='btn-add' type='submit' aria-label='add challenge' disabled={!flipped}>Add Challenge</button>
+      </form>
+    </>
+  )
 }
+
+OwnChallenge.propTypes = {
+  addChallenge: func.isRequired,
+  flipped: bool.isRequired
+}
+
+export default OwnChallenge;
+
+

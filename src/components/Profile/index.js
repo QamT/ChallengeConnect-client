@@ -1,10 +1,23 @@
 import React from 'react';
+import { shape, string, object, number } from 'prop-types';
 import { Icon } from 'semantic-ui-react';
 import { CSSTransition } from 'react-transition-group';
 
 import ProfileCard from '../ProfileCard';
 
 export default class Profile extends React.Component {
+  static propTypes = {
+    user: shape({
+      firstName: string.isRequired,
+      lastName: string.isRequired,
+      profilePic: object,
+      currentChallenge: object,
+      about: string
+    }),
+    side: string,
+    size: number
+  }
+
   state = {
     showProfile: false
   }
@@ -54,3 +67,4 @@ export default class Profile extends React.Component {
     )
   }
 }
+

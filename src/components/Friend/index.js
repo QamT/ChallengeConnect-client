@@ -2,12 +2,13 @@ import React from 'react';
 
 import Search from '../Search';
 import FriendList from '../FriendList';
-import FriendInfo from '../FriendInfo';
 
-export default () => (
+const Friend = () => (
   <section className='friend'>
     <Search />
-    <FriendInfo />
     <FriendList />
   </section>
 )
+
+export default Friend;
+
