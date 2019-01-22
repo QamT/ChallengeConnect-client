@@ -39,6 +39,7 @@ const SelectChallenge = ({ challengeList, addChallenge, flipped, error = null, o
   return (
     <>
       {error && <span className='addChallengeCard__error'>{error}</span>}
+      <span className='screenreader-only'>{error}</span>
       <form onSubmit={onSubmit}>
         <fieldset> 
           <legend>New Challenge</legend>

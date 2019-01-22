@@ -32,7 +32,9 @@ const ProofUpload = ({ onSubmit, displayProof, file = null, error = null }) => {
         </span>
       </h4>
       {(file && !error) && <span className='proof__card-success'><Icon name={`file ${fileType}`} />{file}</span>}
+      <span className='screenreader-only'>{file}</span>
       {error && <span className='proof__card-error'><Icon name='exclamation circle' />{error}</span>}
+      <span className='screenreader-only'>{error}</span>
       <form onDragEnter={preventDefault} onDragLeave={preventDefault} onDragOver={preventDefault} onDrop={onUploadSubmit}>
         <input 
           onChange={onUploadSubmit} 

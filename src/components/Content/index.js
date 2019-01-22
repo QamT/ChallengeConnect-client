@@ -27,7 +27,7 @@ const Content = ({ current, prev = '' }) => {
       default:
         return '';
     }
-  })()
+  })();
 
   return (
     <main role='main'>

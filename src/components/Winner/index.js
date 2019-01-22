@@ -2,7 +2,6 @@ import React from 'react';
 import { string } from 'prop-types';
 import { connect } from 'react-redux';
 
-import Loader from '../Loader';
 import { resetChallenge } from '../../actions/user';
 
 export class Winner extends React.Component {
@@ -19,10 +18,8 @@ export class Winner extends React.Component {
   }
 
   render() {
-    const { winner, userTeam, loading } = this.props;
+    const { winner, userTeam } = this.props;
     const isWinner = userTeam === winner;
-
-    if (loading) return <Loader />
  
     return (
       <div className='container'>
@@ -70,7 +67,6 @@ const mapStateToProps = state => ({
   challengeId: state.challenge.challengeId,
   teamId: state.challenge.teamId,
   userTeam: state.team.teamA.members.find(member => member.id === state.user.userId) ? 'a' : 'b',
-  loading: state.team.loading
 });
 
 export default connect(mapStateToProps)(Winner);

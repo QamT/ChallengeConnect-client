@@ -37,6 +37,7 @@ export class Admin extends React.Component {
     return (
       <>
         {error && <span className='admin-error'>{error}</span>}
+        <span className='screenreader-only'>{error}</span>
         <Icon 
           name='adn' 
           size='large' 

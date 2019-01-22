@@ -49,7 +49,7 @@ const AdminActive = ({ proofs = [], acceptProof, denyProof, adminId, teamId }) =
           </CSSTransition>))
         }
       </TransitionGroup> 
-      {proofs.length === 0 && <li>No proofs challenged</li>}
+      {!proofs.length && <li>No proofs challenged</li>}
     </ul>
   </>
 )

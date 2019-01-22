@@ -32,7 +32,7 @@ export class AddChallenge extends React.Component {
   
   render() {
     const { flipped, error } = this.state;
-
+   
     return (
       <div className='addChallengeCard'>
         <FlipCard flipped={flipped}>

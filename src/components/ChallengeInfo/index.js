@@ -30,7 +30,7 @@ export class ChallengeInfo extends React.Component {
 
   render() {
     const { requests } = this.props;
-     
+    
     return (
       <>
         <Icon 

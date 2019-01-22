@@ -5,7 +5,8 @@ import { Icon } from 'semantic-ui-react';
 const Header = ({ logout }) => (
   <header className='header' role='banner'>
     <h1>ChallengeConnect</h1>
-    <button className='btn-logout' 
+    <button 
+      className='btn-logout' 
       onClick={logout}
       onKeyDown={logout} 
       aria-label='logout'

@@ -4,7 +4,7 @@ const initialState = {
   userId: null,
   firstName: '',
   lastName: '',
-  profilePic: null,
+  profilePic: {},
   currentChallenge: null,
   challengeRequested: [],
   challengeRequests: [],
