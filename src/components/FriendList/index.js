@@ -78,7 +78,7 @@ export class FriendList extends React.Component {
               )
             }
           </TransitionGroup>
-          {length === 0 && <li>No friends added</li>}
+          {!length && <li>No friends added</li>}
         </ul>
       </div>
     )

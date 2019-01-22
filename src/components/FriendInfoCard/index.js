@@ -44,7 +44,7 @@ const FriendInfoCard = ({ requests = [], requested = [], acceptFriendRequest, re
             )
           }
         </TransitionGroup> 
-        {requests.length === 0 && <li>No friend requests</li>}
+        {!requests.length && <li>No friend requests</li>}
       </ul>
       <h4 className='infoBox-title'>Friend's Requested</h4>
       <ul>

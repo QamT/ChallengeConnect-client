@@ -116,7 +116,7 @@ export class CurrentChallenge extends React.Component {
         (prevProps.scoreA !== scoreA && scoreA === 5) || 
         (prevProps.scoreB !== scoreB && scoreB === 5) || 
         (proof && (scoreA === 5 || scoreB === 5)) 
-       ) { 
+      ) { 
         this.setWinner();
       }
   }
@@ -128,9 +128,9 @@ export class CurrentChallenge extends React.Component {
   render() {
     const { loading, winner, completedTime = null, isAdmin, active, title, teamA, teamB } = this.props;
    
-    if (winner) return <Winner winner={winner} />
     if (loading) return <Loader />
-
+    if (winner) return <Winner winner={winner} />
+    
     return (
       <div className='container'>
         <div className='challengeCard challengeCard--current'>

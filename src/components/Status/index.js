@@ -43,8 +43,8 @@ export class Status extends React.Component {
     return (
       <section className={`challenges ${direction && (direction === 'left' ? 'challenges-right' : 'challenges-left')}`}>
         {currentChallenge ? <CurrentChallenge /> : <AddChallenge />}
+        <Chat />
         {!currentChallenge && <AllChallenges />}
-        <Chat className={`chat chat--${currentChallenge ? 'big' : 'small'}`} />
       </section>
     )
   }

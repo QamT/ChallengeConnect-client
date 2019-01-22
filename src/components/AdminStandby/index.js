@@ -43,7 +43,7 @@ const AdminStandby = ({ requests = [], acceptUser, rejectUser, challengeId, team
           </CSSTransition>))
         }
       </TransitionGroup> 
-      {requests.length === 0 && <li>No challenge requests</li>}
+      {!requests.length && <li>No challenge requests</li>}
     </ul>
   </>
 )

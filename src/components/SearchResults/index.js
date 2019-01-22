@@ -51,7 +51,7 @@ const SearchResults = ({
             )
           )
         }
-        {results.length === 0 && input && input.value.length > 0 && !loading && <li>No results found</li>}
+        {!results.length && input && input.value.length > 0 && !loading && <li>No results found</li>}
       </ul>
     </div>
   )

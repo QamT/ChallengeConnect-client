@@ -44,7 +44,7 @@ const ChallengeInfoCard = ({ requests = [], acceptChallenge, rejectChallenge }) 
             ) 
           }
         </TransitionGroup> 
-        {requests.length === 0 && <li>No challenge requests</li>}
+        {!requests.length && <li>No challenge requests</li>}
       </ul>
     </div>
   </>
