@@ -3,9 +3,9 @@ import { bool } from 'prop-types';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 
-import Header from '../Header';
-import Navbar from '../Navbar';
-import Content from '../Content';
+import Header from './Header';
+import Navbar from './Navbar';
+import Content from './Content';
 import Loader from '../Loader';
 import { fetchUserInfo, refreshUserInfo } from '../../actions/user';
 import { logout, refreshAuthToken } from '../../actions/auth';
@@ -52,7 +52,7 @@ export class Challenge extends React.Component {
   render() {
     if (!this.props.hasAuthToken) return <Redirect to ='/' />
     const { prevSection, section, sections } = this.state;
-
+ 
     return (
       <div className='challenge'>
         <Header logout={this.logout} />

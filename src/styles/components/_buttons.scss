@@ -1,11 +1,11 @@
-.btn-logout, .btn-add, .btn-done {
+.btn-logout, .btn-add, .btn-done, .btn-login {
   display: flex;
   align-self: center;
   color: $primary-color;
   background: $neon;
   font-size: 1.1rem;
   padding: .3rem 1rem;
-  margin-right: 1.4rem;
+  margin-right: 1rem;
   border-radius: 20rem;
   border: none;
   transition: color .3s, background .3s, transform .3s;
@@ -26,17 +26,36 @@
   &:active {
     transform: scale(.95);
   }
+
+  @include breakpoint(sf) {
+    font-size: 1rem;
+    padding: .3rem .8rem;
+    margin-right: .4rem;
+  }
 }
 
-.btn-add, .btn-done {
+.btn-add, .btn-done, .btn-login {
   width: 80%;
   margin: .5rem auto;
   display: flex;
   justify-content: center;
   font-weight: bold;
+}
+
+.btn-login {
+  width: 100%;
+  padding: .56rem;
+
+  &:hover {
+    box-shadow: 0 0 5px 0 $neon;
+  }
+
+  &:focus {
+    box-shadow: 0 0 5px 0 $neon;
+  }
 
   &:active {
-    transform: scale(.95);
+    transform: scale(.98);
   }
 }
 
@@ -46,7 +65,7 @@
   padding: .5rem 1rem;
   margin: 0 auto;
   color: #fff;
-  width: 95%;
+  width: 50%;
   box-shadow: 0 1px 5px 0 rgba(#000, .3);
   letter-spacing: .5px;
   transition: all .3s;
@@ -65,6 +84,10 @@
 
   &:active {
     box-shadow: 0 0 5px 0 rgba(#000, .3);
+  }
+
+  @media(max-width: 1500px) {
+    width: 70%;
   }
 }
 

@@ -27,6 +27,10 @@ export const authError = error => ({
   error
 });
 
+export const clearAuthError = () => ({
+  type: types.CLEAR_AUTH_ERROR
+})
+
 const storeAuthInfo = (authToken, dispatch) => {
   const decodedToken = jwtDecode(authToken);
   dispatch(setAuthToken(authToken));
@@ -47,7 +51,10 @@ export const login = (username, password) => dispatch => {
       password
     })
   })
-  .then(res => res.json())
+  .then(res => {
+    if (res.status === 401) return Promise.reject('Invalid username or password');
+    return res.json();
+  })
   .then(({ token }) => storeAuthInfo(token, dispatch))
   .catch(err => dispatch(authError(err)))
 }

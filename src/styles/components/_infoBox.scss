@@ -5,7 +5,6 @@ i[class~='users'] {
   cursor: pointer;
   box-shadow: 0 0 5px 0 rgba(#000, .5) !important;
   transition: all .3s;
-  z-index: 3;
 
   &:focus {
     box-shadow: 0 0 5px 0 #fff !important;
@@ -46,7 +45,7 @@ i[class~='adn'] {
   min-width: 20%;
   position: absolute;
   top: 3.2rem;
-  right: 22.9%;
+  right: 16.5%;
   background: #fff;
   border-radius: 5px;
   box-shadow: 0 0 5px 0 rgba(#000, .4);
@@ -57,13 +56,29 @@ i[class~='adn'] {
     width: 18.8rem;
     top: 2.2rem;
     left: -8rem;
+
+    @media (max-width: 880px) {
+      left: 0rem;
+    }
   }
 
   &--challenge {
     width: 20rem;
     top: 2.8rem;
-    left: 60%;
+    left: 58.7%;
     font-size: .8em;
+
+    @include breakpoint(m) {
+      left: 55%;
+    }
+
+    @include breakpoint(s) {
+      left: 52%;
+    }
+
+    @include breakpoint(sf) {
+      left: 48%;
+    }
   }
 
   .proof {
@@ -127,12 +142,113 @@ i[class~='adn'] {
 
   &-arrow {
     position: absolute;
-    left: 8.6rem;
+    left: 50%;
+    transform: translateX(-50%);
     top: -1rem;
+  }
 
-    &--challenge {
-      left: 8.9rem;
-    }
+  @media(max-width: 2500px) {
+    right: 16.6%;
+  }
+
+  @media(max-width: 2000px) {
+    right: 16.7%;
+  }
+
+  @media(max-width: 1700px) {
+    right: 16.9%;
+  }
+
+  @media(max-width: 1400px) {
+    right: 17%;
+  }
+
+  @media(max-width: 1300px) {
+    right: 17.1%;
+  }
+
+  @include breakpoint(xl) {
+    right: 17.2%;
+  }
+
+  @include breakpoint(l) {
+    right: 12.5%;
+  }
+
+  @media(max-width: 980px) {
+    right: 11.8%;
+  }
+
+  @media(max-width: 920px) {
+    right: 11.3%;
+  }
+
+  @media(max-width: 860px) {
+    right: 10.8%;
+  }
+
+  @media(max-width: 820px) {
+    right: 10%;
+  }
+
+  @media(max-width: 770px) {
+    right: 9.6%;
+  }
+
+  @include breakpoint(xm) {
+    right: 4.5%;
+  }
+
+  @media(max-width: 660px) {
+    right: 3%;
+  }
+
+  @media(max-width: 600px) {
+    right: 1.8%;
+  }
+
+  @include breakpoint(m) {
+    right: -4.3%;
+  }
+
+  @media(max-width: 530px) {
+    right: -5.5%;
+  }
+
+  @media(max-width: 500px) {
+    right: -6.3%;
+  }
+
+  @media(max-width: 470px) {
+    right: -7.2%;
+  }
+
+  @media(max-width: 470px) {
+    right: -8%;
+  }
+
+  @include breakpoint(s) {
+    right: -15%;
+  }
+
+  @media(max-width: 400px) {
+    right: -16%;
+  }
+
+  @media(max-width: 380px) {
+    right: -17%;
+  }
+
+  @include breakpoint(sf) {
+    right: -20%;
+  }
+
+  @media(max-width: 340px) {
+    right: -21%;
+  }
+
+  @include breakpoint(xs){
+    right: -22%;
   }
 }
 

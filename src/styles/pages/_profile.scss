@@ -1,0 +1,376 @@
+.profilePage {
+  background-image: url("https://res.cloudinary.com/qamnodeapp/image/upload/q_100/v1547173360/reactapp/paper_texture_11.png");
+  background-size: cover;
+  animation: fade .8s;
+
+  .container {
+    height: 100%;
+    align-items: center;
+  }
+
+  .details {
+    display: flex;
+    justify-content: space-evenly;
+    height: 27rem;
+    width: 45rem;
+    border-radius: 3px;    
+    box-shadow: 0 7px 20px 0 rgba(#000, .4);
+
+    &__left {
+      position: relative;
+      background: rgba($cool-blue, .4);
+      width: 70%;
+      border-top-left-radius: 3px;
+      border-bottom-left-radius: 3px;
+
+      & > div {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        div {
+          position: relative;
+
+          i.user {
+            font-size: 100px;
+            color: #fff;
+
+            &:before {
+              background: rgba(#000, .05) !important;
+              border-radius: 10rem;
+              box-shadow: 0 0 5px 0 rgba(#000, .2);
+            }
+          }
+
+          i.check {
+            font-size: 1.3rem;
+            position: absolute;
+            right: -.6rem;
+            bottom: 1rem;
+            color: $neon;
+            animation: scale-center .5s;
+
+            &:before {
+              background: #fff !important;
+              border-radius: 10rem;
+            }
+          }
+
+          img {
+            border-radius: 50%;
+            box-shadow: 0px 0px 5px 2px #fff;
+            animation: fade .15s;
+          }
+        }
+
+        input {
+          opacity: 0;
+          position: absolute;
+
+          &:focus + label {
+            background: rgba($cool-blue, .4);
+          }
+        }
+
+        label {
+          color: rgba(#000, .45);
+          font-weight: bold;
+          font-size: .9rem;
+          border: none;
+          background: rgba(#fff,1);
+          margin-top: .8rem;
+          padding: .3rem 1rem;
+          border-radius: 3px;
+          box-shadow: 0 1px 3px 0 rgba(#000, .4);
+          transition: background .25s;
+
+          &:hover {
+            background: rgba($cool-blue, .4);
+          }
+        }
+      }
+
+      @include breakpoint(m) {
+        width: 100%;
+        height: 30%;
+      }
+    }
+
+    &__right {
+      width: 100%;
+      background: #fff;
+      border-top-right-radius: 3px;
+      border-bottom-right-radius: 3px;
+
+      h3 {
+        text-align: center;
+        margin-top: .8rem;
+        margin-bottom: 2rem;
+        font-weight: normal;
+        color: rgba(#000, .7);
+      }
+
+      form {
+        width: 100%;
+        text-align: center;
+
+        & > div { 
+          margin: 1.6rem 0; 
+          width: 100%;
+          position: relative;
+
+          input, textarea {
+            color: rgba(#000, .9);
+            width: 95%;
+            border: none;
+            border-bottom: 1px solid rgba(#000, .6);
+            padding-bottom: .4rem;
+
+            &:focus {
+              outline: none;
+
+              & + label {
+                top: -1.2rem;
+                color: $cool-blue;
+                font-size: .9rem;
+              }
+            }
+          }
+
+          & > label {
+            position: absolute;
+            top: 0;
+            left: 4%;
+            z-index: 2;
+            color: rgba(#000, .8);
+            font-size: 1.05rem;
+            transition: .4s;
+            
+            &.valid {
+              top: -1.2rem;
+              color: $cool-blue;
+              font-size: .9rem;
+            }
+          }
+        }
+
+        fieldset {
+
+          & > span:first-child {
+            color: rgba(#000, .8);
+            font-size: 1.05rem;
+            vertical-align: -.25rem;
+            margin-right: 8rem;
+
+            @include breakpoint(xs) {
+              margin-right: 4rem;
+            }
+
+            @include rotate {
+              margin-right: 5rem;
+            }
+          }
+
+          & > span {
+            display: inline-block;
+
+            input[name='gender'] {
+              opacity: 0;
+              position: absolute;
+
+              &:checked {
+                & + label i.circular.icon {
+                  background: $cool-blue;
+                  color: rgba(#000, .4);
+                }
+              }
+
+              &:focus {
+                & + label i.circular.icon {
+                  background: rgba($cool-blue, .4);
+                  color: rgba(#000, .4);
+                }
+              }
+            }
+
+            label {
+              font-size: .9rem;
+              color: rgba(#000, .3);
+              font-weight: bold;
+              margin-right: 1rem;
+              user-select: none;
+
+              span {
+                margin-left: .1rem;
+              }
+
+              i.circular.icon {
+                display: inline-flex;
+                justify-content: center;
+                align-items: center;
+                font-size: 1.5rem;
+                color: rgba(#000, .2);
+                background: $secondary-color;
+                box-shadow: none;
+                width: 1.5em !important;
+                height: 1.5em !important;
+                vertical-align: -.15rem;
+                transition: background .3s, color .3s;
+              }
+            }
+          }
+        }
+
+        .react-datepicker-wrapper {
+          width: 100%;
+
+          & input {
+            cursor: pointer;
+          }
+
+          & > div {
+            width: 100%;
+          }
+        }
+
+        .react-datepicker-popper {
+          left: 5% !important;
+          z-index: 5;
+
+          & + label {
+            top: -1.2rem;
+            color: $cool-blue;
+            font-size: .9rem;
+          }
+        }
+
+        i.calendar {
+          color: rgba(#000, .7);
+          position: absolute;
+          right: 4%;
+          font-size: 1.3rem;
+          pointer-events: none;
+        }
+      }
+
+      &-location {
+        display: flex;
+        justify-content: center;
+
+        .react-select {
+          &-container {
+            width: 30.5%;
+            margin: 0 .3rem;
+    
+            .css-2o5izw {
+              border-bottom-color: $cool-blue !important;
+            }
+          }
+    
+          &__control {
+            border: none;
+            border-bottom: 1px solid rgba(#000, .6);
+            box-shadow: none;
+            cursor: pointer;
+    
+            &:focus {
+              border-bottom-color: $cool-blue;
+            }
+          }
+
+          &__indicator-separator {
+            display: none;
+          }
+
+          &__menu {
+            z-index: 4;
+            
+            ::-webkit-scrollbar {
+              width: .3rem;
+            } 
+          }
+        }
+      }
+
+      @include breakpoint(m) {
+        width: 100%;
+        height: 70%;
+      }
+    }
+    
+    &__actions {
+      display: flex;
+      justify-content: space-around;
+
+      button {
+        background: $cool-blue;
+        color: #fff;
+        padding: .4rem 3rem;
+        border: none;
+        border-radius: 3px;
+        transition: background .3s;
+
+        &:hover, &:focus {
+          background: rgba($cool-blue, .7);
+        }
+      }
+
+      a {
+        padding: .4rem 3rem;
+        border: 1px solid $cool-blue;
+        border-radius: 3px;
+        color: rgba(#000, .9);
+        transition: background .3s;
+
+        &:hover, &:focus {
+          background: rgba($cool-blue, .1);
+        }
+      }
+    }
+
+    &__error {
+      position: absolute;
+      top: 7%;
+      left: 50%;
+      width: 55%;
+      text-align: center;
+      border-radius: 5px;
+      background: lighten($error, 40%);
+      color: $error;
+      font-size: .95rem;
+      padding: .3rem .4rem;
+      box-shadow: 0 0 5px 0 rgba(#000, .3);
+      transform: translateX(-50%);
+      animation: slide-down .4s;
+      z-index: 5;
+    }
+
+    @include breakpoint(m) {
+      flex-direction: column;
+      height: 39rem;
+      width: 25rem;
+    }
+
+    @include breakpoint(s) {
+      margin-top: 2rem;
+    }
+
+    @include breakpoint(xs) {
+      width: 22rem;
+      height: 40rem;
+      margin-top: 12rem;
+    }
+
+    @include rotate {
+      margin-top: 10rem;
+      margin-bottom: 2rem;
+    }
+
+    @include rotate {
+      margin-top: 15rem;
+      margin-bottom: 2rem;
+      width: 38rem;
+      height: 28rem;
+    }
+  }
+}

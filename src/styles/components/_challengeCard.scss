@@ -9,9 +9,30 @@
   animation: fade .3s linear;
 
   &--current {
-    height: 27rem;
+    height: 29rem !important;
     width: 50%;
     background: $primary-color;
+    margin-bottom: 3rem;
+
+    @include breakpoint(xl) {
+      width: 65%;
+    }
+
+    @include breakpoint(l) {
+      width: 70%;
+    }
+
+    @media (max-width: 880px) {
+      width: 85%;
+    }
+
+    @include breakpoint(xm) {
+      width: 95%;
+    }
+
+    @media (max-width: 620px) {
+      min-height: 60rem !important;
+    }
   }
 
   h3 {
@@ -44,6 +65,18 @@
         right: 1.5%;
         font-size: .9rem;
       }
+
+      @include breakpoint(m) {
+        padding: .6rem 8rem;
+      }
+
+      @include breakpoint(s) {
+        padding: .6rem 7rem;
+      }
+
+      @include breakpoint(sf) {
+        padding: .6rem 6rem;
+      }
     }
   }
 
@@ -60,6 +93,10 @@
 
     &--current {
       color: rgba(#fff, .75);
+
+      @media (max-width: 620px) {
+        flex-direction: column;
+      }
     }
 
     ul {
@@ -100,14 +137,43 @@
     i.add.circle.big.disabled.icon:active {
       transform: none;
     }
+
+    @media(max-width: 520px) {
+      height: 4rem;
+      padding: 0 4rem;
+    }
+
+    @include breakpoint(s) {
+      padding: 0 3rem;
+    }
   }
 
   &-challenges {
+    min-height: 15rem;
     border-left: 1px solid $neon;
     border-right: 1px solid $neon;
     margin-top: 2rem;
     margin-bottom: 2.4rem;
-    padding: 0 1rem;
+    padding: 0rem 1rem;
+
+    &--current {
+      @media (max-width: 620px) {
+        border: none;
+        border-top: 1px solid $neon;
+        border-bottom: 1px solid $neon;
+        margin: .4rem 0;
+      }
+    }
+
+    &::-webkit-scrollbar {
+      width: 4px;
+    }
+    &::-webkit-scrollbar-thumb {
+      background: rgba(#000, .2); 
+    }
+    &::-webkit-scrollbar-track {
+      background: transparent;
+    }
 
     li {
       margin: .3rem 0;
@@ -133,13 +199,55 @@
         margin-top: 1rem;
         border: none;
         border-top: 1px solid rgba(#fff, .08);
+
+        @include breakpoint(xm) {
+          margin-top: .6rem;
+        }
       }
 
       & > div {
         width: 100%;
         display: flex;
         justify-content: space-between;
+        z-index: 5;
+
+        @media (max-width: 620px) {
+          padding: 0 4rem;
+        }
+
+        @include breakpoint(m) {
+          padding: 0 3rem;
+        }
+
+        @include breakpoint(s) {
+          padding: 0 2rem;
+        }
+
+        @include breakpoint(sf) {
+          padding: 0 0rem;
+        }
       }
+
+      @include breakpoint(xm) {
+        font-size: .9rem;
+      }
+
+      @include breakpoint(m) {
+        font-size: .8rem;
+      }
+    }
+
+    @include breakpoint(m) {
+      font-size: .9rem;
+    }
+
+    @media (max-width: 460px) {
+      font-size: .8rem;
+      min-height: 17rem;
+    }
+
+    @include breakpoint(s) {
+      padding: 0 .6rem;
     }
   }
 
@@ -154,6 +262,12 @@
       i[class~='inverted'] {
          font-size: 1.8rem !important;
        }
+
+      @media (max-width: 620px) {
+        li {
+          justify-content: center !important;
+        }
+      }
      }
     
     li {
@@ -181,6 +295,14 @@
     left: 50%;
     transform: translateX(-50%);
     animation: slide-down .25s ease-in-out;
+  }
+
+  @media (max-width: 1020px) {
+    height: 23rem;
+  }
+
+  @include breakpoint(s) {
+    height: 22rem;
   }
 }
 

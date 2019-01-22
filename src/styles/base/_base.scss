@@ -62,8 +62,12 @@ a {
   &:visited {
     color: inherit;
   }
+
+  &:focus {
+    outline: none;
+  }
 }
 
-i:focus {
+i:focus, button {
   outline: none;
 }

@@ -7,5 +7,21 @@
     display: flex;
     flex-direction: column;
     min-width: 45rem;
+
+    @include breakpoint(xm) {
+      min-width: 37rem;
+    }
+
+    @include breakpoint(m) {
+      min-width: 29rem;
+    }
+
+    @include breakpoint(s) {
+      min-width: 25rem;
+    }
+
+    @include breakpoint(sf) {
+      min-width: 22rem;
+    }
   }
 }

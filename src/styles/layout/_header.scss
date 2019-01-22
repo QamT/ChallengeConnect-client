@@ -5,9 +5,11 @@
   background: $primary-color;
   display: flex;
   justify-content: space-between;
-  z-index: 5;
+  z-index: 10;
 
-  h1 {
+  h1, a {
+    font-size: 2rem;
+    font-weight: 700;
     color: $primary-color;
     background: $neon;
     margin: 0;
@@ -23,5 +25,30 @@
       color: $neon;
       background: $primary-color;
     }
+
+    @include breakpoint(xm) {
+      font-size: 1.8rem;
+    }
+
+    @include breakpoint(m) {
+      font-size: 1.6rem;
+    }
+
+    @include breakpoint(s) {
+      font-size: 1.4rem;
+    }
+  }
+
+  a:hover { cursor: pointer; }
+
+  a:focus {
+    clip-path: polygon(0 0, 90% 0%, 100% 100%, 0% 100%);
+    color: $neon;
+    background: $primary-color;
+    text-decoration: underline;
+  }
+
+  @include rotate {
+    position: relative;
   }
 }

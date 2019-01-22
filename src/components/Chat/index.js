@@ -4,10 +4,10 @@ import { connect } from 'react-redux';
 import io from 'socket.io-client';
 import { Icon } from 'semantic-ui-react';
 
-import Chatbox from '../Chatbox';
+import Chatbox from './Chatbox';
 import { SOCKET_URL } from '../../config';
 
-export class Chat extends React.Component{
+export class Chat extends React.Component {
   static propTypes = {
     userId: string.isRequired,
     name: string.isRequired,
@@ -32,7 +32,8 @@ export class Chat extends React.Component{
   }
 
   setMessage = e => {
-    this.setState({ message: e.target.value });
+    const message = e.target.value.replace(/[<>&"/]/, '');
+    this.setState({ message });
   }
 
   sendMessage = e => {
@@ -55,7 +56,7 @@ export class Chat extends React.Component{
     this.setState({ messages: [...this.state.messages, data] });
   }
   
-  setRef = (ref) => {
+  setRef = ref => {
     this.chat = ref;
   }
 

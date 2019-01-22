@@ -1,10 +1,17 @@
 import * as types from './actionType';
 import { API_BASE_URL } from '../config';
+import { login } from './auth';
+import axios from 'axios';
 
 export const userInfoSuccess = user => ({
   type: types.USER_INFO_SUCCESS,
   user
 });
+
+export const registerDetailsSuccess = details => ({
+  type: types.REGISTER_DETAILS_SUCCESS,
+  details
+})
 
 export const refreshUserChallengeSuccess = challenge => ({
   type: types.REFRESH_USER_CHALLENGE_SUCCESS,
@@ -77,6 +84,10 @@ export const removeFriendSuccess = list => ({
 export const refreshFriendInfoSuccess = info => ({
   type: types.REFRESH_FRIEND_INFO_SUCCESS,
   info
+});
+
+export const clearUserError = () => ({
+  type: types.CLEAR_USER_ERROR
 })
 
 export const fetchUserInfo = () => (dispatch, getState) => {
@@ -91,6 +102,37 @@ export const fetchUserInfo = () => (dispatch, getState) => {
   })
   .then(res => res.json())
   .then(data => dispatch(userInfoSuccess(data)))
+  .catch(e => dispatch(userInfoError(e)));
+}
+
+export const registerUser = user => dispatch => {
+  fetch(`${API_BASE_URL}user/register`, {
+    method: 'POST',
+    headers: {
+      'Content-type': 'application/json'
+    },
+    body: JSON.stringify(user)
+  })
+  .then(res => {
+    if (!res.ok) return res.json().then(res => Promise.reject(res));
+    return res.json()})
+  .then(res => dispatch(login(user.username, user.password)))
+  .catch(e => dispatch(userInfoError(e)));
+}
+
+export const registerUserDetails = (user, file) => (dispatch, getState) => {
+  const authToken = getState().auth.authToken;
+  const data = new FormData();
+  if (Object.keys(user).length) data.append('user', JSON.stringify(user));
+  if (file) data.append('profile', file);
+
+  axios.post(`${API_BASE_URL}user/profile`, data, {
+    headers: {
+      Authorization: `Bearer ${authToken}`,
+      'Content-Type': 'multipart/form-data'
+    }
+  })
+  .then(({ data }) => dispatch(registerDetailsSuccess(data)))
   .catch(e => dispatch(userInfoError(e)));
 }
 

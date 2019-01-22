@@ -1,6 +1,6 @@
 import * as types from '../actions/actionType';
 import { API_BASE_URL } from '../config';
-const axios = require("axios");
+import axios from 'axios';
 
 export const teamSuccess = teams => ({
   type: types.TEAM_SUCCESS,
@@ -118,7 +118,7 @@ export const uploadProof = (proofId, teamId, group, file) => (dispatch, getState
       'Content-Type': 'multipart/form-data'
     }
   })
-  .then(data => dispatch(uploadProofSuccess(data.data)))
+  .then(({ data }) => dispatch(uploadProofSuccess(data)))
   .catch(error => dispatch(teamError(error)))
 }
 

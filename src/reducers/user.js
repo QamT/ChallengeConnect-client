@@ -5,6 +5,14 @@ const initialState = {
   firstName: '',
   lastName: '',
   profilePic: {},
+  location: {
+    city: null,
+    state: null,
+    country: null
+  },
+  birthDate: null,
+  gender: null,
+  about: '',
   currentChallenge: null,
   challengeRequested: [],
   challengeRequests: [],
@@ -24,6 +32,10 @@ export default (state = initialState, action) => {
         firstName: action.user.firstName,
         lastName: action.user.lastName,
         profilePic: action.user.profilePic,
+        location: action.user.location,
+        birthDate: action.user.birthDate,
+        gender: action.user.gender,
+        about: action.user.about,
         currentChallenge: action.user.currentChallenge.id,
         challengeRequested: [...action.user.challengeRequested],
         challengeRequests: [...action.user.challengeRequests],
@@ -33,6 +45,15 @@ export default (state = initialState, action) => {
         challengeSent: [...action.user.friends.challengeSent],
         loading: false
       };
+
+    case types.REGISTER_DETAILS_SUCCESS:
+      return {...state,
+        location: action.details.location,
+        birthDate: action.details.birthDate,
+        gender: action.details.gender,
+        about: action.details.about,
+        profilePic: action.details.profilePic
+      }
 
     case types.USER_INFO_ERROR: 
       return {...state,
@@ -95,6 +116,9 @@ export default (state = initialState, action) => {
 
     case types.REFRESH_CHALLENGE_REQUEST_SUCCESS:
       return { ...state, challengeRequests: [...action.requests] }
+
+    case types.CLEAR_USER_ERROR:
+      return { ...state, error: null }
 
     default: 
       return state;

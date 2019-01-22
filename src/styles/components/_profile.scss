@@ -75,30 +75,71 @@
 
   &__card {
     width: 20rem;
+    margin-bottom: 1rem;
     position: absolute;
-    top: -1.5rem;
-    right: 4rem;
+    top: -.5rem;
+    right: 3.3rem;
     z-index: 2;
     box-shadow: 2px 2px 5px 0px rgba(#000, 0.4);
     animation: expand .4s ease-in-out;
     border-radius: 5px;
 
     &--right {
-      top: -1.5rem;
       right: -20.5rem;
       animation: expand-right .4s ease-in-out;
+
+      @include breakpoint(xm) {
+       right: -19.5rem;
+      }
+
+      @include breakpoint(m) {
+        right: -18.5rem;
+       }
+
+      @include breakpoint(s) {
+        right: -17.5rem;
+       }
+
+      @include breakpoint(sf) {
+        right: -17rem;
+      }
+    }
+
+    &--left {
+       @include breakpoint(s) {
+         right: 2.8rem;
+        }
     }
 
     &-arrow {
       position: absolute;
-      top: 2.5rem;
+      top: 1.4rem;
       left: 19.6rem;
       color: #80d0c7;
       animation: fade .1s ease-in-out; 
 
       &--right {
-        top: 2.5rem;
         left: -.8rem;
+      }
+
+      &--left {
+        left: 19.6rem;
+
+        @include breakpoint(xm) {
+          left: 18.6rem;
+        }
+
+        @include breakpoint(m) {
+          left: 17.6rem;
+        }
+
+        @include breakpoint(s) {
+          left: 16.6rem;
+        }
+
+        @include breakpoint(sf) {
+          left: 16.1rem;
+        }
       }
     }
 
@@ -129,6 +170,10 @@
         font-weight: 400;
         color: $darker-white;
       }
+
+      @include breakpoint(m) {
+        padding: 1.2rem 4rem;
+      }
     }
 
     &-bottom {
@@ -138,6 +183,10 @@
       padding: 2rem 0 1rem 0;
       border-top-left-radius: 0;
       border-top-right-radius: 0;
+
+      @include breakpoint(m) {
+        padding: 1.6rem 0 1rem 0;
+      }
     }
 
     &-about {
@@ -167,6 +216,10 @@
          font-weight: 400;
        }
       }
+
+      @include breakpoint(m) {
+        margin-bottom: 1.6rem;
+      }
     }
 
     &-friendStatus {
@@ -178,6 +231,10 @@
     &-status {
       color: $another-blue;
       font-weight: 400;
+
+      @include breakpoint(s) {
+        font-size: .97rem;
+      }
     }
 
     &-close {
@@ -197,6 +254,22 @@
         color: #fff;
         transform: scale(1.2);
       }
+    }
+
+    @include breakpoint(xm) {
+      width: 19rem;
+    }
+
+    @include breakpoint(m) {
+      width: 18rem;
+    }
+
+    @include breakpoint(s) {
+      width: 17rem;
+    }
+
+    @include breakpoint(sf) {
+      width: 16.5rem;
     }
   }
 }

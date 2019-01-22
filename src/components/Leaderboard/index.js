@@ -2,7 +2,7 @@ import React from 'react';
 import { bool, arrayOf, shape, string, object, number } from 'prop-types';
 import { connect } from 'react-redux';
 
-import LeaderCard from '../LeaderCard';
+import LeaderCard from './LeaderCard';
 import Loader from '../Loader';
 import { fetchLeaderboard } from '../../actions/global'
 

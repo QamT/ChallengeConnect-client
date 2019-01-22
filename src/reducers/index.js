@@ -1,5 +1,4 @@
 import { combineReducers } from 'redux';
-import { reducer as formReducer } from 'redux-form';
 
 import authReducer from './auth';
 import challengeReducer from './challenge';
@@ -9,7 +8,6 @@ import adminReducer from './admin';
 import globalReducer from './global';
 
 const rootReducer = combineReducers({
-  form: formReducer,
   auth: authReducer,
   challenge: challengeReducer,
   team: teamReducer,

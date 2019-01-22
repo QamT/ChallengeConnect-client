@@ -1,0 +1,228 @@
+.home {
+  position: relative;
+  height: 100vh;
+  background: linear-gradient(#96deda, #50c9c3);
+  color: #fff;
+  overflow-y: hidden;
+  animation: fade .8s;
+
+  header {
+    display: flex;
+    justify-content: center;
+
+    & > .container {
+      max-width: 1170px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 2rem 0;
+
+      h1 {
+        letter-spacing: 1px;
+        margin: 0;
+        cursor: default;
+
+        @include breakpoint(m) {
+          font-size: 1.8rem;
+        }
+
+        @include breakpoint(s) {
+          font-size: 1.6rem;
+        }
+      }
+  
+      a {
+        text-transform: uppercase;
+        transition: color .25s;
+  
+        &:hover, &:focus  {
+          color: rgba(#000, .7);
+        }
+      }
+
+      @include breakpoint(xl) {
+        max-width: 1070px;
+      }
+
+      @include breakpoint(l) {
+        padding: 1.8rem 7rem; 
+      }
+
+      @media (max-width: 860px) {
+        padding: 1.6rem 5rem;
+      }
+
+      @include breakpoint(xm) {
+        padding: 1.4rem 3rem; 
+      }
+
+      @include breakpoint(m) {
+        padding: 1rem 1rem; 
+      }
+
+      @include breakpoint(s) {
+        padding: .6rem; 
+      }
+    }
+  }
+
+  .hero {
+    display: flex;
+    justify-content: center;
+
+    & > .container {
+      height: calc(100% - 12rem);
+      align-items: center;
+      max-width: 1170px;
+
+      @include breakpoint(xl) {
+        max-width: 1070px;
+      }
+
+      @include breakpoint(l) {
+        flex-direction: column;
+      }
+
+      @include breakpoint(xm) {
+        justify-content: flex-start;
+      }
+    }
+
+    &__left, &__right {
+      width: 50%;
+    }
+
+    &__left {
+      text-align: left;
+
+      h2 {
+        font-size: 2.8rem;
+        font-weight: 400;
+        line-height: 1.2;
+        text-align: left;
+
+        @include breakpoint(s) {
+          font-size: 2.2rem !important;
+        }
+      }
+
+      p {
+        color: rgba(#fff, .7);
+        font-size: 1.1rem;
+        margin: 1.4rem 0 2.6rem 0;
+        text-align: left;
+
+        @include breakpoint(xm) {
+          margin: 1.8rem 0 3rem 0;
+        }
+      }
+
+      a {
+        font-size: 1.1rem;
+        border: 1px solid #fff;
+        border-radius: 10rem;
+        background: #fff;
+        color: #50c9c3;
+        padding: .6rem 3rem;
+        margin-right: 1.6rem;
+        transition: .3s;
+
+        &:focus, &:hover {
+          background: transparent;
+          color: #fff;
+        }
+
+        @include breakpoint(sf) {
+          margin-right: 1rem;
+          padding: .6rem 2.6rem;
+        }
+      }
+
+      a[href='/login'] {
+        background: transparent;
+        color: #fff;
+        margin-right: 0;
+
+        &:focus, &:hover {
+          background: #fff;
+          color: #50c9c3;
+        }
+      }
+
+      @include breakpoint(l) {
+        width: 100%;
+        margin: 3rem 0 4rem 0;
+        padding: 0 7rem;
+        text-align: center;
+      }
+
+      @media (max-width: 860px) {
+        padding: 0 5rem;
+      }
+
+      @include breakpoint(xm) {
+        padding: 0 3rem;
+        margin-top: 5rem;
+      }
+
+      @include breakpoint(m) {
+        padding: 0 1rem;
+        margin: 3rem 0;
+
+        h2 {
+          font-size: 2.4rem;
+        }
+      }
+    }
+
+    &__right {
+      width: 65%;
+
+      &-overlay {
+        position: relative;
+        background-image: url('https://res.cloudinary.com/qamnodeapp/image/upload/c_scale,w_650/v1549407422/reactapp/macbook-laptop-frame.png');
+        background-repeat: no-repeat;
+        min-height: 25rem;
+        width: 100%;
+
+        img {
+          position: absolute;
+          top: 24px;
+          left: 111px;
+          border-radius: 1px;
+        }
+      }
+
+      @include breakpoint(xl) {
+        width: 75%;
+      }
+
+      @include breakpoint(l) {
+        width: 650px;
+      }
+
+      @include breakpoint(xm) {
+        display: none;
+      }
+
+      @include rotate {
+        display: none;
+      }
+    }
+  }
+
+  footer {
+    position: absolute;
+    bottom: 1rem;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  @media (max-height: 740px) and (min-width: 475px) {
+    height: 800px;
+  }
+
+  @include rotate {
+    height: 160%;
+  }
+}

@@ -22,6 +22,22 @@
     & > span:last-of-type {
       font-size: .8rem;
       width: 10%;
+
+      @include breakpoint(xm) {
+        width: 12%;
+      }
+
+      @include breakpoint(m) {
+        width: 16%;
+      }
+
+      @include breakpoint(m) {
+        width: 20%;
+      }
+
+      @include breakpoint(sf) {
+        width: 24%;
+      }
     }
   }
 
@@ -43,6 +59,10 @@
   &-number {
     color: $cool-blue;
     margin-right: .6rem;
+  }
+
+  @include breakpoint(m) {
+    padding: .8rem;
   }
 }
 

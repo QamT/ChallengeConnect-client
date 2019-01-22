@@ -2,10 +2,11 @@ import React from 'react';
 import { bool, string } from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import { CSSTransition } from 'react-transition-group';
 
-import CurrentChallenge from '../CurrentChallenge';
-import AllChallenges from '../AllChallenges';
-import AddChallenge from '../AddChallenge';
+import CurrentChallenge from './CurrentChallenge';
+import AllChallenges from './AllChallenges';
+import AddChallenge from './AddChallenge';
 import Chat from '../Chat';
 import Loader from '../Loader';
 import { fetchChallenge } from '../../actions/challenge';
@@ -19,9 +20,14 @@ export class Status extends React.Component {
     loading: bool.isRequired
   }
 
+  state = {
+    displayChat: false
+  }
+
   componentDidMount() {
     const { currentChallenge, fetchChallenge, fetchAllChallenges } = this.props;
     currentChallenge ? fetchChallenge(currentChallenge) : fetchAllChallenges();
+    setTimeout(() => this.setState({ displayChat: true }), 800);
   }
 
   componentDidUpdate(prevProps) {
@@ -43,7 +49,9 @@ export class Status extends React.Component {
     return (
       <section className={`challenges ${direction && (direction === 'left' ? 'challenges-right' : 'challenges-left')}`}>
         {currentChallenge ? <CurrentChallenge /> : <AddChallenge />}
-        <Chat />
+        <CSSTransition timeout={400} in={this.state.displayChat} classNames='fade' unmountOnExit>
+          <Chat />
+        </CSSTransition>
         {!currentChallenge && <AllChallenges />}
       </section>
     )

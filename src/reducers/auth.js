@@ -23,6 +23,9 @@ export default (state = initialState, action) => {
 
     case types.AUTH_ERROR: 
       return { ...state, loading: false, error: action.error };
+
+    case types.CLEAR_AUTH_ERROR: 
+      return { ...state, error: null };
       
     default: 
       return state

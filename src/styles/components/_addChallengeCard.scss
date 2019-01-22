@@ -10,6 +10,14 @@
     border-radius: 5px;
     padding: 1rem .8rem;
     box-shadow: 0 0 5px 0 rgba(#000, .7);
+
+    @include breakpoint(s) {
+      width: 22rem;
+    }
+
+    @include breakpoint(sf) {
+      width: 21rem;
+    }
   }
 
   &__type {
@@ -136,6 +144,14 @@
     left: 50%;
     transform: translateX(-50%);
     animation: slide-down .4s ease-in;
+
+    @include breakpoint(s) {
+      top: 4.2rem;
+    }
+
+    @include breakpoint(sf) {
+      font-size: .95rem;
+    }
   }
 }
 

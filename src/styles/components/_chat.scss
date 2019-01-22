@@ -10,6 +10,7 @@
   z-index: 3;
   overflow: hidden;
   transition: max-height .5s;
+  animation: slide-up .5s;
 
   &--display {
     max-height: 27rem;
@@ -168,5 +169,35 @@
     ::-webkit-scrollbar-track {
       background: none;
     }
+  }
+
+  @include breakpoint(xl) {
+    width: 35%;
+  }
+
+  @include breakpoint(l) {
+    width: 40%;
+  }
+
+  @include breakpoint(xm) {
+    width: 50%;
+  }
+
+  @include breakpoint(m) {
+    width: 60%;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  @include breakpoint(s) {
+    width: 70%;
+  }
+
+  @include breakpoint(sf) {
+    width: 80%;
+  }
+  
+  @include breakpoint(xs) {
+    width: 90%;
   }
 }

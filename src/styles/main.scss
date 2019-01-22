@@ -13,6 +13,7 @@
   'components/challengeCard',
   'components/chat',
   'components/flipCard',
+  'components/form',
   'components/friendCard',
   'components/infoBox',
   'components/leaderCard',
@@ -29,7 +30,11 @@
   'layout/header';
 
 @import 
-  'pages/challenge';
+  'pages/challenge',
+  'pages/home',
+  'pages/login',
+  'pages/profile',
+  'pages/register';
 
 @import 
   'sections/friend',

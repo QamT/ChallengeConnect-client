@@ -3,7 +3,7 @@ import { shape, string, object, number } from 'prop-types';
 import { Icon } from 'semantic-ui-react';
 import { CSSTransition } from 'react-transition-group';
 
-import ProfileCard from '../ProfileCard';
+import ProfileCard from './ProfileCard';
 
 export default class Profile extends React.Component {
   static propTypes = {

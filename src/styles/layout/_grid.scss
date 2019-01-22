@@ -20,6 +20,31 @@
   &::-webkit-scrollbar-track {
     background: transparent;
   }
+
+  @media (max-width: 1020px) {
+    grid-template-columns: 1fr;
+    max-width: 70%;
+  }
+
+  @include breakpoint(xm) {
+    max-width: 85%;
+  }
+
+  @media (max-width: 620px) {
+    max-width: 95%;
+  }
+
+  @include breakpoint(m) {
+    max-width: 98%;
+    padding: .4rem;
+    grid-gap: .4rem;
+  }
+
+  @include breakpoint(s) {
+    min-width: 120%;
+    padding: .4rem;
+    grid-gap: .4rem;
+  }
 }
 
 .container {
